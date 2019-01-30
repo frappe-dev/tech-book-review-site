@@ -1,0 +1,54 @@
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
+
+import { getBookList } from '../actions/SearchActions';
+
+class Search extends Component {
+    constructor(props) {
+	super(props);
+	this.state = {
+	    hoge: "",
+	};
+	this.onButtonClick = this.onButtonClick.bind(this);
+    }
+
+    onButtonClick() {
+	console.log("hoge:");
+	console.log(this.props);
+    }
+
+    render() {
+        return (
+            <div>
+                this is search
+		<Button variant="contained"　color="primary" onClick={this.onButtonClick}>click</Button>
+
+		<Button variant="contained"　color="primary" onClick={this.props.getBooks}>test</Button>
+
+		{this.props.hoge}
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = (state) => ({
+    hoge: state.bookList
+});
+
+//const mapDispatchToProps = (dispatch) => ({
+//    getBooks: () => {
+//	dispatch(getBookList("test-test"))
+//    },
+//});
+
+const mapDispatchToProps = dispatch => ({
+    getBooks() {
+	return () => {
+	    dispatch(getBookList('test'));
+	};
+    },
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search));
