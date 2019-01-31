@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 
+import SearchForm from '../components/SearchForm';
 import { getBookList } from '../actions/SearchActions';
 
 class Search extends Component {
@@ -17,10 +18,13 @@ class Search extends Component {
         return (
             <div>
                 <h2>this is search</h2>
-		        <Button variant="contained" color="primary" onClick={this.props.getBooks}>
+		        <Button variant="contained" color="primary" onClick={this.props.getBooks()}>
 		            test
 	            </Button>
 
+                <p>
+                    <SearchForm onSubmit={this.props.getBooks()}/>
+                </p>
 		        <h4>{this.props.hoge}</h4>
             </div>
         );
@@ -33,8 +37,10 @@ const mapStateToProps = (state) => ({
 
 
 const mapDispatchToProps = dispatch => ({
+    
+//    getBooks: (input) =>  dispatch(getBookList(input)),
     getBooks() {
-	    dispatch(getBookList('test'));
+        dispatch(getBookList("aaa"));
     },
 });
 
