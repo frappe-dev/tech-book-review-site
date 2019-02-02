@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
 import SearchForm from '../components/SearchForm';
-import { getBookList } from '../actions/SearchActions';
+import { searchBookRequested } from '../actions/SearchActions';
 
 class Search extends Component {
     constructor(props) {
@@ -38,9 +38,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-	onSubmit(keyword) {
-	    dispatch(getBookList(keyword));
-	}
+        onSubmit(keyword) {
+            dispatch(searchBookRequested(keyword));
+        }
     }
 };
 

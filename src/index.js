@@ -6,23 +6,29 @@ import * as serviceWorker from './serviceWorker';
 
 //redux
 import { Provider } from 'react-redux';
-import logger from 'redux-logger';
-import thunk from 'react-thunk';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
+import logger from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
 
 //reducer
 import SearchReducer from './reducers/SearchReducer';
+
+//saga
+import rootSaga from './saga/rootSaga';
 
 const reducer = combineReducers({
     form: reduxFormReducer,
     bookList: SearchReducer,
 });
 
+const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
     reducer,
-//    applyMiddleware(thunk, logger)
+    applyMiddleware(sagaMiddleware, logger)
 )
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <Provider store={store}>
