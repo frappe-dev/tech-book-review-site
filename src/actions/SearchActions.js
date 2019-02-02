@@ -2,5 +2,10 @@ import { ActionNameList } from '../ActionNameList';
 
 export const getBookList = (data) => ({
     type: ActionNameList.getBookList,
-    text: data,
+    payload: data,
+})
+
+export const searchBookRequested = (data) => ({
+    type: ActionNameList.searchBookRequested,
+    payload: data,
 })
