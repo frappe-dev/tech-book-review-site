@@ -1,0 +1,48 @@
+version: 2
+jobs:
+  # build job omitted for brevity
+  #deploy:
+  build:
+    working_directory: ~/working
+    docker:
+      - image: circleci/node:8.11.4
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: npm install
+
+      - run: 
+          name: Compile react project
+          command: npm run build
+      - persist_to_workspace:
+          root: ~/working
+          paths:
+            - build
+  deploy:
+    working_directory: ~/working
+    docker:
+      - image: circleci/python:3.6.4
+    steps:
+      - attach_workspace:
+          at: ~/working
+      #- checkout
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+      - run:
+          name: Deploy to S3
+          command: aws s3 sync ./build s3://tech-book-review-site --delete
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
