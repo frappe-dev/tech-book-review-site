@@ -3,6 +3,7 @@ import './App.css';
 
 import Home from './containers/Home';
 import Search from './containers/Search';
+import Review from './containers/Review';
 
 // Route関連
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -22,6 +23,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/search" component={Search} />
+            <Route exact path="/review" component={Review} />
             <Route component={NotFound} />
           </Switch>
         </BrowserRouter>
