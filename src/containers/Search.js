@@ -3,7 +3,10 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
 import SearchForm from '../components/SearchForm';
+import SearchedBookCards from '../components/SearchedBookCards';
+
 import { searchBookRequested } from '../actions/SearchActions';
+
 
 class Search extends Component {
     constructor(props) {
@@ -20,19 +23,20 @@ class Search extends Component {
     render() {
         return (
             <div>
-                <h2>this is search</h2>
+                <h2>this is search page</h2>
 
                 <span>
                     <SearchForm onSubmit={this.submit.bind(this)}/>
                 </span>
-		        <h4>{this.props.hoge}</h4>
+
+                <SearchedBookCards itemData={this.props.hoge}/>
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    hoge: state.bookList
+    hoge: state.bookList.data
 });
 
 

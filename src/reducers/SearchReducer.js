@@ -4,9 +4,15 @@ const initialState = [];
 export default function SearchReducer(state = initialState, action) {
     switch (action.type) {
         case ActionNameList.searchBookSucceeded:
-            return action.payload;
+            return {
+                ...state, 
+                data: action.payload,
+            }        
         case ActionNameList.searchBookError:
-            return action.payload;
+            return {
+                ...state,
+                error: action.isError,
+            }
         default:
             return state;
     }
