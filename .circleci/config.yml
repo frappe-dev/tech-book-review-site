@@ -12,7 +12,9 @@ jobs:
       - run:
           name: Install dependencies
           command: npm install
-          command: npm i terser@3.14
+      - run:
+          name: workaround
+	  command: npm i terser@3.14
 
       - run: 
           name: Compile react project
