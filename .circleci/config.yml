@@ -14,7 +14,7 @@ jobs:
           command: npm install
       - run:
           name: workaround
-	  command: npm i terser@3.14
+          command: npm i terser@3.14
 
       - run: 
           name: Compile react project
