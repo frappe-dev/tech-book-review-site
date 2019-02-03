@@ -5,7 +5,10 @@ import Typography from '@material-ui/core/Typography';
 
 
 function HelloMessage(props) {
-    const thumbnailURL = props.item.volumeInfo.imageLinks.thumbnail;
+    let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
+    if (props.item.volumeInfo.imageLinks) {
+        thumbnailURL = props.item.volumeInfo.imageLinks.thumbnail;
+    }
     console.log(thumbnailURL);
     const alt = "image"+props.index;
     return(
