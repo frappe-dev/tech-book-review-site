@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 function HelloMessage(props) {
     const thumbnailURL = props.item.volumeInfo.imageLinks.thumbnail;
     console.log(thumbnailURL);
+    const alt = "image"+props.index;
     return(
         <Card key={props.index}>
             <CardContent>
@@ -16,7 +17,7 @@ function HelloMessage(props) {
                 <Typography component="p">
                     タイトル: {JSON.stringify(props.item.volumeInfo.title)}
                 </Typography>
-                <img src={thumbnailURL} alt="image" className="thumbnail" />
+                <img src={thumbnailURL} alt={alt} className="thumbnail" />
             </CardContent>
         </Card>
     )

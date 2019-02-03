@@ -5,13 +5,16 @@ jobs:
   build:
     working_directory: ~/working
     docker:
-      - image: circleci/node:8.11.4
+      - image: circleci/node:10.8.0
     steps:
       - checkout
 
       - run:
           name: Install dependencies
           command: npm install
+      - run:
+          name: workaround
+          command: npm i terser@3.14
 
       - run: 
           name: Compile react project
