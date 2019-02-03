@@ -16,7 +16,7 @@ function HelloMessage(props) {
                 <Typography component="p">
                     タイトル: {JSON.stringify(props.item.volumeInfo.title)}
                 </Typography>
-                <img src={thumbnailURL} className="thumbnail" />
+                <img src={thumbnailURL} alt="image" className="thumbnail" />
             </CardContent>
         </Card>
     )
