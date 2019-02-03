@@ -7,14 +7,14 @@ const GOOGLE_BOOK_API_ENDPOINT = "https://www.googleapis.com/books/v1/volumes";
 function searchBook(keyword) {
     return axios.get(GOOGLE_BOOK_API_ENDPOINT, {
         params: {
-            // ここにクエリパラメータを指定する
             q: keyword
         }
     }).then(res => {
+        //XXX: jsonの加工をする
         const result = res
         return { result } //返して代入する変数名と合わせる
     }).catch(err => {
-            return { err }
+        return { err }
     })
 }
 
@@ -23,11 +23,14 @@ function* handleSearchBook() {
         const action = yield take(ActionNameList.searchBookRequested);
         const { result, err } = yield call(searchBook, action.payload)
         if (!err) {
-            yield put({type: ActionNameList.searchBookSucceeded, payload: JSON.stringify(result.data)});
+            //yield put({type: ActionNameList.searchBookSucceeded, payload: JSON.stringify(result.data)});
+            
+            yield put({type: ActionNameList.searchBookSucceeded, payload: result.data.items});
+            
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({type: ActionNameList.searchBookError, payload: "エラーが起きました"});
+            yield put({type: ActionNameList.searchBookError, isError: true});
         }
     }
 }
