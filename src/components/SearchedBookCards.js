@@ -4,6 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 
+// XXX: Card.jsにcomponentを分ける
 function HelloMessage(props) {
     let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
     if (props.item.volumeInfo.imageLinks) {
