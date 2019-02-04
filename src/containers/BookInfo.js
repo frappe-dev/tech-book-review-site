@@ -1,55 +1,54 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
 
-import SearchForm from '../components/SearchForm';
-import SearchedBookCards from '../components/SearchedBookCards';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button'; //暫定用
 
-import { searchBookRequested } from '../actions/SearchActions';
-
-
-import { Link } from 'react-router-dom';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
 
 class BookInfo extends Component {
-    constructor(props) {
-	    super(props);
-	    this.state = {
-	        hoge: "",
-	    };
-    }
-
-    submit(values) {
-	this.props.onSubmit(values.keyword);
-    }
-
     render() {
-	const { location } = this.props;
-	console.log(location);
-	console.log(location.state);
+    const { classes, location } = this.props;
 
+    const alt = "image"+location.key;
+    const thumbnailURL = location.state.thumbnailURL;
+    const title = location.state.title
         return (
             <div>
                 <h2>this is bookinfo page</h2>
-		{location.query}
+                <div>
+                    tiltle: {title}
+                </div>
+
+                <div>
+                    <img src={thumbnailURL} alt={alt} className="thumbnail" />
+                </div>
+
+                <div>
+                    概要：
+                </div>
+
+                <Button variant="contained" className={classes.button}>
+                    Amazonリンク
+                </Button>
+                
+                <Button variant="contained" color="primary" className={classes.button}>
+                    レビューする
+                </Button>
+                <Button variant="contained" color="secondary" className={classes.button}>
+                    気になる
+                </Button>
+                
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => ({
-    hoge: state.bookList.data
-});
-
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onSubmit(keyword) {
-            dispatch(searchBookRequested(keyword));
-        }
-    }
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BookInfo));
+export default withRouter(withStyles(styles)(BookInfo));
