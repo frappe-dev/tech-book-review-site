@@ -4,20 +4,11 @@ import { connect } from 'react-redux';
 
 import SearchForm from '../components/SearchForm';
 import SearchedBookCards from '../components/SearchedBookCards';
-
 import { searchBookRequested } from '../actions/SearchActions';
 
-
 class Search extends Component {
-    constructor(props) {
-	    super(props);
-	    this.state = {
-	        hoge: "",
-	    };
-    }
-
     submit(values) {
-	this.props.onSubmit(values.keyword);
+    	this.props.onSubmit(values.keyword);
     }
 
     render() {
@@ -29,14 +20,14 @@ class Search extends Component {
                     <SearchForm onSubmit={this.submit.bind(this)}/>
                 </span>
 
-                <SearchedBookCards itemData={this.props.hoge}/>
+                <SearchedBookCards itemData={this.props.books}/>
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    hoge: state.bookList.data
+    books: state.bookList.data
 });
 
 
