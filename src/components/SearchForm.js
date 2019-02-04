@@ -1,7 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import Button from '@material-ui/core/Button';
-import { getBookList } from '../actions/SearchActions';
 
 const SearchForm = props => {
     const { handleSubmit, pristine, reset, submitting } = props;
@@ -30,7 +29,4 @@ const SearchForm = props => {
 
 export default reduxForm({
     form: 'search-form',
-    onSubmit(values, dispatch) {
-        dispatch(getBookList(values));
-    },
 })(SearchForm);

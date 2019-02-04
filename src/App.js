@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 
+// container
 import Home from './containers/Home';
 import Search from './containers/Search';
-import Review from './containers/Review';
+import BookInfo from './containers/BookInfo';
 
 // Route関連
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -23,7 +24,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/search" component={Search} />
-            <Route exact path="/review" component={Review} />
+            <Route path="/bookinfo/:id" component={BookInfo} />
             <Route component={NotFound} />
           </Switch>
         </BrowserRouter>
