@@ -1,30 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class ReviewAnItem extends React.Component {
-  const { reviewItem } = props;
+export default class Index extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            reviewItem: ''
+        };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      reviewItem: ''
-    };
-    this.handleChangeRadio = this.handleChangeRadio.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+        this.handleChangeRadio = this.handleChangeRadio.bind(this);
+    }
 
-  handleChangeRadio(event) {
-      this.setState({ [event.target.name]: event.target.value });
-  }
+    handleChangeRadio(event) {
+        this.setState({ [event.target.name]: event.target.value });
+        this.props.updateState({ [event.target.name]: event.target.value });
+    }
 
-  render() {
-      return (
-          <form>
-              <label>reviewItem
-                  <input type="radio" name=reviewItem onChange={this.handleChangeRadio} value=1 />1
-                  <input type="radio" name=reviewItem onChange={this.handleChangeRadio} value=2 />2
-                  <input type="radio" name=reviewItem onChange={this.handleChangeRadio} value=3 />3
-              </label>
-          </form>
-      )
-  }
+    render() {
+        return (
+            <form>
+            <label>{this.props.reviewItem}
+                <input type="radio" name={this.props.reviewItem} onChange={this.handleChangeRadio} value={1} />1
+                <input type="radio" name={this.props.reviewItem} onChange={this.handleChangeRadio} value={2} />2
+                <input type="radio" name={this.props.reviewItem} onChange={this.handleChangeRadio} value={3} />3
+                <input type="radio" name={this.props.reviewItem} onChange={this.handleChangeRadio} value={4} />4
+                <input type="radio" name={this.props.reviewItem} onChange={this.handleChangeRadio} value={5} />5
+            </label>
+            </form>
+        )
+    }
 }

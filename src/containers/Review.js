@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
 import ReviewForm from '../components/ReviewForm';
+import { reviewItems } from '../actions/ReviewActions';
 
 class Review extends Component {
   constructor(props) {

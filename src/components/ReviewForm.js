@@ -4,33 +4,36 @@ import Button from '@material-ui/core/Button';
 import ReviewAnItem from '../components/ReviewAnItem';
 import { reviewItems } from '../actions/ReviewActions';
 
-const ReviewForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props;
-  return (
-      <form onSubmit={handleSubmit}>
-          <ReviewAnItem
-              reviewItem="読みやすさ"
-          />
+export default class Index extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            読みやすさ: ''
+        };
 
-          <Button
-              type="submit"
-              disabled={submitting || pristine}>
-              投稿
-          </Button>
-          <Button
-              type="button"
-              onClick={reset}
-              disabled={submitting || pristine}>
-              クリア
-          </Button>
-      </form>
-      );
-};
+        this.updateState = this.updateState.bind(this);
+    }
 
+    updateState(state){
+      this.setState(state);
+    }
+    onSubmit(){
+      console.log(this.state);
+    }
 
-export default reduxForm({
-  form: 'review-form',
-  onSubmit(values, dispatch) {
-      dispatch(reviewItems(values));
-  },
-})(ReviewForm);
+    render() {
+      return (
+        <form onSubmit={this.onSubmit}>
+        <ReviewAnItem
+            reviewItem="読みやすさ"
+            updateState={this.updateState}
+        />
+        <Button
+            type="submit"
+            disabled={false}>
+            検索
+        </Button>
+    </form>
+       )
+    }
+}
