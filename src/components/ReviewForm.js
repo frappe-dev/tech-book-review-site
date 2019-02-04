@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import ReviewAnItem from '../components/ReviewAnItem';
 import { reviewItems } from '../actions/ReviewActions';
 
-export default class Index extends React.Component {
+export default class ReviewForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,9 +16,10 @@ export default class Index extends React.Component {
 
     updateState(state){
       this.setState(state);
+      this.props.updateState(state);
     }
     onSubmit(){
-      console.log(this.state);
+      this.props.onSubmit();
     }
 
     render() {
@@ -31,7 +32,7 @@ export default class Index extends React.Component {
         <Button
             type="submit"
             disabled={false}>
-            検索
+            レビュー
         </Button>
     </form>
        )

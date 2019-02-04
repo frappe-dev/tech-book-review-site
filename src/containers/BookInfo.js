@@ -4,6 +4,8 @@ import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'; //暫定用
 
+import ReviewForm from '../components/ReviewForm'
+
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
@@ -14,6 +16,23 @@ const styles = theme => ({
 });
 
 class BookInfo extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      review: "",
+    };
+    this.updateState = this.updateState.bind(this);
+  }
+
+  updateState(state){
+    this.setState(state);
+  }
+
+  onSubmit(){
+    console.log(this.state);
+  }
+
     render() {
     const { classes, location } = this.props;
 
@@ -38,14 +57,19 @@ class BookInfo extends Component {
                 <Button variant="contained" className={classes.button}>
                     Amazonリンク
                 </Button>
-                
+
                 <Button variant="contained" color="primary" className={classes.button}>
                     レビューする
                 </Button>
                 <Button variant="contained" color="secondary" className={classes.button}>
                     気になる
                 </Button>
-                
+                <span>
+                    <ReviewForm
+                    onSubmit={this.onSubmit}
+                    updateState={this.updateState}
+                    />
+                </span>
             </div>
         );
     }
