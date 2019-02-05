@@ -16,7 +16,7 @@ export default class ReviewForm extends React.Component {
         this.props.updateState(state);
     }
     onSubmit(){
-          console.log(this.state);
+        console.log(this.state);
     }
 
     render() {
