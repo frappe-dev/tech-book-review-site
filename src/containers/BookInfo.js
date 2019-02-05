@@ -17,28 +17,29 @@ const styles = theme => ({
 
 class BookInfo extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      review: "",
-    };
-    this.updateState = this.updateState.bind(this);
-  }
-
-  updateState(state){
-    this.setState(state);
-  }
-
-  onSubmit(){
-    console.log(this.state);
-  }
+	constructor(props) {
+		super(props);
+      	this.state = {
+			reviewPoint: ''
+		};
+		this.updateState = this.updateState.bind(this);
+	}
+	updateState(state){
+		this.setState(state);
+	}
 
     render() {
     const { classes, location } = this.props;
 
     const alt = "image"+location.key;
-    const thumbnailURL = location.state.thumbnailURL;
-    const title = location.state.title
+	let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
+    if (location.state && "thumbnailURL" in location.state) {
+        thumbnailURL = location.state.thumbnailURL;
+    }
+    let title = "none";
+    if (location.state && ( ~location.state.title.indexOf("title"))) {
+        title = location.state.title
+    }
         return (
             <div>
                 <h2>this is bookinfo page</h2>
@@ -64,12 +65,9 @@ class BookInfo extends Component {
                 <Button variant="contained" color="secondary" className={classes.button}>
                     気になる
                 </Button>
-                <span>
-                    <ReviewForm
-                    onSubmit={this.onSubmit}
-                    updateState={this.updateState}
-                    />
-                </span>
+                <ReviewForm
+                  updateState={this.updateState}
+                />
             </div>
         );
     }
