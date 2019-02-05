@@ -1,40 +1,32 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import Button from '@material-ui/core/Button';
-import ReviewAnItem from '../components/ReviewAnItem';
-import { reviewItems } from '../actions/ReviewActions';
+import ReviewItem from '../components/ReviewItem';
 
 export default class ReviewForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            読みやすさ: ''
+            reviewPoint: ''
         };
-
         this.updateState = this.updateState.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
-    updateState(state){
-      this.setState(state);
-      this.props.updateState(state);
+    updateState(state) {
+        this.setState(state);
+        this.props.updateState(state);
     }
     onSubmit(){
-      this.props.onSubmit();
+          console.log(this.state);
     }
 
     render() {
-      return (
-        <form onSubmit={this.onSubmit}>
-        <ReviewAnItem
-            reviewItem="読みやすさ"
-            updateState={this.updateState}
-        />
-        <Button
-            type="submit"
-            disabled={false}>
-            レビュー
-        </Button>
-    </form>
-       )
-    }
+      	return (
+		  	<form>
+			  	<ReviewItem
+				  	updateState={this.updateState}
+				  	/>
+			  	<button type="button" name="submit" onClick={this.onSubmit}>送信</button>
+		  	</form>
+	  	)
+  	}
 }

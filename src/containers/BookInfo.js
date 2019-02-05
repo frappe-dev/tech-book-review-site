@@ -17,21 +17,16 @@ const styles = theme => ({
 
 class BookInfo extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      review: "",
-    };
-    this.updateState = this.updateState.bind(this);
-  }
-
-  updateState(state){
-    this.setState(state);
-  }
-
-  onSubmit(){
-    console.log(this.state);
-  }
+	constructor(props) {
+		super(props);
+      	this.state = {
+			reviewPoint: ''
+		};
+		this.updateState = this.updateState.bind(this);
+	}
+	updateState(state){
+		this.setState(state);
+	}
 
     render() {
     const { classes, location } = this.props;
@@ -64,12 +59,9 @@ class BookInfo extends Component {
                 <Button variant="contained" color="secondary" className={classes.button}>
                     気になる
                 </Button>
-                <span>
-                    <ReviewForm
-                    onSubmit={this.onSubmit}
-                    updateState={this.updateState}
-                    />
-                </span>
+                <ReviewForm
+                  updateState={this.updateState}
+                />
             </div>
         );
     }

@@ -5,6 +5,8 @@ import './App.css';
 import Home from './containers/Home';
 import Search from './containers/Search';
 import BookInfo from './containers/BookInfo';
+// ラジオボタンの動作確認用
+import Review from './containers/Review';
 
 // Route関連
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -25,6 +27,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/search" component={Search} />
             <Route path="/bookinfo/:id" component={BookInfo} />
+            <Route path="/review" component={Review} />
             <Route component={NotFound} />
           </Switch>
         </BrowserRouter>
