@@ -2,4 +2,5 @@ export const ActionNameList = {
     searchBookRequested : "SEARCH_BOOK_REQUESTED",
     searchBookSucceeded : "SEARCH_BOOK_SUCCEEDED",
     searchBookError     : "SEARCH_BOOK_ERROR",
+    reviewItems         : "REVIEW_ITEMS",
 }
