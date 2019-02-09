@@ -41,7 +41,7 @@ class BookInfo extends Component {
         if (location.state && "title" in location.state) {
             title = location.state.title
         }
-
+        
         return (
             <div>
                 <h2>this is bookinfo page</h2>
