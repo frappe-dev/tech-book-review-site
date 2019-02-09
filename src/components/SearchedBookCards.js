@@ -16,6 +16,8 @@ function HelloMessage(props) {
     
     // ISBNをここではURLに使う(暫定, 他のIDとか何でもいい)
     let ISBN = "XXXXXXXXXX";
+    console.log("debug:");
+    console.log(props.item);
     if (props.item.volumeInfo.industryIdentifiers){
         ISBN = props.item.volumeInfo.industryIdentifiers[1].identifier;
     }

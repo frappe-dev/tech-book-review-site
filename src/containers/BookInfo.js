@@ -16,30 +16,32 @@ const styles = theme => ({
 });
 
 class BookInfo extends Component {
-
 	constructor(props) {
 		super(props);
       	this.state = {
 			reviewPoint: ''
 		};
 		this.updateState = this.updateState.bind(this);
-	}
+    }
+    
 	updateState(state){
 		this.setState(state);
 	}
 
     render() {
-    const { classes, location } = this.props;
+        const { classes, location } = this.props;
 
-    const alt = "image"+location.key;
-	let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
-    if (location.state && "thumbnailURL" in location.state) {
-        thumbnailURL = location.state.thumbnailURL;
-    }
-    let title = "none";
-    if (location.state && ( ~location.state.title.indexOf("title"))) {
-        title = location.state.title
-    }
+        const alt = "image" + location.key;
+        let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
+        if (location.state && "thumbnailURL" in location.state) {
+            thumbnailURL = location.state.thumbnailURL;
+        }
+    
+        let title = "none";
+        if (location.state && "title" in location.state) {
+            title = location.state.title
+        }
+
         return (
             <div>
                 <h2>this is bookinfo page</h2>
@@ -66,7 +68,7 @@ class BookInfo extends Component {
                     気になる
                 </Button>
                 <ReviewForm
-                  updateState={this.updateState}
+                    updateState={this.updateState}
                 />
             </div>
         );
