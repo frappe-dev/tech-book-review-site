@@ -37,8 +37,14 @@ class BookInfo extends Component {
     const { classes, location } = this.props;
 
     const alt = "image"+location.key;
-    const thumbnailURL = location.state.thumbnailURL;
-    const title = location.state.title
+    let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
+    if (location.state && "thumbnailURL" in location.state) {
+        thumbnailURL = location.state.thumbnailURL;
+    }
+    let title = "none";
+    if (location.state && "title" in location.state) {
+        title = location.state.title
+    }
         return (
             <div>
                 <h2>this is bookinfo page</h2>
