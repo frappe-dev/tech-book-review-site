@@ -1,7 +1,10 @@
 import React from 'react';
 
 export default class ReviewItem extends React.Component {
-
+    constructor(props) {
+        super(props);
+        this.handleChangeRadio = this.handleChangeRadio.bind(this);
+    }
 
     handleChangeRadio(event) {
         this.props.updateState({ [event.target.name]: event.target.value });
