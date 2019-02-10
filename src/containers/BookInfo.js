@@ -42,6 +42,11 @@ class BookInfo extends Component {
             title = location.state.title
         }
         
+        let ISBN = "";
+        if (location.state && "ISBN" in location.state) {
+            ISBN = location.state.ISBN
+        }
+
         return (
             <div>
                 <h2>this is bookinfo page</h2>
@@ -51,6 +56,10 @@ class BookInfo extends Component {
 
                 <div>
                     <img src={thumbnailURL} alt={alt} className="thumbnail" />
+                </div>
+
+                <div>
+                    ISBN: {ISBN}
                 </div>
 
                 <div>
