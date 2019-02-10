@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
-import NavigationIcon from '@material-ui/icons/Navigation';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
