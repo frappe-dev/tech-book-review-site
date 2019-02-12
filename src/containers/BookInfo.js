@@ -19,14 +19,25 @@ class BookInfo extends Component {
 	constructor(props) {
 		super(props);
       	this.state = {
-			reviewPoint: ''
+			reviewPoint: '',
+			tiltle     : '',
+			thumbnailURL:'',
+			bookID: '',
+			ISBN:''
 		};
 		this.updateState = this.updateState.bind(this);
     }
-    
+
 	updateState(state){
 		this.setState(state);
 	}
+
+	handleToReview = () => {
+        this.props.history.push({
+    		pathname: "/review",
+    		state: { tiltle : "TestTitle"}
+		});
+    }
 
     render() {
         const { classes, location } = this.props;
@@ -34,22 +45,26 @@ class BookInfo extends Component {
         let bookID = "xx";
         if (location.state && "bookID" in location.state) {
             bookID = location.state.bookID
+			this.state.bookID = bookID
         }
 
         const alt = "image" + location.key;
         let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
         if (location.state && "thumbnailURL" in location.state) {
             thumbnailURL = location.state.thumbnailURL;
+			this.state.thumbnailURL = thumbnailURL
         }
-    
+
         let title = "none";
         if (location.state && "title" in location.state) {
             title = location.state.title
+			this.state.title = title
         }
-        
+
         let ISBN = "";
         if (location.state && "ISBN" in location.state) {
             ISBN = location.state.ISBN
+			this.state.ISBN = ISBN
         }
 
         return (
@@ -75,12 +90,14 @@ class BookInfo extends Component {
                     Amazonリンク
                 </Button>
 
-                <Button variant="contained" color="primary" className={classes.button}>
+                <Button variant="contained" color="primary" className={classes.button} onClick={this.handleToReview}>
                     レビューする
                 </Button>
+
                 <Button variant="contained" color="secondary" className={classes.button}>
                     気になる
                 </Button>
+
                 <ReviewForm
                     updateState={this.updateState}
                     bookID={bookID}

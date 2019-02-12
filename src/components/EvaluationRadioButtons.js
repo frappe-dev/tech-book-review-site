@@ -1,7 +1,7 @@
 import React from 'react';
 import Radio from '@material-ui/core/Radio';
 
-export default class ReviewItem extends React.Component {
+export default class EvaluationRadioButtons extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeRadio = this.handleChangeRadio.bind(this);

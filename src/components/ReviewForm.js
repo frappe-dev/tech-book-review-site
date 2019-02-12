@@ -8,7 +8,7 @@ class ReviewForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            reviewPoint1: '',
+			reviewPoint1: '',
 			reviewPoint2: '',
 			reviewPoint3: '',
 			reviewPoint4: '',
@@ -24,7 +24,7 @@ class ReviewForm extends React.Component {
     }
     onSubmit(){
 		console.log(this.state);
-		
+
 		let ISBN = this.props.ISBN;
 		if (!ISBN) {
 			ISBN = "-"
@@ -45,7 +45,7 @@ class ReviewForm extends React.Component {
 		}
 		this.props.postReview(params);
 	}
-	
+
     render() {
       	return (
 		  	<form>
