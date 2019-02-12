@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'; //暫定用
 
 import ReviewForm from '../components/ReviewForm'
+import { getReviewRequested } from '../actions/ReviewActions';
 
 const styles = theme => ({
     button: {
@@ -19,34 +20,38 @@ class BookInfo extends Component {
 	constructor(props) {
 		super(props);
       	this.state = {
-			reviewPoint: ''
-		};
+			reviewPoint: '',
+            bookID: 'BOOK1'
+        };
 		this.updateState = this.updateState.bind(this);
     }
     
 	updateState(state){
 		this.setState(state);
-	}
+    }
+    
+            
+    componentDidMount() {
+        let bookID = "xx";
+        if (this.props.location.state && "bookID" in this.props.location.state) {
+            bookID = this.props.location.state.bookID
+        }
+        console.log("bookID: "+bookID);
+        this.props.getReview(bookID);
+    }
 
     render() {
         const { classes, location } = this.props;
-
-        let bookID = "xx";
-        if (location.state && "bookID" in location.state) {
-            bookID = location.state.bookID
-        }
 
         const alt = "image" + location.key;
         let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
         if (location.state && "thumbnailURL" in location.state) {
             thumbnailURL = location.state.thumbnailURL;
         }
-    
         let title = "none";
         if (location.state && "title" in location.state) {
             title = location.state.title
         }
-        
         let ISBN = "";
         if (location.state && "ISBN" in location.state) {
             ISBN = location.state.ISBN
@@ -83,12 +88,28 @@ class BookInfo extends Component {
                 </Button>
                 <ReviewForm
                     updateState={this.updateState}
-                    bookID={bookID}
+                    bookID={this.state.bookID}
                     ISBN={ISBN}
                 />
+
+                <h1>
+                    {JSON.stringify(this.props.reviews)}
+                </h1>
             </div>
         );
     }
 }
 
-export default withRouter(withStyles(styles)(BookInfo));
+const mapStateToProps = (state) => ({
+    reviews: state.reviews.data
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getReview(keyword) {
+            dispatch(getReviewRequested(keyword));
+        }
+    }
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BookInfo)));

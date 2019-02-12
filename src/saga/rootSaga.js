@@ -55,9 +55,9 @@ function* handleGetReview() {
         const action = yield take(ActionNameList.getReviewRequested);
         const { result, err } = yield call(getReview, action.payload);
         if (!err) {
-            console.log("succeed");
-            console.log(result);
-            //yield put({type: ActionNameList.getReviewSucceeded, payload: result.data.items});
+            console.log("succeed!!!");
+            console.log(result.data);
+            yield put({type: ActionNameList.getReviewSucceeded, payload: result.data});
         } else {
             console.log("err is happened");
             console.log(err);
