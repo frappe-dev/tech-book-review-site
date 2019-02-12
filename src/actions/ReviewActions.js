@@ -1,6 +1,6 @@
 import { ActionNameList } from '../ActionNameList';
 
-export const reviewItems = (data) => ({
-    type: ActionNameList.reviewItems,
+export const postReviewRequested = (data) => ({
+    type: ActionNameList.postReviewRequested,
     payload: data,
 })

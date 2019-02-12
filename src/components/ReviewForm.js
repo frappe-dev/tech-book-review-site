@@ -1,7 +1,10 @@
 import React from 'react';
-import EvaluationRadioButtons from '../components/EvaluationRadioButtons';
 
-export default class ReviewForm extends React.Component {
+import { connect } from 'react-redux';
+import EvaluationRadioButtons from '../components/EvaluationRadioButtons';
+import { postReviewRequested } from '../actions/ReviewActions';
+
+class ReviewForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,9 +23,29 @@ export default class ReviewForm extends React.Component {
         this.props.updateState(state);
     }
     onSubmit(){
-        console.log(this.state);
-    }
-
+		console.log(this.state);
+		
+		let ISBN = this.props.ISBN;
+		if (!ISBN) {
+			ISBN = "-"
+		}
+		console.log("ISBN: "+ISBN);
+		let params = {
+			bookID: this.props.bookID,
+			userID: "USER1234", //テスト用
+			overallpoints: "3", //TODO: formに追加する
+			evaluation: {
+				param1: this.state.reviewPoint1,
+				param2: this.state.reviewPoint2,
+				param3: this.state.reviewPoint3,
+				param4: this.state.reviewPoint4,
+				param5: this.state.reviewPoint5,
+			},
+			ISBN: ISBN
+		}
+		this.props.postReview(params);
+	}
+	
     render() {
       	return (
 		  	<form>
@@ -61,3 +84,17 @@ export default class ReviewForm extends React.Component {
 	  	)
   	}
 }
+
+const mapStateToProps = (state) => ({
+    a: state.test //無意味
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        postReview(keyword) {
+            dispatch(postReviewRequested(keyword));
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);

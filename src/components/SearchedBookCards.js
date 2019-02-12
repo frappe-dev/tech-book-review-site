@@ -10,28 +10,39 @@ function HelloMessage(props) {
     
     // XXX: jsonのif判定は見直したほうがいいかも
     let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
-    if (props.item.volumeInfo.imageLinks) {
+    if ( "volumeInfo" in props.item) {
         thumbnailURL = props.item.volumeInfo.imageLinks.thumbnail;
     }
-    
-    // ISBNをここではURLに使う(暫定, 他のIDとか何でもいい)
-    let ISBN = "XXXXXXXXXX";
-    console.log("debug:");
-    console.log(props.item);
-    if (props.item.volumeInfo.industryIdentifiers){
-        ISBN = props.item.volumeInfo.industryIdentifiers[1].identifier;
+
+    let bookID = "";
+    if ( "id" in props.item) {
+        bookID = props.item.id;
+    } else {
+        //idがないものは表示しない(returnの仕方は暫定)
+        return(
+            <h3>no data</h3>
+        );
     }
 
+    // ISBNがあれば取得
+    let ISBN = "";
+    if ( "industryIdentifiers" in props.item.volumeInfo){
+        if (props.item.volumeInfo.industryIdentifiers[1]) {
+            ISBN = props.item.volumeInfo.industryIdentifiers[1].identifier;
+        }
+    }
+    
     const alt = "image"+props.index;
-    // XXX: props.itemがからの場合の処理を追加するべきかも
     
     // cf. https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md 
     return(
         <Link to={{
-            pathname: "/bookinfo/"+ISBN,
+            pathname: "/bookinfo/"+bookID,
             state: { 
+                bookID: bookID,
                 title: title,
                 thumbnailURL: thumbnailURL,
+                ISBN: ISBN
                 } 
             }}>
             <Card key={props.index}>

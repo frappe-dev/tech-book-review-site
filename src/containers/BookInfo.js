@@ -31,6 +31,11 @@ class BookInfo extends Component {
     render() {
         const { classes, location } = this.props;
 
+        let bookID = "xx";
+        if (location.state && "bookID" in location.state) {
+            bookID = location.state.bookID
+        }
+
         const alt = "image" + location.key;
         let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
         if (location.state && "thumbnailURL" in location.state) {
@@ -78,6 +83,8 @@ class BookInfo extends Component {
                 </Button>
                 <ReviewForm
                     updateState={this.updateState}
+                    bookID={bookID}
+                    ISBN={ISBN}
                 />
             </div>
         );
