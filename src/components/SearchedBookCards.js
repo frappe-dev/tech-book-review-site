@@ -39,6 +39,7 @@ function HelloMessage(props) {
         <Link to={{
             pathname: "/bookinfo/"+bookID,
             state: { 
+                bookID: bookID,
                 title: title,
                 thumbnailURL: thumbnailURL,
                 ISBN: ISBN

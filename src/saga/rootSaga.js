@@ -3,41 +3,36 @@ import { ActionNameList } from '../ActionNameList';
 import axios from 'axios';
 
 const GOOGLE_BOOK_API_ENDPOINT = "https://www.googleapis.com/books/v1/volumes";
-const BOOKREVIEW_API_ENDPOINT  = "https://nd40yngtt7.execute-api.ap-northeast-1.amazonaws.com/dev/bookreview"; //　ソースコードで持たないほうがいい??
+const BOOKREVIEW_API_ENDPOINT  = "https://nd40yngtt7.execute-api.ap-northeast-1.amazonaws.com/dev/"; //　ソースコードで持たないほうがいい??
 
 function getReview(body) {
     //XXX: body -> bookID
     const bookID = "BOOK1";
-    return axios.get(BOOKREVIEW_API_ENDPOINT+"bookreview", {
-	params: {
-	    bookID = bookID
-	}
-    }).then(res => {
-	const result = res;
-	return { result }
-    }).catch(err => {
-	return { err }
-    })
-	    
+
+    return axios.get(BOOKREVIEW_API_ENDPOINT + "bookreview?bookID=" + bookID)
+        // 下の方法だとCORSでエラーになる. 理解不足
+        //headers: {
+        //  'Access-Control-Allow-Origin': '*',
+        //},
+        //params: {
+        //  bookID: bookID
+        //}
+        .then(res => {
+            const result = res;
+            return { result }
+        }).catch(err => {
+            return { err }
+        })
 }
 
-function postReview(body) {
+function postReview(params) {
     //XXX: parse params from body
-    return axios.post(BOOKREVIEW_API_ENDPOINT+"bookreview", {
-        bookID: "AAA",
-        userID: "AAA",
-        overallpoints: "4",
-        evaluation: {
-           param1: "3",
-           param2: "4",
-           param3: "3"
-        },
-        ISBN: "BBB"
-    }).then(res => {
-	const result = res;
-	return { result }
+    return axios.post(BOOKREVIEW_API_ENDPOINT + "bookreview", JSON.stringify(params)
+    ).then(res => {
+        const result = res;
+        return { result }
     }).catch(err => {
-	return { err }
+        return { err }
     })
 }
 
@@ -61,6 +56,7 @@ function* handleGetReview() {
         const { result, err } = yield call(getReview, action.payload);
         if (!err) {
             console.log("succeed");
+            console.log(result);
             //yield put({type: ActionNameList.getReviewSucceeded, payload: result.data.items});
         } else {
             console.log("err is happened");
@@ -72,10 +68,11 @@ function* handleGetReview() {
 
 function* handlePostReview() {
     while (true) {
-        const action = yield take(ActionNameList.reviewBookRequested);
+        const action = yield take(ActionNameList.postReviewRequested);
         const { result, err } = yield call(postReview, action.payload);
         if (!err) {
             console.log("succeed");
+            console.log(result);
             //yield put({type: ActionNameList.postReviewSucceeded, payload: result.data.items});
         } else {
             console.log("err is happened");
