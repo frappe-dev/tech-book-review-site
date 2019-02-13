@@ -36,7 +36,6 @@ class BookInfo extends Component {
         if (this.props.location.state && "bookID" in this.props.location.state) {
             bookID = this.props.location.state.bookID
         }
-        console.log("bookID: "+bookID);
         this.props.getReview(bookID);
 	this.setState({ bookID: bookID });
     }
@@ -55,12 +54,6 @@ class BookInfo extends Component {
         let ISBN = "";
         if (location.state && "ISBN" in location.state) {
             ISBN = location.state.ISBN
-        }
-	console.log("state bookID: ");
-	console.log(this.state.bookID);
-	let bookID = "";
-        if (location.state && "bookID" in location.state) {
-            bookID = location.state.bookID
         }
 
         return (
