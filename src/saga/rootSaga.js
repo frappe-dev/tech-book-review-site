@@ -5,10 +5,8 @@ import axios from 'axios';
 const GOOGLE_BOOK_API_ENDPOINT = "https://www.googleapis.com/books/v1/volumes";
 const BOOKREVIEW_API_ENDPOINT  = "https://nd40yngtt7.execute-api.ap-northeast-1.amazonaws.com/dev/"; //　ソースコードで持たないほうがいい??
 
-function getReview(body) {
-    //XXX: body -> bookID
-    const bookID = "BOOK1";
-
+function getReview(keyword) {
+    const bookID = keyword;
     return axios.get(BOOKREVIEW_API_ENDPOINT + "bookreview?bookID=" + bookID)
         // 下の方法だとCORSでエラーになる. 理解不足
         //headers: {
