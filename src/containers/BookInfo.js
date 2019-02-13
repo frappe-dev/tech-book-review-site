@@ -32,17 +32,17 @@ class BookInfo extends Component {
     
             
     componentDidMount() {
-        let bookID = "xx";
+        let bookID = "x";
         if (this.props.location.state && "bookID" in this.props.location.state) {
             bookID = this.props.location.state.bookID
         }
         console.log("bookID: "+bookID);
         this.props.getReview(bookID);
+	this.setState({ bookID: bookID });
     }
 
     render() {
         const { classes, location } = this.props;
-
         const alt = "image" + location.key;
         let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
         if (location.state && "thumbnailURL" in location.state) {
@@ -55,6 +55,12 @@ class BookInfo extends Component {
         let ISBN = "";
         if (location.state && "ISBN" in location.state) {
             ISBN = location.state.ISBN
+        }
+	console.log("state bookID: ");
+	console.log(this.state.bookID);
+	let bookID = "";
+        if (location.state && "bookID" in location.state) {
+            bookID = location.state.bookID
         }
 
         return (
