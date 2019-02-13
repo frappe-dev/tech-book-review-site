@@ -22,13 +22,9 @@ class ReviewForm extends React.Component {
         this.setState(state);
         this.props.updateState(state);
 	}
-	
+
     onSubmit(){
 		console.log(this.state);
-<<<<<<< HEAD
-
-=======
->>>>>>> 5d695d66162f1596686d8abed78a691a4ac6dc61
 		let ISBN = this.props.ISBN;
 		if (!ISBN) {
 			ISBN = "-"

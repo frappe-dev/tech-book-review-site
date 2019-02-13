@@ -17,17 +17,16 @@ class Review extends Component {
 	}
 
     render() {
+		const { classes, location } = this.props;
         return (
             <div>
                 <h2>this is review page</h2>
-                <div>
-                    tiltle: {this.props.location.state.title}のレビューページ
-                </div>
+                <h2>{location.state.tiltle}</h2>
 
                 <ReviewForm
-                    updateState={this.props.updateState}
-                    bookID={this.props.bookID}
-                    ISBN={this.props.ISBN}
+                    updateState={this.updateState}
+                    bookID={location.state.bookID}
+                    ISBN={location.state.ISBN}
                 />
             </div>
         );
