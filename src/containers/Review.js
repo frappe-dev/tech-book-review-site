@@ -17,7 +17,7 @@ class Review extends Component {
 	}
 
     render() {
-		const { classes, location } = this.props;
+		const { location } = this.props;
         return (
             <div>
                 <h2>this is review page</h2>
