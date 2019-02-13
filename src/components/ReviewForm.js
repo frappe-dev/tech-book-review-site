@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
+
 import EvaluationRadioButtons from '../components/EvaluationRadioButtons';
 import { postReviewRequested } from '../actions/ReviewActions';
 
@@ -21,10 +21,14 @@ class ReviewForm extends React.Component {
     updateState(state) {
         this.setState(state);
         this.props.updateState(state);
-    }
+	}
+	
     onSubmit(){
 		console.log(this.state);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5d695d66162f1596686d8abed78a691a4ac6dc61
 		let ISBN = this.props.ISBN;
 		if (!ISBN) {
 			ISBN = "-"

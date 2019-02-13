@@ -13,6 +13,7 @@ import createSagaMiddleware from 'redux-saga';
 
 //reducer
 import SearchReducer from './reducers/SearchReducer';
+import ReviewReducer from './reducers/ReviewReducer';
 
 //saga
 import rootSaga from './saga/rootSaga';
@@ -20,6 +21,7 @@ import rootSaga from './saga/rootSaga';
 const reducer = combineReducers({
     form: reduxFormReducer,
     bookList: SearchReducer,
+    reviews: ReviewReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
