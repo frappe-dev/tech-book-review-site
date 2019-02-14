@@ -4,8 +4,8 @@ import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'; //暫定用
 
-import ReviewForm from '../components/ReviewForm'
 import { getReviewRequested } from '../actions/ReviewActions';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     button: {
@@ -20,24 +20,17 @@ class BookInfo extends Component {
 	constructor(props) {
 		super(props);
       	this.state = {
-			reviewPoint: '',
             bookID: 'BOOK1'
         };
-		this.updateState = this.updateState.bind(this);
     }
-    
-	updateState(state){
-		this.setState(state);
-    }
-    
-            
+
     componentDidMount() {
         let bookID = "x";
         if (this.props.location.state && "bookID" in this.props.location.state) {
             bookID = this.props.location.state.bookID
         }
         this.props.getReview(bookID);
-	this.setState({ bookID: bookID });
+		this.setState({ bookID: bookID });
     }
 
     render() {
@@ -79,17 +72,24 @@ class BookInfo extends Component {
                     Amazonリンク
                 </Button>
 
-                <Button variant="contained" color="primary" className={classes.button}>
-                    レビューする
-                </Button>
+				{// {title}で渡すと落ちるので仮置き
+			}
+				<Link to={{
+		            pathname: "/review",
+		            state: {
+		                title : "testTitle",
+						bookID : "1234",
+	                    ISBN   : "1234"
+		                }
+		            }}>
+					<Button variant="contained" color="primary" className={classes.button}>
+	                    レビューする
+	                </Button>
+		        </Link>
+
                 <Button variant="contained" color="secondary" className={classes.button}>
                     気になる
                 </Button>
-                <ReviewForm
-                    updateState={this.updateState}
-                    bookID={this.state.bookID}
-                    ISBN={ISBN}
-                />
 
                 <h1>
                     {JSON.stringify(this.props.reviews)}

@@ -7,6 +7,7 @@ import Search from './containers/Search';
 import BookInfo from './containers/BookInfo';
 import Category from './containers/Category';
 import MyPage from './containers/MyPage'
+import Review from './containers/Review'
 
 // Route関連
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -29,6 +30,7 @@ class App extends Component {
             <Route exact path="/category" component={Category} />
             <Route path="/bookinfo/:id" component={BookInfo} />
 			<Route path="/mypage" component={MyPage} />
+			<Route path="/review" component={Review} />
             <Route component={NotFound} />
           </Switch>
         </BrowserRouter>
