@@ -7,47 +7,47 @@ import SearchedBookCards from '../components/SearchedBookCards';
 import { searchBookRequested } from '../actions/SearchActions';
 
 class Search extends Component {
-    submit(values) {
-    	this.props.onSubmit(values.keyword);
-    }
+	submit(values) {
+		this.props.onSubmit(values.keyword);
+	}
 
-    render() {
-        return (
-            <div>
-                <h2>this is search page</h2>
+	render() {
+		return (
+			<div>
+				<h2>this is search page</h2>
 
-                <span>
-                    <SearchForm onSubmit={this.submit.bind(this)}/>
-                </span>
+				<span>
+					<SearchForm onSubmit={this.submit.bind(this)}/>
+				</span>
 
-                <SearchedBookCards itemData={this.props.books}/>
-            </div>
-        );
-    }
+				<SearchedBookCards itemData={this.props.books}/>
+			</div>
+		);
+	}
 }
 
 const mapStateToProps = (state) => ({
-    books: state.bookList.data
+	books: state.bookList.data
 });
 
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        onSubmit(keyword) {
-            dispatch(searchBookRequested(keyword));
-        }
-    }
+	return {
+		onSubmit(keyword) {
+			dispatch(searchBookRequested(keyword));
+		}
+	}
 };
 
 /*
 const と functionの使い方が理解できていない。(どちらでも動く)
 function mapDispatchToProps(dispatch) {
-    return {
-	onSubmit(keyword) {
-	    dispatch(getBookList(keyword));
-	}
-    };
-}  
+return {
+onSubmit(keyword) {
+dispatch(getBookList(keyword));
+}
+};
+}
 */
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search));
