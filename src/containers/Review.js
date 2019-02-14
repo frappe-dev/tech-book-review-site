@@ -21,7 +21,7 @@ class Review extends Component {
         return (
             <div>
                 <h2>this is review page</h2>
-                <h2>{location.state.tiltle}</h2>
+                <h2>{location.state.title}</h2>
 
                 <ReviewForm
                     updateState={this.updateState}

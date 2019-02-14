@@ -39,17 +39,14 @@ class BookInfo extends Component {
         let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
         if (location.state && "thumbnailURL" in location.state) {
             thumbnailURL = location.state.thumbnailURL;
-			this.state.thumbnailURL = thumbnailURL
         }
         let title = "none";
         if (location.state && "title" in location.state) {
             title = location.state.title
-			this.state.title = title
         }
         let ISBN = "";
         if (location.state && "ISBN" in location.state) {
             ISBN = location.state.ISBN
-			this.state.ISBN = ISBN
         }
 
         return (
@@ -80,7 +77,7 @@ class BookInfo extends Component {
 				<Link to={{
 		            pathname: "/review",
 		            state: {
-		                tiltle : "testTitle",
+		                title : "testTitle",
 						bookID : "1234",
 	                    ISBN   : "1234"
 		                }
