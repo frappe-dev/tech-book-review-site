@@ -30,6 +30,7 @@ class ReviewForm extends React.Component {
 			ISBN = "-"
 		}
 		console.log("ISBN: "+ISBN);
+		console.log("BookID: "+this.props.bookID);
 		let params = {
 			bookID: this.props.bookID,
 			userID: "USER1234", //テスト用

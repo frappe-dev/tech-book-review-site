@@ -72,14 +72,12 @@ class BookInfo extends Component {
                     Amazonリンク
                 </Button>
 
-				{// {title}で渡すと落ちるので仮置き
-			}
 				<Link to={{
 		            pathname: "/review",
 		            state: {
-		                title : "testTitle",
-						bookID : "1234",
-	                    ISBN   : "1234"
+		                title  : {title},
+						bookID : this.state.bookID,
+	                    ISBN   : {ISBN}
 		                }
 		            }}>
 					<Button variant="contained" color="primary" className={classes.button}>
