@@ -30,7 +30,7 @@ class App extends Component {
 						<Route exact path="/category" component={Category} />
 						<Route path="/bookinfo/:id" component={BookInfo} />
 						<Route path="/mypage" component={MyPage} />
-						<Route path="/review" component={Review} />
+						<Route path="/review/:id" component={Review} />
 						<Route component={NotFound} />
 					</Switch>
 				</BrowserRouter>
