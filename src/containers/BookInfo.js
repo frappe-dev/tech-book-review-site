@@ -73,11 +73,11 @@ class BookInfo extends Component {
 				</Button>
 
 				<Link to={{
-						pathname: "/review",
+						pathname: "/bookinfo/"+this.state.bookID+"/review",
 						state: {
-							title  : {title},
+							title  : title,
 							bookID : this.state.bookID,
-							ISBN   : {ISBN}
+							ISBN   : ISBN
 						}
 					}}>
 					<Button variant="contained" color="primary" className={classes.button}>
