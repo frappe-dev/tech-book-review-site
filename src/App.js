@@ -28,9 +28,9 @@ class App extends Component {
 						<Route exact path="/" component={Home} />
 						<Route exact path="/search" component={Search} />
 						<Route exact path="/category" component={Category} />
-						<Route path="/bookinfo/:id" component={BookInfo} />
-						<Route path="/mypage" component={MyPage} />
-						<Route path="/review/:id" component={Review} />
+						<Route exact path="/bookinfo/:id" component={BookInfo} />
+						<Route exact path="/mypage" component={MyPage} />
+						<Route exact path="/bookinfo/:id/review" component={Review} />
 						<Route component={NotFound} />
 					</Switch>
 				</BrowserRouter>
