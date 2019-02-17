@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-class BookList extends Component {
+// レビュー済みor気になるした書籍一覧（location.state.booklistTypeで出し分け）
+class Record extends Component {
 
 	componentDidMount() {
 		// ここでAPIを叩いて対象の書籍一覧を取得
@@ -17,4 +18,4 @@ class BookList extends Component {
     }
 }
 
-export default BookList;
+export default Record;
