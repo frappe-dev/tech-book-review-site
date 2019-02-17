@@ -12,7 +12,7 @@ class Record extends Component {
         return (
             <div>
 				<h2>Your userID is {location.state.userID}</h2>
-                <h2>this is {location.state.booklistType} booklist</h2>
+                <h2>this is {location.state.recordType} record</h2>
             </div>
         );
     }

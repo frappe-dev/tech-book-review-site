@@ -11,9 +11,9 @@ class MyPage extends Component {
 				<h2>This is mypage</h2>
 				<h2>Your userID is {this.props.location.state.userID}</h2>
 				<Link to={{
-						pathname: "/mypage/booklist",
+						pathname: "/mypage/record",
 						state: {
-							booklistType: "favoite",
+							recordType	: "favoite",
 							userID		: this.props.location.state.userID
 						}
 					}}>
@@ -22,9 +22,9 @@ class MyPage extends Component {
 					</Button>
 				</Link>
 				<Link to={{
-						pathname: "/mypage/booklist",
+						pathname: "/mypage/record",
 						state: {
-							booklistType: "reviewed",
+							recordType	: "reviewed",
 							userID		: this.props.location.state.userID
 						}
 					}}>
