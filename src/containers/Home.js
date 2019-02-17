@@ -22,7 +22,10 @@ class Home extends Component {
 	}
 
 	handleToMyPage = () => {
-		this.props.history.push('/mypage')
+		this.props.history.push({
+			pathname: '/mypage',
+    		state: { userID: "1234" }
+ 		})
 	}
 
 	render() {
