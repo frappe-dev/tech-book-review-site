@@ -16,15 +16,16 @@ class Login extends Component {
     async componentDidMount() {
         console.log("Auth: ");
         console.log(Auth.currentAuthenticatedUser());
-    
-
         await Auth.currentUserInfo()
             .then(data => console.log(data))
             .catch(err => console.log(err))
-            
     } 
+
     render() {
-        return <Authenticator />
+        const federated = {
+            google_client_id: '641757103744-sgeaktllv016mq5khhrg78eopii6cgu5.apps.googleusercontent.com',
+        };    
+        return <Authenticator federated={federated}/>
     }    
 }
 
