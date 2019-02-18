@@ -4,55 +4,58 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  margin: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
+	margin: {
+		margin: theme.spacing.unit,
+	},
+	input: {
+		display: 'none',
+	},
 });
 
 class Home extends Component {
 	handleToSearchPage = () => {
-        this.props.history.push('/search')
-    }
+		this.props.history.push('/search')
+	}
 
 	handleToCategoryPage = () => {
-        this.props.history.push('/category')
-    }
+		this.props.history.push('/category')
+	}
 
 	handleToMyPage = () => {
-        this.props.history.push('/mypage')
-    }
+		this.props.history.push({
+			pathname: '/mypage',
+    		state: { userID: "1234" }
+ 		})
+	}
 
-    render() {
+	render() {
 		const { classes } = this.props;
-        return (
-            <div>
-                this is home
+		return (
+			<div>
+				this is home
 
-                <h3>検索ページへのリンク</h3>
+				<h3>検索ページへのリンク</h3>
 
-                <h3>カテゴリ分類ページへのリンク</h3>
+				<h3>カテゴリ分類ページへのリンク</h3>
 
-                <h3>最新レビュー10件の表示</h3>
+				<h3>最新レビュー10件の表示</h3>
 
-                <h3>マイページへのリンク</h3>
+				<h3>マイページへのリンク</h3>
 
 				<Button variant="contained" color="primary" className={classes.button} onClick={this.handleToSearchPage}>
-	        		書籍を検索
-	      		</Button>
+					書籍を検索
+				</Button>
 
-		  		<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToCategoryPage}>
+				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToCategoryPage}>
 					カテゴリ一覧
-	      		</Button>
+				</Button>
 
 				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToMyPage}>
 					マイページ
-	      		</Button>
-            </div>
-        );
-    }
+				</Button>
+			</div>
+		);
+	}
 }
 
 export default withRouter(withStyles(styles)(Home));
