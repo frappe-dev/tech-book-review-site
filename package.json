@@ -32,5 +32,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "aws-amplify": "^1.1.19",
+    "aws-amplify-react": "^2.3.0"
+  }
 }
