@@ -23,7 +23,7 @@ class Login extends Component {
 
     render() {
         const federated = {
-            google_client_id: '641757103744-sgeaktllv016mq5khhrg78eopii6cgu5.apps.googleusercontent.com',
+            google_client_id: '641757103744-pbhruvj75801k923hfbeq91h7ttninj3.apps.googleusercontent.com', 
         };    
         return <Authenticator federated={federated}/>
     }    
