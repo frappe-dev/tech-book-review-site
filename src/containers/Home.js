@@ -28,6 +28,10 @@ class Home extends Component {
  		})
 	}
 
+	handleToLogin = () => {
+		this.props.history.push('/login')
+	}
+
 	render() {
 		const { classes } = this.props;
 		return (
@@ -52,6 +56,10 @@ class Home extends Component {
 
 				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToMyPage}>
 					マイページ
+				</Button>
+
+				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToLogin}>
+					認証(テスト用)
 				</Button>
 			</div>
 		);
