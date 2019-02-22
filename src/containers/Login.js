@@ -22,3 +22,47 @@ class Login extends Component {
 }
 
 export default Login;
+
+{/*
+MEMO
+
+https://tech.fusic.co.jp/cloud/react-authentication-cognito/
+
+diff --git a/src/containers/Home.js b/src/containers/Home.js
+index 7775e9b..b4059be 100644
+--- a/src/containers/Home.js
++++ b/src/containers/Home.js
+@@ -3,6 +3,16 @@ import { withRouter } from 'react-router';
+ import Button from '@material-ui/core/Button';
+ import { withStyles } from '@material-ui/core/styles';
+ 
++import {
++  withAuthenticator,
++  ConfirmSignIn,
++  ConfirmSignUp,
++  ForgotPassword,
++  SignUp,
++  VerifyContact
++} from 'aws-amplify-react';
++import Login from './Login'; 
++
+ const styles = theme => ({
+ 	margin: {
+ 		margin: theme.spacing.unit,
+@@ -66,4 +76,11 @@ class Home extends Component {
+ 	}
+ }
+ 
+-export default withRouter(withStyles(styles)(Home));
++export default withRouter(withStyles(styles)(withAuthenticator(Home, false, [
++	<Login />,
++	<ConfirmSignIn />,
++	<VerifyContact />,
++	<SignUp />,
++	<ConfirmSignUp />,
++	<ForgotPassword />,
++])));
+
+
+*/}
+
