@@ -23,7 +23,7 @@ class Login extends Component {
 
 export default Login;
 
-{/*
+/*
 MEMO
 
 https://tech.fusic.co.jp/cloud/react-authentication-cognito/
@@ -64,5 +64,5 @@ index 7775e9b..b4059be 100644
 +])));
 
 
-*/}
+*/
 
