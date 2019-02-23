@@ -12,6 +12,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.0.0",
+    "react-swipeable-views": "^0.13.1",
     "redux": "^4.0.1",
     "redux-form": "^8.1.0",
     "redux-logger": "^3.0.6",
@@ -35,6 +36,7 @@
   ],
   "devDependencies": {
     "aws-amplify": "^1.1.19",
-    "aws-amplify-react": "^2.3.0"
+    "aws-amplify-react": "^2.3.0",
+    "react-tabs": "^3.0.0"
   }
 }

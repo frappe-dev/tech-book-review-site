@@ -13,23 +13,11 @@ class MyPage extends Component {
 				<Link to={{
 						pathname: "/mypage/record",
 						state: {
-							recordType	: "favoite",
 							userID		: this.props.location.state.userID
 						}
 					}}>
 					<Button variant="contained" color="secondary">
-						お気に入り一覧
-					</Button>
-				</Link>
-				<Link to={{
-						pathname: "/mypage/record",
-						state: {
-							recordType	: "reviewed",
-							userID		: this.props.location.state.userID
-						}
-					}}>
-					<Button variant="contained" color="primary">
-						レビュー一覧
+						お気に入り・レビュー一覧
 					</Button>
 				</Link>
             </div>
