@@ -1,21 +1,86 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import SwipeableViews from 'react-swipeable-views';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
-// レビュー済みor気になるした書籍一覧（location.state.booklistTypeで出し分け）
-class Record extends Component {
+import ReviewBookList from '../components/ReviewBookList'
+import FavoriteBookList from '../components/FavoriteBookList'
 
-	componentDidMount() {
-		// ここでAPIを叩いて対象の書籍一覧を取得
-	}
-
-    render() {
-		const { location } = this.props;
-        return (
-            <div>
-				<h2>Your userID is {location.state.userID}</h2>
-                <h2>this is {location.state.recordType} record</h2>
-            </div>
-        );
-    }
+// タブの中身
+function TabContainer({ children, dir }) {
+	return (
+		children
+	);
 }
 
-export default Record;
+TabContainer.propTypes = {
+	children: PropTypes.node.isRequired,
+	dir: PropTypes.string.isRequired,
+};
+
+const styles = theme => ({
+	root: {
+		flexGrow: 1,
+	},
+});
+
+class Record extends React.Component {
+	state = {
+		value: 0,
+	};
+
+	handleChange = (event, value) => {
+		this.setState({ value });
+	};
+
+	handleChangeIndex = index => {
+		this.setState({ value: index });
+	};
+
+	render() {
+		const { classes, theme } = this.props;
+
+		return (
+			<div className={classes.root}>
+				<AppBar position="static" color="default">
+					<Tabs
+						value={this.state.value}
+						onChange={this.handleChange}
+						indicatorColor="primary"
+						textColor="primary"
+						variant="fullWidth"
+					>
+						<Tab label="お気に入り一覧" />
+						<Tab label="レビュー一覧" />
+					</Tabs>
+				</AppBar>
+				<SwipeableViews
+					axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+					index={this.state.value}
+					onChangeIndex={this.handleChangeIndex}
+				>
+					<TabContainer dir={theme.direction}>
+						<ReviewBookList
+							userID={this.props.location.state.userID}
+						/>
+						</TabContainer>
+					<TabContainer dir={theme.direction}>
+						<FavoriteBookList
+							userID={this.props.location.state.userID}
+						/>
+					</TabContainer>
+				</SwipeableViews>
+			</div>
+		);
+	}
+}
+
+Record.propTypes = {
+	classes: PropTypes.object.isRequired,
+	theme: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles, { withTheme: true })(Record);
