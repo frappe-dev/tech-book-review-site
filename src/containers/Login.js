@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { Auth } from 'aws-amplify';
 import { Authenticator } from 'aws-amplify-react';
 
+// header
+import AppHeader from '../components/AppHeader';
+
 class Login extends Component {
     async componentDidMount() {
         console.log("Auth: ");
@@ -18,7 +21,12 @@ class Login extends Component {
             google_client_id: '641757103744-pbhruvj75801k923hfbeq91h7ttninj3.apps.googleusercontent.com', 
             facebook_app_id: '2309758615736478',
         };    
-        return <Authenticator federated={federated}/>
+        return (
+            <div>
+                <AppHeader/>
+                <Authenticator federated={federated}/>
+            </div>
+        );
     }    
 }
 

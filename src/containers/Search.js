@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
+// component
 import SearchForm from '../components/SearchForm';
 import SearchedBookCards from '../components/SearchedBookCards';
+// redux
 import { searchBookRequested } from '../actions/SearchActions';
 // header
 import AppHeader from '../components/AppHeader';

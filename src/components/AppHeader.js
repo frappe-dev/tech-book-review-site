@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
-
+import { Link } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 
 const styles = {
@@ -31,20 +31,23 @@ const styles = {
   
 class AppHeader extends React.Component {
     state = {
-        isAuthenticated: true,
+        isAuthenticated: false,
     };
 
     async componentDidMount() {
         console.log("[componentDidMount of AppHeader is called]");
         await Auth.currentAuthenticatedUser()
-            .then(data => 
-                console.log(data)
-            )
-            .catch(err => console.log(err))
+            .then(data => {
+                this.setState({isAuthenticated: true});
+                console.log(data);
+            }).catch(err => {
+                this.setState({isAuthenticated: false});
+                console.log(err);
+            })
     }
 
     handleToLogin = () => {
-        this.props.history.push('/')
+        this.props.history.push('/login')
     }
 
     render() {
@@ -59,19 +62,21 @@ class AppHeader extends React.Component {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" color="inherit" className={classes.grow}>
-                        Technical Book Review Site
+                        <Link to={`/`}>Technical Book Review Site</Link>
                     </Typography>
 
                         {/* ログイン状態に応じて表示 */}
                         {(() => {
-                            if (isAuthenticated) {
+                            if (!isAuthenticated) {
                                 return (
                                     <Button color="inherit" onClick={this.handleToLogin}>Login</Button>
                                 )
                             } else {
                                 return (
                                     <IconButton className={classes.accountButton} color="inherit" aria-label="Account">
-                                        <AccountCircle />
+                                        <Link to={`/mypage`}>
+                                            <AccountCircle />
+                                        </Link>
                                     </IconButton>
                                 )
                             }

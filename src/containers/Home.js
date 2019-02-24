@@ -3,6 +3,9 @@ import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
+// header
+import AppHeader from '../components/AppHeader';
+
 const styles = theme => ({
 	margin: {
 		margin: theme.spacing.unit,
@@ -36,6 +39,7 @@ class Home extends Component {
 		const { classes } = this.props;
 		return (
 			<div>
+				<AppHeader/>
 				this is home
 
 				<h3>検索ページへのリンク</h3>
