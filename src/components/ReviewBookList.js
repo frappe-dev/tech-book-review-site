@@ -6,7 +6,7 @@ class ReviewBookList extends Component {
         return (
             <div>
 				<h2>This is your review book list</h2>
-				<h2>{this.props.userID}</h2>
+				<h2>XX</h2>
             </div>
         );
     }

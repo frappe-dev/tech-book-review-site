@@ -9,13 +9,10 @@ class MyPage extends Component {
         return (
             <div>
 				<h2>This is mypage</h2>
-				<h2>Your userID is {this.props.location.state.userID}</h2>
+				<h2>Your userID is XX</h2>
 				<Link to={{
-						pathname: "/mypage/record",
-						state: {
-							userID		: this.props.location.state.userID
-						}
-					}}>
+					pathname: "/mypage/record",
+				}}>
 					<Button variant="contained" color="secondary">
 						お気に入り・レビュー一覧
 					</Button>

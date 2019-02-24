@@ -63,14 +63,10 @@ class Record extends React.Component {
 					onChangeIndex={this.handleChangeIndex}
 				>
 					<TabContainer dir={theme.direction}>
-						<ReviewBookList
-							userID={this.props.location.state.userID}
-						/>
+						<ReviewBookList/>
 						</TabContainer>
 					<TabContainer dir={theme.direction}>
-						<FavoriteBookList
-							userID={this.props.location.state.userID}
-						/>
+						<FavoriteBookList/>
 					</TabContainer>
 				</SwipeableViews>
 			</div>

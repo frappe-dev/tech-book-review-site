@@ -6,7 +6,7 @@ class FavoriteBookList extends Component {
         return (
             <div>
 				<h2>This is your favorite book list</h2>
-				<h2>{this.props.userID}</h2>
+				<h2>XX</h2>
             </div>
         );
     }
