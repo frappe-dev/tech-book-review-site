@@ -12,6 +12,7 @@ class Login extends Component {
             .catch(err => console.log(err))
     } 
     //cf. https://aws-amplify.github.io/docs/js/authentication
+    //TODO: 電話番号入力を消す
     render() {
         const federated = {
             google_client_id: '641757103744-pbhruvj75801k923hfbeq91h7ttninj3.apps.googleusercontent.com', 

@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import SearchForm from '../components/SearchForm';
 import SearchedBookCards from '../components/SearchedBookCards';
 import { searchBookRequested } from '../actions/SearchActions';
+// header
+import AppHeader from '../components/AppHeader';
 
 class Search extends Component {
 	submit(values) {
@@ -14,6 +16,7 @@ class Search extends Component {
 	render() {
 		return (
 			<div>
+				<AppHeader />
 				<h2>this is search page</h2>
 
 				<span>
