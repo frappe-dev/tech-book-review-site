@@ -9,6 +9,9 @@ import Tab from '@material-ui/core/Tab';
 import ReviewBookList from '../components/ReviewBookList'
 import FavoriteBookList from '../components/FavoriteBookList'
 
+// header
+import AppHeader from '../components/AppHeader';
+
 // タブの中身
 function TabContainer({ children, dir }) {
 	return (
@@ -45,6 +48,7 @@ class Record extends React.Component {
 
 		return (
 			<div className={classes.root}>
+				<AppHeader/>
 				<AppBar position="static" color="default">
 					<Tabs
 						value={this.state.value}
