@@ -37,7 +37,7 @@ class ReviewForm extends React.Component {
                 auth = true;
 				console.log(data);
 				//console.log(data.attributes.sub) // -> Cognito User
-				console.log(data.id) // -> facebook or google
+				//console.log(data.id) // -> facebook or google
 				if ("id" in data) {
 					userID = data.id;
 				} else if ("attributes" in data && "sub" in data.attributes) {
