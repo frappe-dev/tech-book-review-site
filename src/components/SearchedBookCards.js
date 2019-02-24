@@ -33,7 +33,6 @@ function HelloMessage(props) {
 	}
 
 	const alt = "image"+props.index;
-
 	// cf. https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md
 	return(
 		<Link to={{
