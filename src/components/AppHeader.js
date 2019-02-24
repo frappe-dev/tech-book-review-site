@@ -47,7 +47,11 @@ class AppHeader extends React.Component {
     }
 
     handleToLogin = () => {
-        this.props.history.push('/login')
+        this.props.history.push('/login');
+    }
+
+    handleToMypage = () => {
+        this.props.history.push('/mypage');
     }
 
     render() {
@@ -73,11 +77,7 @@ class AppHeader extends React.Component {
                                 )
                             } else {
                                 return (
-                                    <IconButton className={classes.accountButton} color="inherit" aria-label="Account">
-                                        <Link to={`/mypage`}>
-                                            <AccountCircle />
-                                        </Link>
-                                    </IconButton>
+                                    <Button color="inherit" onClick={this.handleToMypage}><AccountCircle/></Button>
                                 )
                             }
                         })()}
