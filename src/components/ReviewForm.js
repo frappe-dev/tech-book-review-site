@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { Auth } from 'aws-amplify';
 
+// component
 import EvaluationRadioButtons from '../components/EvaluationRadioButtons';
+// action
 import { postReviewRequested } from '../actions/ReviewActions';
 
 class ReviewForm extends React.Component {
@@ -23,8 +27,33 @@ class ReviewForm extends React.Component {
 		this.props.updateState(state);
 	}
 
-	onSubmit(){
+	async onSubmit(){
 		console.log(this.state);
+		// check isAuthenticated
+		let auth = false;
+		let userID = "";
+		await Auth.currentAuthenticatedUser()
+            .then(data => {
+                auth = true;
+				console.log(data);
+				//console.log(data.attributes.sub) // -> Cognito User
+				//console.log(data.id) // -> facebook or google
+				if ("id" in data) {
+					userID = data.id;
+				} else if ("attributes" in data && "sub" in data.attributes) {
+					userID = data.attributes.sub;
+				} else {
+					console.log("[ERROR]cannot parse userID"); // -> TODO: error throw
+				}
+            }).catch(err => {
+                auth = false;
+                console.log(err);
+            })
+		if (!auth) {
+			this.props.history.push('/login')
+			return;
+		}
+		console.log("userID: "+userID);
 		let ISBN = this.props.ISBN;
 		if (!ISBN) {
 			ISBN = "-"
@@ -33,7 +62,7 @@ class ReviewForm extends React.Component {
 		console.log("BookID: "+this.props.bookID);
 		let params = {
 			bookID: this.props.bookID,
-			userID: "USER1234", //テスト用
+			userID: userID,
 			overallpoints: "3", //TODO: formに追加する
 			evaluation: {
 				param1: this.state.reviewPoint1,
@@ -98,4 +127,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ReviewForm));

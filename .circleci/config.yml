@@ -37,6 +37,12 @@ jobs:
       - run:
           name: Deploy to S3
           command: aws s3 sync ./build s3://tech-book-review-site --delete
+      - run:
+          name: prepare to clear cloudfront
+          command: aws configure set preview.cloudfront true
+      - run:
+          name: clear cloudfront
+          command: aws cloudfront create-invalidation --distribution-id EAEVE2S71NMMV --paths '/*'
 
 workflows:
   version: 2

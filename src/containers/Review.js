@@ -27,7 +27,7 @@ class Review extends Component {
 					updateState={this.updateState}
 					bookID={location.state.bookID}
 					ISBN={location.state.ISBN}
-					/>
+				/>
 			</div>
 		);
 	}

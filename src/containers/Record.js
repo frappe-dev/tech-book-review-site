@@ -9,6 +9,9 @@ import Tab from '@material-ui/core/Tab';
 import ReviewBookList from '../components/ReviewBookList'
 import FavoriteBookList from '../components/FavoriteBookList'
 
+// header
+import AppHeader from '../components/AppHeader';
+
 // タブの中身
 function TabContainer({ children, dir }) {
 	return (
@@ -45,6 +48,7 @@ class Record extends React.Component {
 
 		return (
 			<div className={classes.root}>
+				<AppHeader/>
 				<AppBar position="static" color="default">
 					<Tabs
 						value={this.state.value}
@@ -63,14 +67,10 @@ class Record extends React.Component {
 					onChangeIndex={this.handleChangeIndex}
 				>
 					<TabContainer dir={theme.direction}>
-						<ReviewBookList
-							userID={this.props.location.state.userID}
-						/>
+						<ReviewBookList/>
 						</TabContainer>
 					<TabContainer dir={theme.direction}>
-						<FavoriteBookList
-							userID={this.props.location.state.userID}
-						/>
+						<FavoriteBookList/>
 					</TabContainer>
 				</SwipeableViews>
 			</div>

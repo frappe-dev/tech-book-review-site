@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
+// component
 import SearchForm from '../components/SearchForm';
 import SearchedBookCards from '../components/SearchedBookCards';
+// redux
 import { searchBookRequested } from '../actions/SearchActions';
+// header
+import AppHeader from '../components/AppHeader';
 
 class Search extends Component {
 	submit(values) {
@@ -14,6 +18,7 @@ class Search extends Component {
 	render() {
 		return (
 			<div>
+				<AppHeader />
 				<h2>this is search page</h2>
 
 				<span>
