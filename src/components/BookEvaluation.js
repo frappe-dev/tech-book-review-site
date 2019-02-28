@@ -3,40 +3,57 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 // とりあえずフロントで平均のレビュー点数を計算
-function calculateAveragePoints(props) {
-	let averagePoints = "";
-	let sumPoints = 0
-	for (let i = 0; i < props.length; i++) {
-		sumPoints = sumPoints + Number(props[i].overallpoints)
+function calculateAveragePoints(reviews) {
+	let averageOverAllPoint = "";
+	let sumOverAllPoint = 0
+	for (let i = 0; i < reviews.length; i++) {
+		sumOverAllPoint = sumOverAllPoint + Number(reviews[i].overallpoints)
     }
-	averagePoints = sumPoints / props.length
-	return averagePoints
+	if (reviews.length > 0) {
+		averageOverAllPoint = sumOverAllPoint / reviews.length
+	}
+	return averageOverAllPoint
 }
 
 export default class BookEvaluation extends React.Component {
 	render() {
 		const { itemData } = this.props;
-		let reviewCount = "";
-		let favoriteCount = "";
-		let overAllPoints = "";
+		let reviewCount = 0;
+		let favoriteCount = 0;
+		let overAllPoints = 0;
+		let reviewCountText = "まだレビューがありません";
+		let favoriteCountText = "まだお気に入りされていません";
+		let overAllPointsText = "";
+
 		// undefinedチェック
 		if( itemData === void 0){
 			console.log("itemData is undefined");
-		}else{
-			reviewCount = itemData.Count
-			favoriteCount = itemData.ScannedCount
-			overAllPoints = calculateAveragePoints(itemData.Items)
+		} else {
+			reviewCount = itemData.Count;
+			favoriteCount = itemData.ScannedCount;
+			if (reviewCount > 0) {
+				reviewCountText = "レビュー数：" + reviewCount + "件"
+				overAllPoints = calculateAveragePoints(itemData.Items);
+				if (overAllPoints > 0) {
+					overAllPointsText = "総合評価：" + overAllPoints + "/5"
+				}
+			}
+
+			if (favoriteCount > 0) {
+				favoriteCountText = "お気に入り：" + favoriteCount + "件"
+			}
 		}
+
 		return(
 			<CardContent>
 				<Typography variant="h6" gutterBottom>
-					レビュー数: {reviewCount}
+					{reviewCountText}
 				</Typography>
 				<Typography variant="h6" gutterBottom>
-					お気に入り数: {favoriteCount}
+					{favoriteCountText}
 				</Typography>
 				<Typography variant="h6" gutterBottom>
-					総合評価: {overAllPoints}
+					{overAllPointsText}
 				</Typography>
 			</CardContent>
 		);
