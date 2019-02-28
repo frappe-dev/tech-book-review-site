@@ -5,14 +5,14 @@ import Typography from '@material-ui/core/Typography';
 // とりあえずフロントで平均のレビュー点数を計算
 function calculateAveragePoints(reviews) {
 	let averageOverAllPoint = "";
-	let sumOverAllPoint = 0
+	let sumOverAllPoint = 0;
 	for (let i = 0; i < reviews.length; i++) {
-		sumOverAllPoint = sumOverAllPoint + Number(reviews[i].overallpoints)
+		sumOverAllPoint = sumOverAllPoint + Number(reviews[i].overallpoints);
     }
 	if (reviews.length > 0) {
-		averageOverAllPoint = sumOverAllPoint / reviews.length
+		averageOverAllPoint = sumOverAllPoint / reviews.length;
 	}
-	return averageOverAllPoint
+	return averageOverAllPoint;
 }
 
 export default class BookEvaluation extends React.Component {
@@ -32,15 +32,15 @@ export default class BookEvaluation extends React.Component {
 			reviewCount = itemData.Count;
 			favoriteCount = itemData.ScannedCount;
 			if (reviewCount > 0) {
-				reviewCountText = "レビュー数：" + reviewCount + "件"
+				reviewCountText = "レビュー数：" + reviewCount + "件";
 				overAllPoints = calculateAveragePoints(itemData.Items);
 				if (overAllPoints > 0) {
-					overAllPointsText = "総合評価：" + overAllPoints + "/5"
+					overAllPointsText = "総合評価：" + overAllPoints + "/5";
 				}
 			}
 
 			if (favoriteCount > 0) {
-				favoriteCountText = "お気に入り：" + favoriteCount + "件"
+				favoriteCountText = "お気に入り：" + favoriteCount + "件";
 			}
 		}
 
