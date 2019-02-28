@@ -4,6 +4,9 @@ import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'; //暫定用
 
+// component
+import BookEvaluation from '../components/BookEvaluation';
+
 import { getReviewRequested } from '../actions/ReviewActions';
 import { Link } from 'react-router-dom';
 
@@ -88,10 +91,7 @@ class BookInfo extends Component {
 				<Button variant="contained" color="secondary" className={classes.button}>
 					気になる
 				</Button>
-
-				<h1>
-					{JSON.stringify(this.props.reviews)}
-				</h1>
+				<BookEvaluation itemData={this.props.reviews}/>
 			</div>
 		);
 	}
