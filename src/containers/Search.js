@@ -23,10 +23,10 @@ class Search extends Component {
 			shownBookCountText = "";
 		} else {
 			shownBookCount = this.props.books.length;
-			if shownBookCount > 0 {
-				shownBookCountText = shownBookCount + "個の書籍を表示中"
+			if (shownBookCount > 0) {
+				shownBookCountText = shownBookCount + "個の書籍を表示中";
 			} else {
-				shownBookCountText = "現在のキーワードではヒットする書籍がありません"
+				shownBookCountText = "現在のキーワードではヒットする書籍がありません";
 			}
 
 		}
