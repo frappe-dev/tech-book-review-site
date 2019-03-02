@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'; //暫定用
+import Card from '@material-ui/core/Card';
 
 // component
 import BookEvaluation from '../components/BookEvaluation';
+import BookDetailCard from '../components/BookDetailCard';
+
+// header
+import AppHeader from '../components/AppHeader';
 
 import { getReviewRequested } from '../actions/ReviewActions';
 import { Link } from 'react-router-dom';
@@ -17,6 +22,10 @@ const styles = theme => ({
 	input: {
 		display: 'none',
 	},
+	// 書籍詳細カードとバーの間のスペース用
+	spacer: {
+		margin: theme.spacing.unit,
+	}
 });
 
 class BookInfo extends Component {
@@ -38,51 +47,46 @@ class BookInfo extends Component {
 
 	render() {
 		const { classes, location } = this.props;
-		const alt = "image" + location.key;
 		let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
 		if (location.state && "thumbnailURL" in location.state) {
 			thumbnailURL = location.state.thumbnailURL;
 		}
 		let title = "none";
 		if (location.state && "title" in location.state) {
-			title = location.state.title
+			title = location.state.title;
 		}
 		let ISBN = "";
 		if (location.state && "ISBN" in location.state) {
-			ISBN = location.state.ISBN
+			ISBN = location.state.ISBN;
+		}
+		let description = "";
+		if (location.state && "description" in location.state) {
+			description = location.state.description;
 		}
 
 		return (
 			<div>
-				<h2>this is bookinfo page</h2>
-				<div>
-					tiltle: {title}
-				</div>
-
-				<div>
-					<img src={thumbnailURL} alt={alt} className="thumbnail" />
-				</div>
-
-				<div>
-					ISBN: {ISBN}
-				</div>
-
-				<div>
-					概要：
-				</div>
-
+				<AppHeader />
+				<Card className={classes.spacer} />
+				<BookDetailCard
+					imageSource={thumbnailURL}
+					title={title}
+					ISBN={ISBN}
+					description={description}
+					className={classes.card}
+				/>
 				<Button variant="contained" className={classes.button}>
 					Amazonリンク
 				</Button>
 
 				<Link to={{
-						pathname: "/bookinfo/"+this.state.bookID+"/review",
-						state: {
-							title  : title,
-							bookID : this.state.bookID,
-							ISBN   : ISBN
-						}
-					}}>
+					pathname: "/bookinfo/" + this.state.bookID + "/review",
+					state: {
+						title: title,
+						bookID: this.state.bookID,
+						ISBN: ISBN
+					}
+				}}>
 					<Button variant="contained" color="primary" className={classes.button}>
 						レビューする
 					</Button>
@@ -91,7 +95,7 @@ class BookInfo extends Component {
 				<Button variant="contained" color="secondary" className={classes.button}>
 					気になる
 				</Button>
-				<BookEvaluation itemData={this.props.reviews}/>
+				<BookEvaluation itemData={this.props.reviews} />
 			</div>
 		);
 	}
