@@ -32,6 +32,11 @@ function HelloMessage(props) {
 		}
 	}
 
+	let description = "情報なし";
+	if (props.item.volumeInfo.description !== void 0) {
+		description = props.item.volumeInfo.description;
+	}
+
 	const alt = "image" + props.index;
 	// cf. https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md
 	return (
@@ -41,7 +46,8 @@ function HelloMessage(props) {
 				bookID: bookID,
 				title: title,
 				thumbnailURL: thumbnailURL,
-				ISBN: ISBN
+				ISBN: ISBN,
+				description: description,
 			}
 		}}>
 			<Card key={props.index}>
