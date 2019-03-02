@@ -68,7 +68,7 @@ class Record extends React.Component {
 				>
 					<TabContainer dir={theme.direction}>
 						<ReviewBookList/>
-						</TabContainer>
+					</TabContainer>
 					<TabContainer dir={theme.direction}>
 						<FavoriteBookList/>
 					</TabContainer>

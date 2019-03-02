@@ -16,6 +16,20 @@ class Search extends Component {
 	}
 
 	render() {
+		let shownBookCount = 0;
+		let shownBookCountText = "";
+		// undefinedチェック
+		if( this.props.books === void 0){
+			shownBookCountText = "";
+		} else {
+			shownBookCount = this.props.books.length;
+			if shownBookCount > 0 {
+				shownBookCountText = shownBookCount + "個の書籍を表示中"
+			} else {
+				shownBookCountText = "現在のキーワードではヒットする書籍がありません"
+			}
+
+		}
 		return (
 			<div>
 				<AppHeader />
@@ -24,7 +38,7 @@ class Search extends Component {
 				<span>
 					<SearchForm onSubmit={this.submit.bind(this)}/>
 				</span>
-
+				{shownBookCountText}
 				<SearchedBookCards itemData={this.props.books}/>
 			</div>
 		);

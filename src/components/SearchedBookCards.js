@@ -11,7 +11,10 @@ function HelloMessage(props) {
 	// XXX: jsonのif判定は見直したほうがいいかも
 	let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
 	if ( "volumeInfo" in props.item) {
-		thumbnailURL = props.item.volumeInfo.imageLinks.thumbnail;
+		// undefined判定をしないとサムネのURLがない場合に落ちる
+		if( props.item.volumeInfo.imageLinks !== void 0){
+			thumbnailURL = props.item.volumeInfo.imageLinks.thumbnail;
+		}
 	}
 
 	let bookID = "";
