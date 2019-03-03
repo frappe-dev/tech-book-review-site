@@ -16,7 +16,7 @@ class EvaluationSelector extends React.Component {
         super(props);
         this.handleChangeValue = this.handleChangeValue.bind(this);
         this.state = {
-            selectedValue: ''
+            selectedValue: " "
         };
     }
 

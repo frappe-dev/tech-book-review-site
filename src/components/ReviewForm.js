@@ -13,6 +13,14 @@ import EvaluationSelector from '../components/EvaluationSelector'
 // action
 import { postReviewRequested } from '../actions/ReviewActions';
 
+function isMotivationSuitableLevelDisabled(motivationFreeText) {
+	if (motivationFreeText === " ") {
+		return true
+	} else {
+		return false
+	}
+}
+
 const styles = theme => ({
 	button: {
 		margin: theme.spacing.unit,
@@ -22,29 +30,23 @@ const styles = theme => ({
 class ReviewForm extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			reviewPoint1: '',
-			reviewPoint2: '',
-			reviewPoint3: '',
-			overAllPoints: '',
-			motivationFreeText: '',
-			motivationSuitableLevel: '',
-			motivationSuitableLevelDisabled: true,
-			reccomendReaderLevel: '',
-		};
 		this.updateState = this.updateState.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		this.state = {
+			reviewPoint1: 0,
+			reviewPoint2: 0,
+			reviewPoint3: 0,
+			overAllPoints: 0,
+			motivationFreeText: " ",
+			motivationSuitableLevel: 0,
+			recomendReaderLevel: " ",
+			freeWriting: " ",
+		};
 	}
 
 	updateState(state) {
 		this.setState(state);
 		this.props.updateState(state);
-		if (this.state.motivationFreeText === "") {
-			this.setState({ motivationSuitableLevelDisabled: true });
-		} else {
-			this.setState({ motivationSuitableLevelDisabled: false });
-		}
-		console.log(this.state);
 	}
 
 	async onSubmit() {
@@ -80,14 +82,14 @@ class ReviewForm extends React.Component {
 			bookID: this.props.bookID,
 			userID: userID,
 			overallpoints: this.state.overAllPoints,
-			evaluation: {
-				param1: this.state.reviewPoint1,
-				param2: this.state.reviewPoint2,
-				param3: this.state.reviewPoint3,
-				param4: this.state.motivationFreeText,
-				param5: this.state.motivationSuitableLevel,
-				param6: this.state.reccomendReaderLevel,
-			},
+			evaluation: [
+				{ key: this.props.reviewPoint1Title, value: this.state.reviewPoint1 },
+				{ key: this.props.reviewPoint2Title, value: this.state.reviewPoint2 },
+				{ key: this.props.reviewPoint3Title, value: this.state.reviewPoint3 },
+				{ key: this.props.freeWordInputTitle, value: this.state.motivationFreeText, suitableLevel: this.state.motivationSuitableLevel },
+				{ key: this.props.recomendReaderLevelTitle, value: this.state.recomendReaderLevel },
+				{ key: this.props.freeWritingTitle, value: this.state.freeWriting }
+			],
 			ISBN: ISBN,
 		}
 		console.log(params);
@@ -96,49 +98,56 @@ class ReviewForm extends React.Component {
 
 	render() {
 		const { classes } = this.props;
+		console.log(this.state);
 		return (
 			<form>
 				<EvaluationRadioButtons
 					updateState={this.updateState}
-					title="文章の読みやすさ"
+					title={this.props.reviewPoint1Title}
 					reviewKeyName="reviewPoint1"
 				/>
 				<br />
 				<EvaluationRadioButtons
 					updateState={this.updateState}
-					title="図や例の多さ"
+					title={this.props.reviewPoint2Title}
 					reviewKeyName="reviewPoint2"
 				/>
 				<br />
 				<EvaluationRadioButtons
 					updateState={this.updateState}
-					title="内容の正確さ"
+					title={this.props.reviewPoint3Title}
 					reviewKeyName="reviewPoint3"
 				/>
 				<br />
 				<EvaluationRadioButtons
 					updateState={this.updateState}
-					title="全体的な満足度"
+					title={this.props.overAllPointsTitle}
 					reviewKeyName="overAllPoints"
 				/>
 				<br />
 				<FreeWordInput
 					updateState={this.updateState}
 					reviewKeyName="motivationFreeText"
-					label="買った動機（任意）"
+					label={this.props.freeWordInputTitle}
 				/>
 				<br />
 				<EvaluationRadioButtons
 					updateState={this.updateState}
-					title="動機に適していたか"
+					title={this.props.motivationSuitableLevelTitle}
 					reviewKeyName="motivationSuitableLevel"
-					disabled={this.state.motivationSuitableLevelDisabled}
+					disabled={isMotivationSuitableLevelDisabled(this.state.motivationFreeText)}
 				/>
 				<br />
 				<EvaluationSelector
 					updateState={this.updateState}
-					reviewKeyName="reccomendReaderLevel"
-					label="読んでほしい読者のレベル（任意）"
+					reviewKeyName="recomendReaderLevel"
+					label={this.props.recomendReaderLevelTitle}
+				/>
+				<br />
+				<FreeWordInput
+					updateState={this.updateState}
+					reviewKeyName="freeWriting"
+					label={this.props.freeWritingTitle}
 				/>
 				<br />
 				<Button variant="contained" color="secondary" className={classes.button} onClick={this.onSubmit}>

@@ -8,23 +8,32 @@ const styles = ({
     },
 });
 
+// ""のままだとAPIを叩いた時にエラーになるので修正
+function validateFreeWordInput(input) {
+    if (input === "") {
+        return " ";
+    } else {
+        return input;
+    }
+}
+
 class FreeWordInput extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeText = this.handleChangeText.bind(this);
         this.keyPress = this.keyPress.bind(this);
         this.state = {
-            selectedValue: ''
+            inputWords: " "
         };
     }
 
     handleChangeText(event) {
-        this.setState({ "selectedValue": event.target.value });
-        this.props.updateState({ [event.target.name]: event.target.value });
+        this.setState({ "inputWords": validateFreeWordInput(event.target.value) });
+        this.props.updateState({ [event.target.name]: validateFreeWordInput(event.target.value) });
     }
 
     keyPress(event) {
-        this.setState({ "selectedValue": event.target.value });
+        this.setState({ "inputWords": event.target.value });
         this.props.updateState({ [event.target.name]: event.target.value });
         // EnterKeyでページが更新されるのを防ぐ
         if (event.key === 'Enter') {
@@ -38,7 +47,7 @@ class FreeWordInput extends React.Component {
             <TextField
                 className={classes.textField}
                 name={this.props.reviewKeyName}
-                value={this.state.selectedValue}
+                value={this.state.inputWords}
                 onChange={this.handleChangeText}
                 onKeyPress={this.keyPress}
                 label={this.props.label}
