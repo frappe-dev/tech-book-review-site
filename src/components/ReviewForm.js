@@ -14,10 +14,10 @@ import EvaluationSelector from '../components/EvaluationSelector'
 import { postReviewRequested } from '../actions/ReviewActions';
 
 function isMotivationSuitableLevelDisabled(motivationFreeText) {
-	if (motivationFreeText === " ") {
-		return true
+	if (motivationFreeText === "") {
+		return true;
 	} else {
-		return false
+		return false;
 	}
 }
 
@@ -37,10 +37,10 @@ class ReviewForm extends React.Component {
 			reviewPoint2: 0,
 			reviewPoint3: 0,
 			overAllPoints: 0,
-			motivationFreeText: " ",
+			motivationFreeText: "",
 			motivationSuitableLevel: 0,
-			recomendReaderLevel: " ",
-			freeWriting: " ",
+			recomendReaderLevel: "",
+			freeWriting: "",
 		};
 	}
 
@@ -71,12 +71,12 @@ class ReviewForm extends React.Component {
 				console.log(err);
 			})
 		if (!auth) {
-			this.props.history.push('/login')
+			this.props.history.push('/login');
 			return;
 		}
 		let ISBN = this.props.ISBN;
 		if (!ISBN) {
-			ISBN = "-"
+			ISBN = "-";
 		}
 		let params = {
 			bookID: this.props.bookID,
@@ -91,7 +91,7 @@ class ReviewForm extends React.Component {
 				{ key: this.props.freeWritingTitle, value: this.state.freeWriting }
 			],
 			ISBN: ISBN,
-		}
+		};
 		console.log(params);
 		this.props.postReview(params);
 	}

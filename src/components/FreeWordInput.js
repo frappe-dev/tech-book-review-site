@@ -8,28 +8,19 @@ const styles = ({
     },
 });
 
-// ""のままだとAPIを叩いた時にエラーになるので修正
-function validateFreeWordInput(input) {
-    if (input === "") {
-        return " ";
-    } else {
-        return input;
-    }
-}
-
 class FreeWordInput extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeText = this.handleChangeText.bind(this);
         this.keyPress = this.keyPress.bind(this);
         this.state = {
-            inputWords: " "
+            inputWords: ""
         };
     }
 
     handleChangeText(event) {
-        this.setState({ "inputWords": validateFreeWordInput(event.target.value) });
-        this.props.updateState({ [event.target.name]: validateFreeWordInput(event.target.value) });
+        this.setState({ "inputWords": event.target.value });
+        this.props.updateState({ [event.target.name]: event.target.value });
     }
 
     keyPress(event) {
