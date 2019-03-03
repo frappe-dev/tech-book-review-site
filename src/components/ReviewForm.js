@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Auth } from 'aws-amplify';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
 // component
 import EvaluationRadioButtons from '../components/EvaluationRadioButtons';
@@ -11,6 +13,12 @@ import EvaluationSelector from '../components/EvaluationSelector'
 // action
 import { postReviewRequested } from '../actions/ReviewActions';
 
+const styles = theme => ({
+	button: {
+		margin: theme.spacing.unit,
+	},
+});
+
 class ReviewForm extends React.Component {
 	constructor(props) {
 		super(props);
@@ -18,10 +26,11 @@ class ReviewForm extends React.Component {
 			reviewPoint1: '',
 			reviewPoint2: '',
 			reviewPoint3: '',
-			reviewPoint4: '',
-			reviewPoint5: '',
-			reviewPoint6: '',
-			reviewPoint7: '',
+			overAllPoints: '',
+			motivationFreeText: '',
+			motivationSuitableLevel: '',
+			motivationSuitableLevelDisabled: true,
+			reccomendReaderLevel: '',
 		};
 		this.updateState = this.updateState.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -30,11 +39,15 @@ class ReviewForm extends React.Component {
 	updateState(state) {
 		this.setState(state);
 		this.props.updateState(state);
+		if (this.state.motivationFreeText === "") {
+			this.setState({ motivationSuitableLevelDisabled: true });
+		} else {
+			this.setState({ motivationSuitableLevelDisabled: false });
+		}
 		console.log(this.state);
 	}
 
 	async onSubmit() {
-		console.log(this.state);
 		// check isAuthenticated
 		let auth = false;
 		let userID = "";
@@ -59,32 +72,30 @@ class ReviewForm extends React.Component {
 			this.props.history.push('/login')
 			return;
 		}
-		console.log("userID: " + userID);
 		let ISBN = this.props.ISBN;
 		if (!ISBN) {
 			ISBN = "-"
 		}
-		console.log("ISBN: " + ISBN);
-		console.log("BookID: " + this.props.bookID);
 		let params = {
 			bookID: this.props.bookID,
 			userID: userID,
-			overallpoints: "3", //TODO: formに追加する
+			overallpoints: this.state.overAllPoints,
 			evaluation: {
 				param1: this.state.reviewPoint1,
 				param2: this.state.reviewPoint2,
 				param3: this.state.reviewPoint3,
-				param4: this.state.reviewPoint4,
-				param5: this.state.reviewPoint5,
-				param6: this.state.reviewPoint6,
-				param7: this.state.reviewPoint7,
+				param4: this.state.motivationFreeText,
+				param5: this.state.motivationSuitableLevel,
+				param6: this.state.reccomendReaderLevel,
 			},
 			ISBN: ISBN,
 		}
+		console.log(params);
 		this.props.postReview(params);
 	}
 
 	render() {
+		const { classes } = this.props;
 		return (
 			<form>
 				<EvaluationRadioButtons
@@ -108,28 +119,31 @@ class ReviewForm extends React.Component {
 				<EvaluationRadioButtons
 					updateState={this.updateState}
 					title="全体的な満足度"
-					reviewKeyName="reviewPoint4"
+					reviewKeyName="overAllPoints"
 				/>
 				<br />
 				<FreeWordInput
 					updateState={this.updateState}
-					reviewKeyName="reviewPoint5"
+					reviewKeyName="motivationFreeText"
 					label="買った動機（任意）"
 				/>
 				<br />
-				<FreeWordInput
+				<EvaluationRadioButtons
 					updateState={this.updateState}
-					reviewKeyName="reviewPoint6"
-					label="動機に適していたか（任意）"
+					title="動機に適していたか"
+					reviewKeyName="motivationSuitableLevel"
+					disabled={this.state.motivationSuitableLevelDisabled}
 				/>
 				<br />
 				<EvaluationSelector
 					updateState={this.updateState}
-					reviewKeyName="reviewPoint7"
+					reviewKeyName="reccomendReaderLevel"
 					label="読んでほしい読者のレベル（任意）"
 				/>
 				<br />
-				<button type="button" name="submit" onClick={this.onSubmit}>送信</button>
+				<Button variant="contained" color="secondary" className={classes.button} onClick={this.onSubmit}>
+					送信
+				</Button>
 			</form>
 		)
 	}
@@ -147,4 +161,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ReviewForm));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ReviewForm)));

@@ -29,7 +29,7 @@ class EvaluationSelector extends React.Component {
         const { classes } = this.props;
         return (
             <FormControl className={classes.selector}>
-                <InputLabel htmlFor="age-simple">{this.props.label}</InputLabel>
+                <InputLabel htmlFor="selector">{this.props.label}</InputLabel>
                 <Select
                     value={this.state.selectedValue}
                     onChange={this.handleChangeValue}
