@@ -9,9 +9,30 @@ import { withStyles } from '@material-ui/core/styles';
 import EvaluationRadioButtons from '../components/EvaluationRadioButtons';
 import FreeWordInput from '../components/FreeWordInput'
 import EvaluationSelector from '../components/EvaluationSelector'
+import AlertDialog from '../components/AlertDialog'
 
 // action
 import { postReviewRequested } from '../actions/ReviewActions';
+
+function checkInputParam(titles, inputParams) {
+	console.log(titles, inputParams)
+	if (inputParams.reviewPoint1 === 0) {
+		return { result: false, errorMessage: titles.reviewPoint1Title + "を選択してください" };
+	} else if (inputParams.reviewPoint2 === 0) {
+		return { result: false, errorMessage: titles.reviewPoint2Title + "を選択してください" };
+	} else if (inputParams.reviewPoint3 === 0) {
+		return { result: false, errorMessage: titles.reviewPoint3Title + "を選択してください" };
+	} else if (inputParams.overAllPoints === 0) {
+		return { result: false, errorMessage: titles.overAllPointsTitle + "を選択してください" };
+	} else if (inputParams.motivationFreeText.length > 100) {
+		return { result: false, errorMessage: titles.motivationSuitableLevelTitle + "は100文字以内で入力してください" };
+	} else if (inputParams.freeWriting.length > 200) {
+		return { result: false, errorMessage: titles.freeWritingTitle + "は200文字以内で入力してください" };
+	} else {
+		return { result: true, errorMessage: "" };
+	}
+}
+
 
 function isMotivationSuitableLevelDisabled(motivationFreeText) {
 	if (motivationFreeText === "") {
@@ -41,6 +62,8 @@ class ReviewForm extends React.Component {
 			motivationSuitableLevel: 0,
 			recomendReaderLevel: "",
 			freeWriting: "",
+			canPutParams: true,
+			inputParamsErrorMessage: "",
 		};
 	}
 
@@ -74,26 +97,35 @@ class ReviewForm extends React.Component {
 			this.props.history.push('/login');
 			return;
 		}
-		let ISBN = this.props.ISBN;
-		if (!ISBN) {
-			ISBN = "-";
+		let checkInputParamResult = checkInputParam(this.props, this.state)
+		this.setState({
+			canPutParams: checkInputParamResult.result,
+			inputParamsErrorMessage: checkInputParamResult.errorMessage,
+		})
+		if (checkInputParamResult.result) {
+			let ISBN = this.props.ISBN;
+			if (!ISBN) {
+				ISBN = "-";
+			}
+			let params = {
+				bookID: this.props.bookID,
+				userID: userID,
+				overallpoints: this.state.overAllPoints,
+				evaluation: [
+					{ key: this.props.reviewPoint1Title, value: this.state.reviewPoint1 },
+					{ key: this.props.reviewPoint2Title, value: this.state.reviewPoint2 },
+					{ key: this.props.reviewPoint3Title, value: this.state.reviewPoint3 },
+					{ key: this.props.freeWordInputTitle, value: this.state.motivationFreeText, suitableLevel: this.state.motivationSuitableLevel },
+					{ key: this.props.recomendReaderLevelTitle, value: this.state.recomendReaderLevel },
+					{ key: this.props.freeWritingTitle, value: this.state.freeWriting }
+				],
+				ISBN: ISBN,
+			};
+			console.log(params);
+			this.props.postReview(params);
+		} else {
+			console.log(checkInputParamResult.errorMessage);
 		}
-		let params = {
-			bookID: this.props.bookID,
-			userID: userID,
-			overallpoints: this.state.overAllPoints,
-			evaluation: [
-				{ key: this.props.reviewPoint1Title, value: this.state.reviewPoint1 },
-				{ key: this.props.reviewPoint2Title, value: this.state.reviewPoint2 },
-				{ key: this.props.reviewPoint3Title, value: this.state.reviewPoint3 },
-				{ key: this.props.freeWordInputTitle, value: this.state.motivationFreeText, suitableLevel: this.state.motivationSuitableLevel },
-				{ key: this.props.recomendReaderLevelTitle, value: this.state.recomendReaderLevel },
-				{ key: this.props.freeWritingTitle, value: this.state.freeWriting }
-			],
-			ISBN: ISBN,
-		};
-		console.log(params);
-		this.props.postReview(params);
 	}
 
 	render() {
@@ -101,6 +133,11 @@ class ReviewForm extends React.Component {
 		console.log(this.state);
 		return (
 			<form>
+				<AlertDialog
+					title={this.state.inputParamsErrorMessage}
+					isOpen={!this.state.canPutParams}
+					updateState={this.updateState}
+				/>
 				<EvaluationRadioButtons
 					updateState={this.updateState}
 					title={this.props.reviewPoint1Title}
