@@ -15,7 +15,6 @@ import AlertDialog from '../components/AlertDialog'
 import { postReviewRequested } from '../actions/ReviewActions';
 
 function checkInputParam(titles, inputParams) {
-	console.log(titles, inputParams)
 	if (inputParams.reviewPoint1 === 0) {
 		return { result: false, errorMessage: titles.reviewPoint1Title + "を選択してください" };
 	} else if (inputParams.reviewPoint2 === 0) {
@@ -121,10 +120,7 @@ class ReviewForm extends React.Component {
 				],
 				ISBN: ISBN,
 			};
-			console.log(params);
 			this.props.postReview(params);
-		} else {
-			console.log(checkInputParamResult.errorMessage);
 		}
 	}
 

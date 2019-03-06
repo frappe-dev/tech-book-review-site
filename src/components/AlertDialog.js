@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 class AlertDialog extends React.Component {
 
     handleClose = () => {
-        this.setState({ open: false });
+        // ReviweFormのStateを変えないとダイアログが開いてしまう
         this.props.updateState({ canPutParams: true });
     };
 
