@@ -25,8 +25,8 @@ function checkInputParam(titles, inputParams) {
 		return { result: false, errorMessage: titles.overAllPointsTitle + "を選択してください" };
 	} else if (inputParams.motivationFreeText.length > 100) {
 		return { result: false, errorMessage: titles.motivationSuitableLevelTitle + "は100文字以内で入力してください" };
-	} else if (inputParams.freeWriting.length > 200) {
-		return { result: false, errorMessage: titles.freeWritingTitle + "は200文字以内で入力してください" };
+	} else if (inputParams.freeWriting.length > 800) {
+		return { result: false, errorMessage: titles.freeWritingTitle + "は800文字以内で入力してください" };
 	} else {
 		return { result: true, errorMessage: "" };
 	}
