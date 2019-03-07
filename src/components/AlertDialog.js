@@ -10,7 +10,7 @@ class AlertDialog extends React.Component {
 
     handleClose = () => {
         // ReviweFormのStateを変えないとダイアログが開いてしまう
-        this.props.updateState({ canPutParams: true });
+        this.props.updateState({ isAlertOpen: false });
     };
 
     render() {

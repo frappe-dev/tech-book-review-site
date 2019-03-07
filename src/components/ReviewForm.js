@@ -7,12 +7,18 @@ import { withStyles } from '@material-ui/core/styles';
 
 // component
 import EvaluationRadioButtons from '../components/EvaluationRadioButtons';
-import FreeWordInput from '../components/FreeWordInput'
+import FreeWordInputTextField from './FreeWordInputTextField'
 import EvaluationSelector from '../components/EvaluationSelector'
 import AlertDialog from '../components/AlertDialog'
 
 // action
 import { postReviewRequested } from '../actions/ReviewActions';
+
+const styles = theme => ({
+	button: {
+		margin: theme.spacing.unit,
+	},
+});
 
 function checkInputParam(titles, inputParams) {
 	if (inputParams.reviewPoint1 === 0) {
@@ -24,7 +30,7 @@ function checkInputParam(titles, inputParams) {
 	} else if (inputParams.overAllPoints === 0) {
 		return { result: false, errorMessage: titles.overAllPointsTitle + "を選択してください" };
 	} else if (inputParams.motivationFreeText.length > 100) {
-		return { result: false, errorMessage: titles.motivationSuitableLevelTitle + "は100文字以内で入力してください" };
+		return { result: false, errorMessage: titles.motivationFreeTextTitle + "は100文字以内で入力してください" };
 	} else if (inputParams.freeWriting.length > 800) {
 		return { result: false, errorMessage: titles.freeWritingTitle + "は800文字以内で入力してください" };
 	} else {
@@ -41,12 +47,6 @@ function isMotivationSuitableLevelDisabled(motivationFreeText) {
 	}
 }
 
-const styles = theme => ({
-	button: {
-		margin: theme.spacing.unit,
-	},
-});
-
 class ReviewForm extends React.Component {
 	constructor(props) {
 		super(props);
@@ -61,7 +61,7 @@ class ReviewForm extends React.Component {
 			motivationSuitableLevel: 0,
 			recomendReaderLevel: "",
 			freeWriting: "",
-			canPutParams: true,
+			isAlertOpen: false,
 			inputParamsErrorMessage: "",
 		};
 	}
@@ -98,14 +98,11 @@ class ReviewForm extends React.Component {
 		}
 		let checkInputParamResult = checkInputParam(this.props, this.state)
 		this.setState({
-			canPutParams: checkInputParamResult.result,
+			isAlertOpen: !checkInputParamResult.result,
 			inputParamsErrorMessage: checkInputParamResult.errorMessage,
 		})
 		if (checkInputParamResult.result) {
-			let ISBN = this.props.ISBN;
-			if (!ISBN) {
-				ISBN = "-";
-			}
+			let ISBN = this.props.ISBN ? this.props.ISBN : "-";
 			let params = {
 				bookID: this.props.bookID,
 				userID: userID,
@@ -131,7 +128,7 @@ class ReviewForm extends React.Component {
 			<form>
 				<AlertDialog
 					title={this.state.inputParamsErrorMessage}
-					isOpen={!this.state.canPutParams}
+					isOpen={this.state.isAlertOpen}
 					updateState={this.updateState}
 				/>
 				<EvaluationRadioButtons
@@ -158,10 +155,10 @@ class ReviewForm extends React.Component {
 					reviewKeyName="overAllPoints"
 				/>
 				<br />
-				<FreeWordInput
+				<FreeWordInputTextField
 					updateState={this.updateState}
 					reviewKeyName="motivationFreeText"
-					label={this.props.freeWordInputTitle}
+					label={this.props.motivationFreeTextTitle}
 				/>
 				<br />
 				<EvaluationRadioButtons
@@ -177,7 +174,7 @@ class ReviewForm extends React.Component {
 					label={this.props.recomendReaderLevelTitle}
 				/>
 				<br />
-				<FreeWordInput
+				<FreeWordInputTextField
 					updateState={this.updateState}
 					reviewKeyName="freeWriting"
 					label={this.props.freeWritingTitle}

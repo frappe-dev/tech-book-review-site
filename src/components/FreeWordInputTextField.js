@@ -8,7 +8,7 @@ const styles = ({
     },
 });
 
-class FreeWordInput extends React.Component {
+class FreeWordInputTextField extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeText = this.handleChangeText.bind(this);
@@ -48,4 +48,4 @@ class FreeWordInput extends React.Component {
     }
 }
 
-export default withStyles(styles)(FreeWordInput);
+export default withStyles(styles)(FreeWordInputTextField);
