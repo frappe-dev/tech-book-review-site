@@ -31,8 +31,8 @@ class Review extends Component {
 					reviewPoint2Title="図や例の多さ"
 					reviewPoint3Title="内容の正確さ"
 					overAllPointsTitle="全体的な満足度"
-					freeWordInputTitle="買った動機（任意）"
-					motivationSuitableLevelTitle="動機に適していたか"
+					motivationFreeTextTitle="買った動機（任意）"
+					motivationSuitableLevelTitle="動機に適していたか（任意）"
 					recomendReaderLevelTitle="読んでほしい読者のレベル（任意）"
 					freeWritingTitle="自由記述（任意）"
 				/>
