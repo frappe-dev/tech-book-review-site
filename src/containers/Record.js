@@ -6,8 +6,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import ReviewBookList from '../components/ReviewBookList'
-import FavoriteBookList from '../components/FavoriteBookList'
+import UserReviewList from '../components/UserReviewList'
+import UserFavoriteList from '../components/UserFavoriteList'
 
 // header
 import AppHeader from '../components/AppHeader';
@@ -48,7 +48,7 @@ class Record extends React.Component {
 
 		return (
 			<div className={classes.root}>
-				<AppHeader/>
+				<AppHeader />
 				<AppBar position="static" color="default">
 					<Tabs
 						value={this.state.value}
@@ -67,10 +67,10 @@ class Record extends React.Component {
 					onChangeIndex={this.handleChangeIndex}
 				>
 					<TabContainer dir={theme.direction}>
-						<ReviewBookList/>
+						<UserReviewList />
 					</TabContainer>
 					<TabContainer dir={theme.direction}>
-						<FavoriteBookList/>
+						<UserFavoriteList />
 					</TabContainer>
 				</SwipeableViews>
 			</div>

@@ -111,7 +111,7 @@ class ReviewForm extends React.Component {
 					{ key: this.props.reviewPoint1Title, value: this.state.reviewPoint1 },
 					{ key: this.props.reviewPoint2Title, value: this.state.reviewPoint2 },
 					{ key: this.props.reviewPoint3Title, value: this.state.reviewPoint3 },
-					{ key: this.props.freeWordInputTitle, value: this.state.motivationFreeText, suitableLevel: this.state.motivationSuitableLevel },
+					{ key: this.props.motivationFreeTextTitle, value: this.state.motivationFreeText, suitableLevel: this.state.motivationSuitableLevel },
 					{ key: this.props.recomendReaderLevelTitle, value: this.state.recomendReaderLevel },
 					{ key: this.props.freeWritingTitle, value: this.state.freeWriting }
 				],

@@ -8,6 +8,7 @@ import Card from '@material-ui/core/Card';
 // component
 import BookEvaluation from '../components/BookEvaluation';
 import BookDetailCard from '../components/BookDetailCard';
+import BookReviewList from '../components/BookReviewList';
 
 // header
 import AppHeader from '../components/AppHeader';
@@ -96,6 +97,7 @@ class BookInfo extends Component {
 					気になる
 				</Button>
 				<BookEvaluation itemData={this.props.reviews} />
+				<BookReviewList reviews={this.props.reviews} />
 			</div>
 		);
 	}
