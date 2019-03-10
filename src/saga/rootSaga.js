@@ -86,6 +86,7 @@ function* handleSearchBook() {
         const action = yield take(ActionNameList.searchBookRequested);
         const { result, err } = yield call(searchBook, action.payload);
         if (!err) {
+            console.log(result.data);
             yield put({ type: ActionNameList.searchBookSucceeded, payload: result.data.items });
         } else {
             console.log("err is happened");

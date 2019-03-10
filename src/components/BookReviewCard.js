@@ -26,7 +26,7 @@ function EvaluationContent(evaluation) {
 }
 
 function BookReviewCard(props) {
-    const { classes, updateState, overAllPoints, evaluation, index } = props;
+    const { classes, updateTime, overAllPoints, evaluation, index } = props;
     return (
         <Card className={classes.card}>
             <CardContent>
@@ -34,7 +34,7 @@ function BookReviewCard(props) {
                     {index + 1}件目のレビュー
                 </Typography>
                 <Typography component="p">
-                    投稿日：{updateState.substring(0, 10)}
+                    投稿日：{updateTime.substring(0, 10)}
                 </Typography>
                 <Typography component="p">
                     総合評価：{overAllPoints}
