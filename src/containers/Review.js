@@ -24,9 +24,11 @@ class Review extends Component {
 				<h2>{location.state.title}</h2>
 
 				<ReviewForm
+					bookTitle={location.state.title}
 					updateState={this.updateState}
 					bookID={location.state.bookID}
 					ISBN={location.state.ISBN}
+					thumbnailURL={location.state.thumbnailURL}
 					reviewPoint1Title="文章の読みやすさ"
 					reviewPoint2Title="図や例の多さ"
 					reviewPoint3Title="内容の正確さ"

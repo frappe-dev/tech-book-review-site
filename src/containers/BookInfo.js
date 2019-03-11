@@ -85,7 +85,8 @@ class BookInfo extends Component {
 					state: {
 						title: title,
 						bookID: this.state.bookID,
-						ISBN: ISBN
+						ISBN: ISBN,
+						thumbnailURL: thumbnailURL,
 					}
 				}}>
 					<Button variant="contained" color="primary" className={classes.button}>
