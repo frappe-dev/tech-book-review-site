@@ -37,7 +37,7 @@ class BookInfo extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			bookID: 'BOOK1',
+			bookID: '',
 			title: '',
 			thumbnailURL: '',
 			ISBN: ''
@@ -45,7 +45,7 @@ class BookInfo extends Component {
 	}
 
 	componentDidMount() {
-		let bookID = "x";
+		let bookID = "";
 		if (this.props.location.state && "bookID" in this.props.location.state) {
 			bookID = this.props.location.state.bookID
 		}
