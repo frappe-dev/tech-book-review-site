@@ -3,7 +3,7 @@ import { ActionNameList } from '../ActionNameList';
 import axios from 'axios';
 
 const GOOGLE_BOOK_API_ENDPOINT = "https://www.googleapis.com/books/v1/volumes";
-const BOOKREVIEW_API_ENDPOINT  = "https://nd40yngtt7.execute-api.ap-northeast-1.amazonaws.com/dev/"; //　ソースコードで持たないほうがいい??
+const BOOKREVIEW_API_ENDPOINT = "https://nd40yngtt7.execute-api.ap-northeast-1.amazonaws.com/dev/"; //　ソースコードで持たないほうがいい??
 
 function getReview(keyword) {
     const bookID = keyword;
@@ -25,6 +25,7 @@ function getReview(keyword) {
 
 function postReview(params) {
     //XXX: parse params from body
+    console.log(params)
     return axios.post(BOOKREVIEW_API_ENDPOINT + "bookreview", JSON.stringify(params)
     ).then(res => {
         const result = res;
@@ -55,11 +56,11 @@ function* handleGetReview() {
         if (!err) {
             console.log("succeed!!!");
             console.log(result.data);
-            yield put({type: ActionNameList.getReviewSucceeded, payload: result.data});
+            yield put({ type: ActionNameList.getReviewSucceeded, payload: result.data });
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({type: ActionNameList.getReviewError, isError: true});
+            yield put({ type: ActionNameList.getReviewError, isError: true });
         }
     }
 }
@@ -75,7 +76,7 @@ function* handlePostReview() {
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({type: ActionNameList.postReviewError, isError: true});
+            yield put({ type: ActionNameList.postReviewError, isError: true });
         }
     }
 }
@@ -85,11 +86,12 @@ function* handleSearchBook() {
         const action = yield take(ActionNameList.searchBookRequested);
         const { result, err } = yield call(searchBook, action.payload);
         if (!err) {
-            yield put({type: ActionNameList.searchBookSucceeded, payload: result.data.items});
+            console.log(result.data);
+            yield put({ type: ActionNameList.searchBookSucceeded, payload: result.data.items });
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({type: ActionNameList.searchBookError, isError: true});
+            yield put({ type: ActionNameList.searchBookError, isError: true });
         }
     }
 }

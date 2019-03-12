@@ -12,7 +12,7 @@ class Review extends Component {
 		this.updateState = this.updateState.bind(this);
 	}
 
-	updateState(state){
+	updateState(state) {
 		this.setState(state);
 	}
 
@@ -27,6 +27,14 @@ class Review extends Component {
 					updateState={this.updateState}
 					bookID={location.state.bookID}
 					ISBN={location.state.ISBN}
+					reviewPoint1Title="文章の読みやすさ"
+					reviewPoint2Title="図や例の多さ"
+					reviewPoint3Title="内容の正確さ"
+					overAllPointsTitle="全体的な満足度"
+					motivationFreeTextTitle="買った動機（任意）"
+					motivationSuitableLevelTitle="動機に適していたか（任意）"
+					recomendReaderLevelTitle="読んでほしい読者のレベル（任意）"
+					freeWritingTitle="自由記述（任意）"
 				/>
 			</div>
 		);

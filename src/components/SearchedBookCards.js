@@ -10,40 +10,46 @@ function HelloMessage(props) {
 
 	// XXX: jsonのif判定は見直したほうがいいかも
 	let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
-	if ( "volumeInfo" in props.item) {
+	if ("volumeInfo" in props.item && props.item.volumeInfo.imageLinks !== void 0) {
 		thumbnailURL = props.item.volumeInfo.imageLinks.thumbnail;
 	}
 
 	let bookID = "";
-	if ( "id" in props.item) {
+	if ("id" in props.item) {
 		bookID = props.item.id;
 	} else {
 		//idがないものは表示しない(returnの仕方は暫定)
-		return(
+		return (
 			<h3>no data</h3>
 		);
 	}
 
 	// ISBNがあれば取得
 	let ISBN = "";
-	if ( "industryIdentifiers" in props.item.volumeInfo){
+	if ("industryIdentifiers" in props.item.volumeInfo) {
 		if (props.item.volumeInfo.industryIdentifiers[1]) {
 			ISBN = props.item.volumeInfo.industryIdentifiers[1].identifier;
 		}
 	}
 
-	const alt = "image"+props.index;
+	let description = "情報なし";
+	if (props.item.volumeInfo.description !== void 0) {
+		description = props.item.volumeInfo.description;
+	}
+
+	const alt = "image" + props.index;
 	// cf. https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md
-	return(
+	return (
 		<Link to={{
-				pathname: "/bookinfo/"+bookID,
-				state: {
-					bookID: bookID,
-					title: title,
-					thumbnailURL: thumbnailURL,
-					ISBN: ISBN
-				}
-			}}>
+			pathname: "/bookinfo/" + bookID,
+			state: {
+				bookID: bookID,
+				title: title,
+				thumbnailURL: thumbnailURL,
+				ISBN: ISBN,
+				description: description,
+			}
+		}}>
 			<Card key={props.index}>
 				<CardContent>
 					<Typography variant="headline" component="h2">
@@ -62,14 +68,14 @@ function HelloMessage(props) {
 export default class SearchedBookCards extends React.Component {
 	render() {
 		const { itemData } = this.props;
-		return(
+		return (
 			<div>
 				{
 					itemData && itemData.map((item, index) =>
-					<HelloMessage item={item} index={index} key={index} />
-				)
-			}
-		</div>
-	);
-}
+						<HelloMessage item={item} index={index} key={index} />
+					)
+				}
+			</div>
+		);
+	}
 }
