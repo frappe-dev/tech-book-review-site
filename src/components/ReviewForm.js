@@ -106,9 +106,7 @@ class ReviewForm extends React.Component {
 			let bookTitle = this.props.bookTitle ? this.props.bookTitle : "";
 			let thumbnailURL = this.props.thumbnailURL ? this.props.thumbnailURL : "";
 			let params = {
-				title: bookTitle,
 				bookID: this.props.bookID,
-				thumbnailURL: thumbnailURL,
 				userID: userID,
 				overallpoints: this.state.overAllPoints,
 				evaluation: [
@@ -119,7 +117,11 @@ class ReviewForm extends React.Component {
 					{ key: this.props.recomendReaderLevelTitle, value: this.state.recomendReaderLevel },
 					{ key: this.props.freeWritingTitle, value: this.state.freeWriting }
 				],
-				ISBN: ISBN,
+				bookInfo: {
+					title: bookTitle,
+					thumbnailURL: thumbnailURL,
+					ISBN: ISBN,
+				}
 			};
 			this.props.postReview(params);
 		}
