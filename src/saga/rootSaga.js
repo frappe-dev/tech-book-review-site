@@ -3,10 +3,22 @@ import { ActionNameList } from '../ActionNameList';
 import axios from 'axios';
 
 const GOOGLE_BOOK_API_ENDPOINT = "https://www.googleapis.com/books/v1/volumes";
-const BOOKREVIEW_API_ENDPOINT = "https://nd40yngtt7.execute-api.ap-northeast-1.amazonaws.com/dev/"; //　ソースコードで持たないほうがいい??
+const BOOKREVIEW_API_ENDPOINT  = "https://nd40yngtt7.execute-api.ap-northeast-1.amazonaws.com/dev/"; //　ソースコードで持たないほうがいい??
+
+function postBookLike(params) {
+    return axios.post(BOOKREVIEW_API_ENDPOINT + "booklike", JSON.stringify(params)
+    ).then(res => {
+        const result = res;
+        return { result }
+    }).catch(err => {
+        return { err }
+    })
+}
 
 function getReview(keyword) {
     const bookID = keyword;
+    //const bookID = ['kato','sato','suzuki','tanaka','hayama'];
+    //配列で渡せば、","区切りの文字列で渡る
     return axios.get(BOOKREVIEW_API_ENDPOINT + "bookreview?bookID=" + bookID)
         // 下の方法だとCORSでエラーになる. 理解不足
         //headers: {
@@ -25,7 +37,6 @@ function getReview(keyword) {
 
 function postReview(params) {
     //XXX: parse params from body
-    console.log(params)
     return axios.post(BOOKREVIEW_API_ENDPOINT + "bookreview", JSON.stringify(params)
     ).then(res => {
         const result = res;
@@ -49,6 +60,22 @@ function searchBook(keyword) {
     })
 }
 
+function* handlePostBookLike() {
+    while(true) {
+        const action = yield take(ActionNameList.postBookLikeRequested);
+        const { result, err } = yield call(postBookLike, action.payload);
+        if (!err) {
+            console.log("succeed!!!");
+            yield put({type: ActionNameList.postBookLikeSucceeded, payload: result});
+        } else {
+            console.log("err is happened");
+            console.log(err);
+            yield put({type: ActionNameList.postBookLikeError, isError: true});
+        }
+
+    }
+}
+
 function* handleGetReview() {
     while (true) {
         const action = yield take(ActionNameList.getReviewRequested);
@@ -56,11 +83,11 @@ function* handleGetReview() {
         if (!err) {
             console.log("succeed!!!");
             console.log(result.data);
-            yield put({ type: ActionNameList.getReviewSucceeded, payload: result.data });
+            yield put({type: ActionNameList.getReviewSucceeded, payload: result.data});
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({ type: ActionNameList.getReviewError, isError: true });
+            yield put({type: ActionNameList.getReviewError, isError: true});
         }
     }
 }
@@ -72,11 +99,11 @@ function* handlePostReview() {
         if (!err) {
             console.log("succeed");
             console.log(result);
-            //yield put({type: ActionNameList.postReviewSucceeded, payload: result.data.items});
+            yield put({type: ActionNameList.postReviewSucceeded, payload: result});
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({ type: ActionNameList.postReviewError, isError: true });
+            yield put({type: ActionNameList.postReviewError, isError: true});
         }
     }
 }
@@ -86,12 +113,11 @@ function* handleSearchBook() {
         const action = yield take(ActionNameList.searchBookRequested);
         const { result, err } = yield call(searchBook, action.payload);
         if (!err) {
-            console.log(result.data);
-            yield put({ type: ActionNameList.searchBookSucceeded, payload: result.data.items });
+            yield put({type: ActionNameList.searchBookSucceeded, payload: result.data.items});
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({ type: ActionNameList.searchBookError, isError: true });
+            yield put({type: ActionNameList.searchBookError, isError: true});
         }
     }
 }
@@ -101,4 +127,5 @@ export default function* rootSaga() {
     yield fork(handleSearchBook);
     yield fork(handlePostReview);
     yield fork(handleGetReview);
+    yield fork(handlePostBookLike);
 }
