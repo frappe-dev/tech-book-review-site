@@ -41,11 +41,13 @@ class BookInfo extends Component {
 			bookID: '',
 			title: '',
 			thumbnailURL: '',
-			ISBN: ''
+			ISBN: '',
+			amazonLink: '',
 		};
 	}
 
 	componentDidMount() {
+
 		let bookID = "";
 		if (this.props.location.state && "bookID" in this.props.location.state) {
 			bookID = this.props.location.state.bookID
@@ -70,6 +72,14 @@ class BookInfo extends Component {
 			ISBN = this.props.location.state.ISBN;
 		}
 		this.setState({ ISBN: ISBN });
+
+		let ISBN10 = "";
+		let amazonLink = "";
+		if (this.props.location.state && "ISBN10" in this.props.location.state && this.props.location.state.ISBN10 !== "") {
+			ISBN10 = this.props.location.state.ISBN10;
+			amazonLink = "https://www.amazon.co.jp/dp/" + ISBN10 + "/ref=&tag=ayathuzithuka-22";
+		}
+		this.setState({ amazonLink: amazonLink });
 	}
 
 	async onClickLikeButton() {
@@ -112,12 +122,7 @@ class BookInfo extends Component {
 
 	render() {
 		const { classes, location } = this.props;
-		let ISBN10 = "";
-		let amazonLink = "";
-		if (location.state && "ISBN10" in location.state && location.state.ISBN10 !== "") {
-			ISBN10 = location.state.ISBN10;
-			amazonLink = "https://www.amazon.co.jp/dp/" + ISBN10 + "/ref=&tag=ayathuzithuka-22";
-		}
+
 		let description = "";
 		if (location.state && "description" in location.state) {
 			description = location.state.description;
@@ -136,8 +141,8 @@ class BookInfo extends Component {
 				/>
 
 				<AmazonLinkButton
-					amazonLink={amazonLink}
-					bookTitle={this.state.title}
+					amazonLink={this.state.amazonLink}
+					title={this.state.title}
 				/>
 
 				<Link to={{

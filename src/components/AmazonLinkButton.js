@@ -11,13 +11,13 @@ const styles = theme => ({
 
 class AmazonLinkButton extends Component {
 
-    renderAmazonLinkButton(amazonLink, classes) {
+    renderAmazonLinkButton(amazonLink, title, classes) {
         if (this.props.amazonLink === "") {
             return (
                 <Link to={{
                     pathname: "/noamazonlink",
                     state: {
-                        bookTitle: this.props.title,
+                        title: title,
                     }
                 }}>
                     <Button variant="contained" className={classes.button}>
@@ -37,10 +37,10 @@ class AmazonLinkButton extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, title } = this.props;
         return (
             <div>
-                {this.renderAmazonLinkButton(this.props.amazonLink, classes)}
+                {this.renderAmazonLinkButton(this.props.amazonLink, title, classes)}
             </div>
         );
     }

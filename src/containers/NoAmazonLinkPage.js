@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 // header
 import AppHeader from '../components/AppHeader';
@@ -14,16 +15,19 @@ const styles = theme => ({
     },
 });
 
+// このページが表示された回数
+let showCount = 0;
+
 class NoAmazonLinkPage extends Component {
 
     componentDidMount() {
-        const script = document.createElement("script");
-        script.type = 'text/javascript';
-        script.src = "//z-fe.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&Marketplace=JP";
+        const amazonSearchWindowScript = document.createElement("script");
+        amazonSearchWindowScript.type = 'text/javascript';
+        amazonSearchWindowScript.src = "//z-fe.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&Marketplace=JP";
 
-        const s = document.createElement('script');
-        s.type = 'text/javascript';
-        const code =
+        const amazonSearchWindowDetail = document.createElement('script');
+        amazonSearchWindowDetail.type = 'text/javascript';
+        const config =
             `amzn_assoc_ad_type = "responsive_search_widget";
             amzn_assoc_tracking_id = "ayathuzithuka-22"; 
             amzn_assoc_marketplace = "amazon"; 
@@ -36,32 +40,41 @@ class NoAmazonLinkPage extends Component {
             amzn_assoc_default_search_key = ""; 
             amzn_assoc_theme = "light"; 
             amzn_assoc_bg_color = "FFFFFF";`
-        s.appendChild(document.createTextNode(code));
+        amazonSearchWindowDetail.appendChild(document.createTextNode(config));
         const dom = document.getElementById('amazon-search-container');
         if (dom) {
-            dom.appendChild(s);
-            dom.appendChild(script);
+            dom.appendChild(amazonSearchWindowDetail);
+            dom.appendChild(amazonSearchWindowScript);
         }
     }
 
-    componentDidUpdate() {
-        return (
-            <div>
-            </div>
-        )
+    componentWillUnmount() {
+        // 画面を離れるときに生成されたAmazonの検索窓を削除
+        // <div id = "amzn_assoc_ad_div_adunit_(表示回数)">という形で生成されるので
+        // それを削除する
+        var amazonSearchWindow = document.getElementById("amzn_assoc_ad_div_adunit_" + showCount);
+        showCount++;
+        var rootParent = amazonSearchWindow.parentNode;
+        rootParent.removeChild(amazonSearchWindow);
     }
 
     render() {
+        const { location } = this.props;
+        console.log(location.state.title)
         return (
-            <div id>
+            <div>
                 <AppHeader />
-                申し訳ありません
-                <br />
-                {this.props.bookTitle}のAmazonリンクを生成出来ませんでした
-                <br />
-                下から検索して下さい
-                <div className="mt-3 item__wrapper" id="amazon-ads-container">
-                    <div id="amazon-search-container">&nbsp;</div>
+                <Typography variant="headline" component="h2">
+                    {location.state.title}のAmazonリンクを生成できませんでした
+                </Typography>
+                <Typography variant="headline" component="h2">
+                    下の検索窓から検索してみて下さい
+                </Typography>
+                <div key={Math.random()}>
+                    <div className="mt-3 item__wrapper" id="amazon-ads-container">
+                        <div id="amazon-search-container"></div>
+                        <div id="amzn_assoc_ad_div_adunit0"></div>
+                    </div>
                 </div>
             </div>
         );
