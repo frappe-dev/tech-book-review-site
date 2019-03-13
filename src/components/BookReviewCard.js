@@ -39,8 +39,11 @@ function BookReviewCard(props) {
                 <Typography component="p">
                     総合評価：{overAllPoints}
                 </Typography>
-                {evaluation.map((item) =>
-                    <EvaluationContent title={item.key} content={item.value} />
+                {evaluation.map((item, index) =>
+                    <EvaluationContent
+                        key={index}
+                        title={item.key}
+                        content={item.value} />
                 )}
             </CardContent>
         </Card>

@@ -10,6 +10,7 @@ import { Auth } from 'aws-amplify';
 import BookEvaluation from '../components/BookEvaluation';
 import BookDetailCard from '../components/BookDetailCard';
 import BookReviewList from '../components/BookReviewList';
+import AmazonLinkButton from '../components/AmazonLinkButton';
 
 // action
 import { postBookLikeRequested } from '../actions/BookLikeActions';
@@ -56,19 +57,19 @@ class BookInfo extends Component {
 		if (this.props.location.state && "thumbnailURL" in this.props.location.state) {
 			thumbnailURL = this.props.location.state.thumbnailURL;
 		}
-		this.setState({thumbnailURL: thumbnailURL})
-		
+		this.setState({ thumbnailURL: thumbnailURL })
+
 		let title = "none";
 		if (this.props.location.state && "title" in this.props.location.state) {
 			title = this.props.location.state.title;
 		}
-		this.setState({title: title});
+		this.setState({ title: title });
 
 		let ISBN = "";
 		if (this.props.location.state && "ISBN" in this.props.location.state) {
 			ISBN = this.props.location.state.ISBN;
 		}
-		this.setState({ISBN: ISBN});
+		this.setState({ ISBN: ISBN });
 	}
 
 	async onClickLikeButton() {
@@ -97,8 +98,6 @@ class BookInfo extends Component {
 			this.props.history.push('/login');
 			return;
 		}
-		
-		// post parameters
 		let postData = {
 			bookID: this.state.bookID,
 			userID: userID,
@@ -113,7 +112,12 @@ class BookInfo extends Component {
 
 	render() {
 		const { classes, location } = this.props;
-
+		let ISBN10 = "";
+		let amazonLink = "";
+		if (location.state && "ISBN10" in location.state && location.state.ISBN10 !== "") {
+			ISBN10 = location.state.ISBN10;
+			amazonLink = "https://www.amazon.co.jp/dp/" + ISBN10 + "/ref=&tag=ayathuzithuka-22";
+		}
 		let description = "";
 		if (location.state && "description" in location.state) {
 			description = location.state.description;
@@ -130,9 +134,11 @@ class BookInfo extends Component {
 					description={description}
 					className={classes.card}
 				/>
-				<Button variant="contained" className={classes.button}>
-					Amazonリンク
-				</Button>
+
+				<AmazonLinkButton
+					amazonLink={amazonLink}
+					bookTitle={this.state.title}
+				/>
 
 				<Link to={{
 					pathname: "/bookinfo/" + this.state.bookID + "/review",
@@ -140,7 +146,8 @@ class BookInfo extends Component {
 						title: this.state.title,
 						bookID: this.state.bookID,
 						ISBN: this.state.ISBN
-					}}}>
+					}
+				}}>
 					<Button variant="contained" color="primary" className={classes.button}>
 						レビューする
 					</Button>
@@ -151,7 +158,7 @@ class BookInfo extends Component {
 				</Button>
 				<BookEvaluation itemData={this.props.reviews} />
 				<BookReviewList reviews={this.props.reviews} />
-			</div>
+			</div >
 		);
 	}
 }

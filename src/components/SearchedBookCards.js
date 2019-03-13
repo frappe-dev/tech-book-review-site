@@ -32,6 +32,14 @@ function HelloMessage(props) {
 		}
 	}
 
+	// AmazonLink用にISBN10があれば取得
+	let ISBN10 = "";
+	if ("industryIdentifiers" in props.item.volumeInfo) {
+		if (props.item.volumeInfo.industryIdentifiers[0]) {
+			ISBN10 = props.item.volumeInfo.industryIdentifiers[0].identifier;
+		}
+	}
+
 	let description = "情報なし";
 	if (props.item.volumeInfo.description !== void 0) {
 		description = props.item.volumeInfo.description;
@@ -48,6 +56,7 @@ function HelloMessage(props) {
 				thumbnailURL: thumbnailURL,
 				ISBN: ISBN,
 				description: description,
+				ISBN10: ISBN10,
 			}
 		}}>
 			<Card key={props.index}>
