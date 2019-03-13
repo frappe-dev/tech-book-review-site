@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+
+// action
+import { getLatestBooksRequested } from '../actions/BookInfoActions';
 
 // header
 import AppHeader from '../components/AppHeader';
@@ -35,6 +39,10 @@ class Home extends Component {
 		this.props.history.push('/login')
 	}
 
+	componentDidMount() {
+		this.props.getLatestBooks();
+	}
+
 	render() {
 		const { classes } = this.props;
 		return (
@@ -65,9 +73,23 @@ class Home extends Component {
 				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToLogin}>
 					認証(テスト用)
 				</Button>
+
+				<p>{JSON.stringify(this.props.latestBooks)}</p>
 			</div>
 		);
 	}
 }
 
-export default withRouter(withStyles(styles)(Home));
+const mapStateToProps = (state) => ({
+	latestBooks: state.latestBooks.data
+});
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getLatestBooks() {
+			dispatch(getLatestBooksRequested());
+		}
+	}
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home)));
