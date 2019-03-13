@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'; //暫定用
 import Card from '@material-ui/core/Card';
 import { Auth } from 'aws-amplify';
+import { Link } from 'react-router-dom';
 
 // component
 import BookEvaluation from '../components/BookEvaluation';
@@ -14,12 +15,10 @@ import AmazonLinkButton from '../components/AmazonLinkButton';
 
 // action
 import { postBookLikeRequested } from '../actions/BookLikeActions';
+import { getReviewRequested } from '../actions/ReviewActions';
 
 // header
 import AppHeader from '../components/AppHeader';
-
-import { getReviewRequested } from '../actions/ReviewActions';
-import { Link } from 'react-router-dom';
 
 const styles = theme => ({
 	button: {

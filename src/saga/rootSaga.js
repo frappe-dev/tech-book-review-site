@@ -5,6 +5,16 @@ import axios from 'axios';
 const GOOGLE_BOOK_API_ENDPOINT = "https://www.googleapis.com/books/v1/volumes";
 const BOOKREVIEW_API_ENDPOINT  = "https://nd40yngtt7.execute-api.ap-northeast-1.amazonaws.com/dev/"; //　ソースコードで持たないほうがいい??
 
+function getLatestBooks() {
+    return axios.get(BOOKREVIEW_API_ENDPOINT + "book?mode=getLatestBooks")
+        .then(res => {
+            const result = res;
+            return { result }
+        }).catch(err => {
+            return { err }
+        })
+}
+
 function postBookLike(params) {
     return axios.post(BOOKREVIEW_API_ENDPOINT + "booklike", JSON.stringify(params)
     ).then(res => {
@@ -60,6 +70,21 @@ function searchBook(keyword) {
     })
 }
 
+function* handleGETLatestBooks() {
+    while(true) {
+        const action = yield take(ActionNameList.getLatestBooksRequested);
+        const { result, err } = yield call(getLatestBooks, action.payload);
+        if (!err) {
+            console.log("succeed!!!");
+            yield put({type: ActionNameList.getLatestBooksSucceeded, payload: result.data});
+        } else {
+            console.log("err is happened");
+            console.log(err);
+            yield put({type: ActionNameList.getLatestBooksError, isError: true});
+        }
+    }
+}
+
 function* handlePostBookLike() {
     while(true) {
         const action = yield take(ActionNameList.postBookLikeRequested);
@@ -72,7 +97,6 @@ function* handlePostBookLike() {
             console.log(err);
             yield put({type: ActionNameList.postBookLikeError, isError: true});
         }
-
     }
 }
 
@@ -128,4 +152,5 @@ export default function* rootSaga() {
     yield fork(handlePostReview);
     yield fork(handleGetReview);
     yield fork(handlePostBookLike);
+    yield fork(handleGETLatestBooks)
 }
