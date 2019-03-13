@@ -99,8 +99,7 @@ class BookInfo extends Component {
 		
 		// post parameters
 		let postData = {
-			//bookID: this.state.bookID,
-			bookID: "",
+			bookID: this.state.bookID,
 			userID: userID,
 			bookInfo: {
 				title: this.state.title,
