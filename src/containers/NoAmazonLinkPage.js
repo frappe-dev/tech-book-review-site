@@ -33,11 +33,10 @@ class NoAmazonLinkPage extends Component {
             amzn_assoc_marketplace = "amazon"; 
             amzn_assoc_region = "JP"; 
             amzn_assoc_placement = ""; 
-            amzn_assoc_search_type = "search_widget"; 
+            amzn_assoc_search_type = "search_box"; 
             amzn_assoc_width = "auto"; 
             amzn_assoc_height = "auto"; 
             amzn_assoc_default_search_category = ""; 
-            amzn_assoc_default_search_key = ""; 
             amzn_assoc_theme = "light"; 
             amzn_assoc_bg_color = "FFFFFF";`
         amazonSearchWindowDetail.appendChild(document.createTextNode(config));
@@ -70,12 +69,14 @@ class NoAmazonLinkPage extends Component {
                 <Typography variant="headline" component="h2">
                     下の検索窓から検索してみて下さい
                 </Typography>
-                <div key={Math.random()}>
-                    <div className="mt-3 item__wrapper" id="amazon-ads-container">
-                        <div id="amazon-search-container"></div>
-                        <div id="amzn_assoc_ad_div_adunit0"></div>
+                <html>
+                    <div key={Math.random()}>
+                        <div className="mt-3 item__wrapper" id="amazon-ads-container">
+                            <div id="amazon-search-container"></div>
+                            <div id="amzn_assoc_ad_div_adunit0"></div>
+                        </div>
                     </div>
-                </div>
+                </html>
             </div>
         );
     }
