@@ -10,7 +10,6 @@ import MyPage from './containers/MyPage'
 import Review from './containers/Review'
 import Record from './containers/Record'
 import Login from './containers/Login';
-import NoAmazonLinkPage from './containers/NoAmazonLinkPage'
 
 // Route関連
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -36,7 +35,6 @@ class App extends Component {
 						<Route exact path="/mypage" component={MyPage} />
 						<Route exact path="/mypage/record" component={Record} />
 						<Route exact path="/login" component={Login} />
-						<Route exact path="/noamazonlink" component={NoAmazonLinkPage} />
 						<Route component={NotFound} />
 					</Switch>
 				</BrowserRouter>

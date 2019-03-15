@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import BookEvaluation from '../components/BookEvaluation';
 import BookDetailCard from '../components/BookDetailCard';
 import BookReviewList from '../components/BookReviewList';
-import AmazonLinkButton from '../components/AmazonLinkButton';
 
 // action
 import { postBookLikeRequested } from '../actions/BookLikeActions';
@@ -40,7 +39,7 @@ class BookInfo extends Component {
 			bookID: '',
 			title: '',
 			thumbnailURL: '',
-			ISBN: '',
+			ISBN10: '',
 			amazonLink: '',
 		};
 	}
@@ -60,17 +59,11 @@ class BookInfo extends Component {
 		}
 		this.setState({ thumbnailURL: thumbnailURL })
 
-		let title = "none";
+		let title = "";
 		if (this.props.location.state && "title" in this.props.location.state) {
 			title = this.props.location.state.title;
 		}
 		this.setState({ title: title });
-
-		let ISBN = "";
-		if (this.props.location.state && "ISBN" in this.props.location.state) {
-			ISBN = this.props.location.state.ISBN;
-		}
-		this.setState({ ISBN: ISBN });
 
 		let ISBN10 = "";
 		let amazonLink = "";
@@ -78,7 +71,10 @@ class BookInfo extends Component {
 			ISBN10 = this.props.location.state.ISBN10;
 			amazonLink = "https://www.amazon.co.jp/dp/" + ISBN10 + "/ref=&tag=ayathuzithuka-22";
 		}
-		this.setState({ amazonLink: amazonLink });
+		this.setState({
+			ISBN10: ISBN10,
+			amazonLink: amazonLink,
+		});
 	}
 
 	async onClickLikeButton() {
@@ -139,17 +135,25 @@ class BookInfo extends Component {
 					className={classes.card}
 				/>
 
-				<AmazonLinkButton
-					amazonLink={this.state.amazonLink}
-					title={this.state.title}
-				/>
+				{(() => {
+					// ISBN10があり、AmazonへのLinkが生成されなければAmazonボタンを表示しない
+					if (this.state.amazonLink !== "") {
+						return (
+							<a href={this.state.amazonLink} target="_blank" rel="noreferrer noopener">
+								<Button variant="contained" className={classes.button}>
+									Amazonリンク
+								</Button>
+							</a>
+						);
+					}
+				})()}
 
 				<Link to={{
 					pathname: "/bookinfo/" + this.state.bookID + "/review",
 					state: {
 						title: this.state.title,
 						bookID: this.state.bookID,
-						ISBN: this.state.ISBN
+						ISBN10: this.state.ISBN10,
 					}
 				}}>
 					<Button variant="contained" color="primary" className={classes.button}>
