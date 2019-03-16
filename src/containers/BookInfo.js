@@ -109,7 +109,7 @@ class BookInfo extends Component {
 			bookInfo: {
 				title: this.state.title,
 				thumbnailURL: this.state.thumbnailURL,
-				ISBN: this.state.ISBN
+				ISBN10: this.state.ISBN10
 			}
 		};
 		this.props.postBookLike(postData);
@@ -130,7 +130,6 @@ class BookInfo extends Component {
 				<BookDetailCard
 					imageSource={this.state.thumbnailURL}
 					title={this.state.title}
-					ISBN={this.state.ISBN}
 					description={description}
 					className={classes.card}
 				/>

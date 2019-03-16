@@ -24,15 +24,7 @@ function HelloMessage(props) {
 		);
 	}
 
-	// ISBNがあれば取得
-	let ISBN = "";
-	if ("industryIdentifiers" in props.item.volumeInfo) {
-		if (props.item.volumeInfo.industryIdentifiers[1]) {
-			ISBN = props.item.volumeInfo.industryIdentifiers[1].identifier;
-		}
-	}
-
-	// AmazonLink用にISBN10があれば取得
+	// ISBN10があれば取得
 	let ISBN10 = "";
 	if ("industryIdentifiers" in props.item.volumeInfo) {
 		if (props.item.volumeInfo.industryIdentifiers[0]) {
@@ -54,7 +46,6 @@ function HelloMessage(props) {
 				bookID: bookID,
 				title: title,
 				thumbnailURL: thumbnailURL,
-				ISBN: ISBN,
 				description: description,
 				ISBN10: ISBN10,
 			}
