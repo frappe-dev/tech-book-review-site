@@ -16,7 +16,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 // 不明なRouteは全てNotFound
 const NotFound = () => {
-	return(
+	return (
 		<h2>ページが見つかりません</h2>
 	)
 }

@@ -14,6 +14,7 @@ export default class BookReviewList extends React.Component {
             <div>
                 {!(reviews === void 0) && items.map((review, index) =>
                     <BookReviewCard
+                        key={index}
                         updateTime={review.updateTIME}
                         evaluation={review.evaluation}
                         overAllPoints={review.overallpoints}

@@ -24,11 +24,11 @@ function HelloMessage(props) {
 		);
 	}
 
-	// ISBNがあれば取得
-	let ISBN = "";
+	// ISBN10があれば取得
+	let ISBN10 = "";
 	if ("industryIdentifiers" in props.item.volumeInfo) {
-		if (props.item.volumeInfo.industryIdentifiers[1]) {
-			ISBN = props.item.volumeInfo.industryIdentifiers[1].identifier;
+		if (props.item.volumeInfo.industryIdentifiers[0]) {
+			ISBN10 = props.item.volumeInfo.industryIdentifiers[0].identifier;
 		}
 	}
 
@@ -46,8 +46,8 @@ function HelloMessage(props) {
 				bookID: bookID,
 				title: title,
 				thumbnailURL: thumbnailURL,
-				ISBN: ISBN,
 				description: description,
+				ISBN10: ISBN10,
 			}
 		}}>
 			<Card key={props.index}>

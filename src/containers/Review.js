@@ -27,7 +27,7 @@ class Review extends Component {
 					bookTitle={location.state.title}
 					updateState={this.updateState}
 					bookID={location.state.bookID}
-					ISBN={location.state.ISBN}
+					ISBN10={location.state.ISBN10}
 					thumbnailURL={location.state.thumbnailURL}
 					reviewPoint1Title="文章の読みやすさ"
 					reviewPoint2Title="図や例の多さ"

@@ -102,7 +102,7 @@ class ReviewForm extends React.Component {
 			inputParamsErrorMessage: checkInputParamResult.errorMessage,
 		})
 		if (checkInputParamResult.result) {
-			let ISBN = this.props.ISBN ? this.props.ISBN : "";
+			let ISBN10 = this.props.ISBN10 ? this.props.ISBN10 : "";
 			let bookTitle = this.props.bookTitle ? this.props.bookTitle : "";
 			let thumbnailURL = this.props.thumbnailURL ? this.props.thumbnailURL : "";
 			let params = {
@@ -120,9 +120,10 @@ class ReviewForm extends React.Component {
 				bookInfo: {
 					title: bookTitle,
 					thumbnailURL: thumbnailURL,
-					ISBN: ISBN,
+					ISBN10: ISBN10,
 				}
 			};
+			console.log(params);
 			this.props.postReview(params);
 		}
 	}
