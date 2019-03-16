@@ -27,8 +27,14 @@ function HelloMessage(props) {
 	// ISBN10があれば取得
 	let ISBN10 = "";
 	if ("industryIdentifiers" in props.item.volumeInfo) {
-		if (props.item.volumeInfo.industryIdentifiers[0]) {
-			ISBN10 = props.item.volumeInfo.industryIdentifiers[0].identifier;
+		if (props.item.volumeInfo.industryIdentifiers) {
+			let industryIdentifiers = props.item.volumeInfo.industryIdentifiers;
+			// industryIdentifiersの0 or 1 行目に入っているので、typeを見て取り出す
+			industryIdentifiers.forEach(industryIdentifier => {
+				if (industryIdentifier.type === "ISBN_10") {
+					ISBN10 = industryIdentifier.identifier;
+				}
+			});
 		}
 	}
 
