@@ -3,7 +3,7 @@ import { ActionNameList } from '../ActionNameList';
 import axios from 'axios';
 
 const GOOGLE_BOOK_API_ENDPOINT = "https://www.googleapis.com/books/v1/volumes";
-const BOOKREVIEW_API_ENDPOINT  = "https://nd40yngtt7.execute-api.ap-northeast-1.amazonaws.com/dev/"; //　ソースコードで持たないほうがいい??
+const BOOKREVIEW_API_ENDPOINT = "https://nd40yngtt7.execute-api.ap-northeast-1.amazonaws.com/dev/"; //　ソースコードで持たないほうがいい??
 
 function getLatestBooks() {
     return axios.get(BOOKREVIEW_API_ENDPOINT + "book?mode=getLatestBooks")
@@ -71,31 +71,31 @@ function searchBook(keyword) {
 }
 
 function* handleGETLatestBooks() {
-    while(true) {
+    while (true) {
         const action = yield take(ActionNameList.getLatestBooksRequested);
         const { result, err } = yield call(getLatestBooks, action.payload);
         if (!err) {
             console.log("succeed!!!");
-            yield put({type: ActionNameList.getLatestBooksSucceeded, payload: result.data});
+            yield put({ type: ActionNameList.getLatestBooksSucceeded, payload: result.data });
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({type: ActionNameList.getLatestBooksError, isError: true});
+            yield put({ type: ActionNameList.getLatestBooksError, isError: true });
         }
     }
 }
 
 function* handlePostBookLike() {
-    while(true) {
+    while (true) {
         const action = yield take(ActionNameList.postBookLikeRequested);
         const { result, err } = yield call(postBookLike, action.payload);
         if (!err) {
             console.log("succeed!!!");
-            yield put({type: ActionNameList.postBookLikeSucceeded, payload: result});
+            yield put({ type: ActionNameList.postBookLikeSucceeded, payload: result });
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({type: ActionNameList.postBookLikeError, isError: true});
+            yield put({ type: ActionNameList.postBookLikeError, isError: true });
         }
     }
 }
@@ -107,11 +107,11 @@ function* handleGetReview() {
         if (!err) {
             console.log("succeed!!!");
             console.log(result.data);
-            yield put({type: ActionNameList.getReviewSucceeded, payload: result.data});
+            yield put({ type: ActionNameList.getReviewSucceeded, payload: result.data });
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({type: ActionNameList.getReviewError, isError: true});
+            yield put({ type: ActionNameList.getReviewError, isError: true });
         }
     }
 }
@@ -123,11 +123,11 @@ function* handlePostReview() {
         if (!err) {
             console.log("succeed");
             console.log(result);
-            yield put({type: ActionNameList.postReviewSucceeded, payload: result});
+            yield put({ type: ActionNameList.postReviewSucceeded, payload: result });
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({type: ActionNameList.postReviewError, isError: true});
+            yield put({ type: ActionNameList.postReviewError, isError: true });
         }
     }
 }
@@ -137,11 +137,26 @@ function* handleSearchBook() {
         const action = yield take(ActionNameList.searchBookRequested);
         const { result, err } = yield call(searchBook, action.payload);
         if (!err) {
-            yield put({type: ActionNameList.searchBookSucceeded, payload: result.data.items});
+            yield put({ type: ActionNameList.searchBookSucceeded, payload: result.data.items });
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({type: ActionNameList.searchBookError, isError: true});
+            yield put({ type: ActionNameList.searchBookError, isError: true });
+        }
+    }
+}
+
+function* handleGetSpecificBook() {
+    while (true) {
+        const action = yield take(ActionNameList.getSpecificBookRequested);
+        const { result, err } = yield call(searchBook, action.payload);
+        if (!err) {
+            // BookIDを使って検索するので[0]を取り出し
+            yield put({ type: ActionNameList.getSpecificBooksSucceeded, payload: result.data.items[0] });
+        } else {
+            console.log("err is happened");
+            console.log(err);
+            yield put({ type: ActionNameList.getSpecificBooksError, isError: true });
         }
     }
 }
@@ -152,5 +167,6 @@ export default function* rootSaga() {
     yield fork(handlePostReview);
     yield fork(handleGetReview);
     yield fork(handlePostBookLike);
-    yield fork(handleGETLatestBooks)
+    yield fork(handleGETLatestBooks);
+    yield fork(handleGetSpecificBook);
 }

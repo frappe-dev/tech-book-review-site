@@ -15,7 +15,7 @@ import BookReviewList from '../components/BookReviewList';
 // action
 import { postBookLikeRequested } from '../actions/BookLikeActions';
 import { getReviewRequested } from '../actions/ReviewActions';
-import { searchBookRequested } from '../actions/SearchActions';
+import { getSpecificBookRequested } from '../actions/SearchActions';
 
 // header
 import AppHeader from '../components/AppHeader';
@@ -88,24 +88,24 @@ class BookInfo extends Component {
 
 	componentDidUpdate() {
 		// getBookDataのレスポンスでpropsが更新されるとここが呼ばれる
-		if (this.state.bookID === "" && this.props.books) {
+		if (this.state.bookID === "" && this.props.book) {
 			let bookID = "";
-			if (this.props.books[0].id) {
-				bookID = this.props.books[0].id
+			if (this.props.book.id) {
+				bookID = this.props.book.id
 			}
-			if (this.props.books[0].volumeInfo !== void 0) {
+			if (this.props.book.volumeInfo !== void 0) {
 				let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
-				if ("imageLinks" in this.props.books[0].volumeInfo) {
-					thumbnailURL = this.props.books[0].volumeInfo.imageLinks.thumbnail;
+				if ("imageLinks" in this.props.book.volumeInfo) {
+					thumbnailURL = this.props.book.volumeInfo.imageLinks.thumbnail;
 				}
 				let title = "";
-				if ("title" in this.props.books[0].volumeInfo) {
-					title = this.props.books[0].volumeInfo.title;
+				if ("title" in this.props.book.volumeInfo) {
+					title = this.props.book.volumeInfo.title;
 				}
 				let ISBN10 = "";
 				let description = "";
-				if ("industryIdentifiers" in this.props.books[0].volumeInfo) {
-					let industryIdentifiers = this.props.books[0].volumeInfo.industryIdentifiers;
+				if ("industryIdentifiers" in this.props.book.volumeInfo) {
+					let industryIdentifiers = this.props.book.volumeInfo.industryIdentifiers;
 					// industryIdentifiersの0 or 1 行目に入っているので、typeを見て取り出す
 					industryIdentifiers.forEach(industryIdentifier => {
 						if (industryIdentifier.type === "ISBN_10") {
@@ -114,8 +114,8 @@ class BookInfo extends Component {
 						}
 					});
 				}
-				if ("description" in this.props.books[0].volumeInfo) {
-					description = this.props.books[0].volumeInfo.description;
+				if ("description" in this.props.book.volumeInfo) {
+					description = this.props.book.volumeInfo.description;
 				}
 				this.setState({
 					bookID: bookID,
@@ -220,7 +220,7 @@ class BookInfo extends Component {
 
 const mapStateToProps = (state) => ({
 	reviews: state.reviews.data,
-	books: state.bookList.data,
+	book: state.specificBook.data,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -232,7 +232,7 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(postBookLikeRequested(postData));
 		},
 		getBookData(bookId) {
-			dispatch(searchBookRequested(bookId));
+			dispatch(getSpecificBookRequested(bookId));
 		}
 	}
 };
