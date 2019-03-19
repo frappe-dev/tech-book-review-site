@@ -15,7 +15,7 @@ import BookReviewList from '../components/BookReviewList';
 // action
 import { postBookLikeRequested } from '../actions/BookLikeActions';
 import { getReviewRequested } from '../actions/ReviewActions';
-import { getSpecificBookRequested } from '../actions/SearchActions';
+import { getBookInfoByBookidRequested } from '../actions/SearchActions';
 
 // header
 import AppHeader from '../components/AppHeader';
@@ -232,7 +232,7 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(postBookLikeRequested(postData));
 		},
 		getBookData(bookId) {
-			dispatch(getSpecificBookRequested(bookId));
+			dispatch(getBookInfoByBookidRequested(bookId));
 		}
 	}
 };

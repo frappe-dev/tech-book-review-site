@@ -15,7 +15,7 @@ import createSagaMiddleware from 'redux-saga';
 import SearchReducer from './reducers/SearchReducer';
 import ReviewReducer from './reducers/ReviewReducer';
 import BookInfoReducer from './reducers/BookInfoReducer';
-import SpecificBookReducer from './reducers/SpecificBookReducer';
+import BookInfoByBookidReducer from './reducers/BookInfoByBookidReducer';
 
 //saga
 import rootSaga from './saga/rootSaga';
@@ -36,7 +36,7 @@ const reducer = combineReducers({
     bookList: SearchReducer,
     reviews: ReviewReducer,
     latestBooks: BookInfoReducer,
-    specificBook: SpecificBookReducer,
+    specificBook: BookInfoByBookidReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

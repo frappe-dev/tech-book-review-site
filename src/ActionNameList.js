@@ -24,9 +24,9 @@ export const ActionNameList = {
     getLatestBooksSucceeded: "GET_LATEST_BOOKS_SUCCEEDED",
     getLatestBooksError: "GET_LATEST_BOOKS_ERROR",
     // BookIDから特定の書籍を取得
-    getSpecificBookRequested: "GET_SPECIFIC_BOOK_REQUESTED",
-    getSpecificBooksSucceeded: "GET_SPECIFIC_BOOK_SUCCEEDED",
-    getSpecificBooksError: "GET_SPECIFIC_BOOK_ERROR",
+    getBookInfoByBookidRequested: "GET_BOOKINFO_BY_BOOKID_REQUESTED",
+    getBookInfoByBookidSucceeded: "GET_BOOKINFO_BY_BOOKID_SUCCEEDED",
+    getBookInfoByBookidError: "GET_BOOKINFO_BY_BOOKID_ERROR",
 
     // 書籍テーブルから書籍情報取得
     // レビュー履歴取得

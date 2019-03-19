@@ -5,7 +5,7 @@ export const searchBookRequested = (data) => ({
 	payload: data,
 })
 
-export const getSpecificBookRequested = (data) => ({
-	type: ActionNameList.getSpecificBookRequested,
+export const getBookInfoByBookidRequested = (data) => ({
+	type: ActionNameList.getBookInfoByBookidRequested,
 	payload: data,
 })

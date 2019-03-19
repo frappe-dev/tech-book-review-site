@@ -1,14 +1,14 @@
 import { ActionNameList } from '../ActionNameList';
 const initialState = [];
 
-export default function SpecificBookReducer(state = initialState, action) {
+export default function BookInfoByBookidReducer(state = initialState, action) {
     switch (action.type) {
-        case ActionNameList.getSpecificBooksSucceeded:
+        case ActionNameList.getBookInfoByBookidSucceeded:
             return {
                 ...state,
                 data: action.payload,
             }
-        case ActionNameList.getSpecificBooksError:
+        case ActionNameList.getBookInfoByBookidError:
             return {
                 ...state,
                 error: action.isError,

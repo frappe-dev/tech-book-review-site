@@ -148,15 +148,15 @@ function* handleSearchBook() {
 
 function* handleGetSpecificBook() {
     while (true) {
-        const action = yield take(ActionNameList.getSpecificBookRequested);
+        const action = yield take(ActionNameList.getBookInfoByBookidRequested);
         const { result, err } = yield call(searchBook, action.payload);
         if (!err) {
             // BookIDを使って検索するので[0]を取り出し
-            yield put({ type: ActionNameList.getSpecificBooksSucceeded, payload: result.data.items[0] });
+            yield put({ type: ActionNameList.getBookInfoByBookidSucceeded, payload: result.data.items[0] });
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({ type: ActionNameList.getSpecificBooksError, isError: true });
+            yield put({ type: ActionNameList.getBookInfoByBookidError, isError: true });
         }
     }
 }
