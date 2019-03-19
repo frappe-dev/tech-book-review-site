@@ -15,6 +15,7 @@ import BookReviewList from '../components/BookReviewList';
 // action
 import { postBookLikeRequested } from '../actions/BookLikeActions';
 import { getReviewRequested } from '../actions/ReviewActions';
+import { getBookInfoByBookidRequested } from '../actions/SearchActions';
 
 // header
 import AppHeader from '../components/AppHeader';
@@ -35,46 +36,98 @@ const styles = theme => ({
 class BookInfo extends Component {
 	constructor(props) {
 		super(props);
+		this.setState.bind(this);
 		this.state = {
-			bookID: '',
-			title: '',
-			thumbnailURL: '',
-			ISBN10: '',
-			amazonLink: '',
+			bookID: "",
+			title: "",
+			thumbnailURL: "",
+			ISBN10: "",
+			amazonLink: "",
+			description: "",
 		};
 	}
 
 	componentDidMount() {
-
 		let bookID = "";
-		if (this.props.location.state && "bookID" in this.props.location.state) {
-			bookID = this.props.location.state.bookID
+		if (this.props.location.state) {
+			if ("bookID" in this.props.location.state) {
+				bookID = this.props.location.state.bookID
+			}
+			let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
+			if ("thumbnailURL" in this.props.location.state) {
+				thumbnailURL = this.props.location.state.thumbnailURL;
+			}
+			let title = "";
+			if ("title" in this.props.location.state) {
+				title = this.props.location.state.title;
+			}
+			let ISBN10 = "";
+			let amazonLink = "";
+			if ("ISBN10" in this.props.location.state && this.props.location.state.ISBN10 !== "") {
+				ISBN10 = this.props.location.state.ISBN10;
+				amazonLink = "https://www.amazon.co.jp/dp/" + ISBN10 + "/ref=&tag=ayathuzithuka-22";
+			}
+			let description = "";
+			if ("description" in this.props.location.state) {
+				description = this.props.location.state.description;
+			}
+			this.setState({
+				bookID: bookID,
+				thumbnailURL: thumbnailURL,
+				title: title,
+				ISBN10: ISBN10,
+				amazonLink: amazonLink,
+				description: description
+			});
+			this.props.getReview(bookID);
+		} else {
+			// BookIDが無い場合,URLからBookIDを取得し、書籍情報を取得
+			this.props.getBookData(this.props.match.params.id);
 		}
-		this.props.getReview(bookID);
-		this.setState({ bookID: bookID });
+	}
 
-		let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
-		if (this.props.location.state && "thumbnailURL" in this.props.location.state) {
-			thumbnailURL = this.props.location.state.thumbnailURL;
+	componentDidUpdate() {
+		// getBookDataのレスポンスでpropsが更新されるとここが呼ばれる
+		if (this.state.bookID === "" && this.props.book) {
+			let bookID = "";
+			if (this.props.book.id) {
+				bookID = this.props.book.id
+			}
+			if (this.props.book.volumeInfo !== void 0) {
+				let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
+				if ("imageLinks" in this.props.book.volumeInfo) {
+					thumbnailURL = this.props.book.volumeInfo.imageLinks.thumbnail;
+				}
+				let title = "";
+				if ("title" in this.props.book.volumeInfo) {
+					title = this.props.book.volumeInfo.title;
+				}
+				let ISBN10 = "";
+				let description = "";
+				if ("industryIdentifiers" in this.props.book.volumeInfo) {
+					let industryIdentifiers = this.props.book.volumeInfo.industryIdentifiers;
+					// industryIdentifiersの0 or 1 行目に入っているので、typeを見て取り出す
+					industryIdentifiers.forEach(industryIdentifier => {
+						if (industryIdentifier.type === "ISBN_10") {
+							console.log("in")
+							ISBN10 = industryIdentifier.identifier;
+						}
+					});
+				}
+				if ("description" in this.props.book.volumeInfo) {
+					description = this.props.book.volumeInfo.description;
+				}
+				this.setState({
+					bookID: bookID,
+					title: title,
+					thumbnailURL: thumbnailURL,
+					ISBN10: ISBN10,
+					amazonLink: (ISBN10 !== "") ? "https://www.amazon.co.jp/dp/" + ISBN10 + "/ref=&tag=ayathuzithuka-22" : "",
+					description: description,
+				});
+				this.props.getReview(bookID);
+			}
 		}
-		this.setState({ thumbnailURL: thumbnailURL })
-
-		let title = "";
-		if (this.props.location.state && "title" in this.props.location.state) {
-			title = this.props.location.state.title;
-		}
-		this.setState({ title: title });
-
-		let ISBN10 = "";
-		let amazonLink = "";
-		if (this.props.location.state && "ISBN10" in this.props.location.state && this.props.location.state.ISBN10 !== "") {
-			ISBN10 = this.props.location.state.ISBN10;
-			amazonLink = "https://www.amazon.co.jp/dp/" + ISBN10 + "/ref=&tag=ayathuzithuka-22";
-		}
-		this.setState({
-			ISBN10: ISBN10,
-			amazonLink: amazonLink,
-		});
 	}
 
 	async onClickLikeButton() {
@@ -116,12 +169,7 @@ class BookInfo extends Component {
 	}
 
 	render() {
-		const { classes, location } = this.props;
-
-		let description = "";
-		if (location.state && "description" in location.state) {
-			description = location.state.description;
-		}
+		const { classes } = this.props;
 
 		return (
 			<div>
@@ -130,13 +178,13 @@ class BookInfo extends Component {
 				<BookDetailCard
 					imageSource={this.state.thumbnailURL}
 					title={this.state.title}
-					description={description}
+					description={this.state.description}
 					className={classes.card}
 				/>
 
 				{(() => {
 					// ISBN10があり、AmazonへのLinkが生成されなければAmazonボタンを表示しない
-					if (this.state.amazonLink !== "") {
+					if (this.state.amazonLink && this.state.amazonLink !== "") {
 						return (
 							<a href={this.state.amazonLink} target="_blank" rel="noreferrer noopener">
 								<Button variant="contained" className={classes.button}>
@@ -171,7 +219,8 @@ class BookInfo extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	reviews: state.reviews.data
+	reviews: state.reviews.data,
+	book: state.specificBook.data,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -181,6 +230,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		postBookLike(postData) {
 			dispatch(postBookLikeRequested(postData));
+		},
+		getBookData(bookId) {
+			dispatch(getBookInfoByBookidRequested(bookId));
 		}
 	}
 };

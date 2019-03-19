@@ -12,9 +12,10 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
 //reducer
-import SearchReducer   from './reducers/SearchReducer';
-import ReviewReducer   from './reducers/ReviewReducer';
+import SearchReducer from './reducers/SearchReducer';
+import ReviewReducer from './reducers/ReviewReducer';
 import BookInfoReducer from './reducers/BookInfoReducer';
+import BookInfoByBookidReducer from './reducers/BookInfoByBookidReducer';
 
 //saga
 import rootSaga from './saga/rootSaga';
@@ -34,7 +35,8 @@ const reducer = combineReducers({
     form: reduxFormReducer,
     bookList: SearchReducer,
     reviews: ReviewReducer,
-    latestBooks: BookInfoReducer
+    latestBooks: BookInfoReducer,
+    specificBook: BookInfoByBookidReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -47,7 +49,7 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <Provider store={store}>
-	<App />,
+        <App />,
     </Provider>,
     document.getElementById('root')
 );
