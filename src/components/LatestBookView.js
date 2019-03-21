@@ -18,16 +18,17 @@ function LatestBookView(props) {
     return (
 
     <table border="1" className={classes.bookTable}>
+        <tbody>
         <tr>
         {
             latestBooks && "Items" in latestBooks && latestBooks.Items.map((item, index) =>
-                <td>
+                <td key={index}>
                     <Link to={{
                         pathname: "/bookinfo/" + item.bookID,
                     }}>
                         <BookCard 
                             bookID = {item.bookID}
-                            thumbnailURL = {item.bookInfo.thumbnailURL.S}
+                            thumbnailURL = {item.bookInfo.thumbnailURL.S ? item.bookInfo.thumbnailURL.S : "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png"}
                             title = {item.bookInfo.title.S}
                             index = {index}
                         />
@@ -35,7 +36,8 @@ function LatestBookView(props) {
                 </td>                              
             )
         }
-        </tr>   
+        </tr>
+        </tbody>   
     </table>
     );
 }
