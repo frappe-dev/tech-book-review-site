@@ -10,6 +10,9 @@ import { getLatestBooksRequested } from '../actions/BookInfoActions';
 // header
 import AppHeader from '../components/AppHeader';
 
+// component
+import LatastBookView from '../components/LatestBookView';
+
 const styles = theme => ({
 	margin: {
 		margin: theme.spacing.unit,
@@ -74,7 +77,7 @@ class Home extends Component {
 					認証(テスト用)
 				</Button>
 
-				<p>{JSON.stringify(this.props.latestBooks)}</p>
+				<LatastBookView latestBooks={this.props.latestBooks}/>
 			</div>
 		);
 	}
