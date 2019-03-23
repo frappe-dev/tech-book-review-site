@@ -70,6 +70,26 @@ function searchBook(keyword) {
     })
 }
 
+function getUserReviews(userID) {
+    return axios.get(BOOKREVIEW_API_ENDPOINT + "bookreview?userID=" + userID)
+        .then(res => {
+            const result = res;
+            return { result }
+        }).catch(err => {
+            return { err }
+        })
+}
+
+function getUserLikes(userID) {
+    return axios.get(BOOKREVIEW_API_ENDPOINT + "booklike?userID=" + userID)
+        .then(res => {
+            const result = res;
+            return { result }
+        }).catch(err => {
+            return { err }
+        })
+}
+
 function* handleGETLatestBooks() {
     while (true) {
         const action = yield take(ActionNameList.getLatestBooksRequested);
@@ -161,6 +181,38 @@ function* handleGetSpecificBook() {
     }
 }
 
+function* handleGetUserReviews() {
+    while (true) {
+        const action = yield take(ActionNameList.getUserReviewsRequested);
+        const { result, err } = yield call(getUserReviews, action.payload);
+        if (!err) {
+            console.log("succeed!!!");
+            console.log(result.data);
+            yield put({ type: ActionNameList.getUserReviewsSucceeded, payload: result.data });
+        } else {
+            console.log("err is happened");
+            console.log(err);
+            yield put({ type: ActionNameList.getUserReviewsError, isError: true });
+        }
+    }
+}
+
+function* handleGetUserLikes() {
+    while (true) {
+        const action = yield take(ActionNameList.getUserLikesRequested);
+        const { result, err } = yield call(getUserLikes, action.payload);
+        if (!err) {
+            console.log("succeed!!!");
+            console.log(result.data);
+            yield put({ type: ActionNameList.getUserLikesSucceeded, payload: result.data });
+        } else {
+            console.log("err is happened");
+            console.log(err);
+            yield put({ type: ActionNameList.getUserLikesError, isError: true });
+        }
+    }
+}
+
 export default function* rootSaga() {
     // takeEveryにするかは要検討
     yield fork(handleSearchBook);
@@ -169,4 +221,6 @@ export default function* rootSaga() {
     yield fork(handlePostBookLike);
     yield fork(handleGETLatestBooks);
     yield fork(handleGetSpecificBook);
+    yield fork(handleGetUserReviews);
+    yield fork(handleGetUserLikes);
 }
