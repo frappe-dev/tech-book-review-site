@@ -16,6 +16,8 @@ import SearchReducer from './reducers/SearchReducer';
 import ReviewReducer from './reducers/ReviewReducer';
 import BookInfoReducer from './reducers/BookInfoReducer';
 import BookInfoByBookidReducer from './reducers/BookInfoByBookidReducer';
+import UserReviewsReducer from './reducers/UserReviewsReducer';
+import UserLikesReducer from './reducers/UserLikesReducer';
 
 //saga
 import rootSaga from './saga/rootSaga';
@@ -37,6 +39,8 @@ const reducer = combineReducers({
     reviews: ReviewReducer,
     latestBooks: BookInfoReducer,
     specificBook: BookInfoByBookidReducer,
+    userReviews: UserReviewsReducer,
+    userLikes: UserLikesReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

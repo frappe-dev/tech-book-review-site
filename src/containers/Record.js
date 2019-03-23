@@ -7,7 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 import UserReviewList from '../components/UserReviewList'
-import UserFavoriteList from '../components/UserFavoriteList'
+import UserLikeList from '../components/UserLikeList'
 
 // header
 import AppHeader from '../components/AppHeader';
@@ -44,7 +44,7 @@ class Record extends React.Component {
 	};
 
 	render() {
-		const { classes, theme } = this.props;
+		const { classes, theme, location } = this.props;
 
 		return (
 			<div className={classes.root}>
@@ -57,8 +57,8 @@ class Record extends React.Component {
 						textColor="primary"
 						variant="fullWidth"
 					>
-						<Tab label="お気に入り一覧" />
 						<Tab label="レビュー一覧" />
+						<Tab label="お気に入り一覧" />
 					</Tabs>
 				</AppBar>
 				<SwipeableViews
@@ -67,10 +67,14 @@ class Record extends React.Component {
 					onChangeIndex={this.handleChangeIndex}
 				>
 					<TabContainer dir={theme.direction}>
-						<UserReviewList />
+						<UserReviewList
+							userID={location.state.userID}
+						/>
 					</TabContainer>
 					<TabContainer dir={theme.direction}>
-						<UserFavoriteList />
+						<UserLikeList
+							userID={location.state.userID}
+						/>
 					</TabContainer>
 				</SwipeableViews>
 			</div>

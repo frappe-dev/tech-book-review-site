@@ -30,5 +30,11 @@ export const ActionNameList = {
 
     // 書籍テーブルから書籍情報取得
     // レビュー履歴取得
+    getUserReviewsRequested: "GET_USER_REVIEWS_REQUESTED",
+    getUserReviewsSucceeded: "GET_USER_REVIEWS_SUCCEEDED",
+    getUserReviewsError: "GET_USER_REVIEWS_ERROR",
     // 気になる履歴取得
+    getUserLikesRequested: "GET_USER_LIKES_REQUESTED",
+    getUserLikesSucceeded: "GET_USER_LIKES_SUCCEEDED",
+    getUserLikesError: "GET_USER_LIKES_ERROR",
 }
