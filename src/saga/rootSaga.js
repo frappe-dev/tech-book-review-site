@@ -82,12 +82,22 @@ function getUserReviews(userID) {
 
 function getUserLikes(userID) {
     return axios.get(BOOKREVIEW_API_ENDPOINT + "booklike?userID=" + userID)
-        .then(res => {
-            const result = res;
-            return { result }
-        }).catch(err => {
-            return { err }
-        })
+    .then(res => {
+        const result = res;
+        return { result }
+    }).catch(err => {
+        return { err }
+    })
+}
+
+function getReviewLikeNumber(bookIDs) {
+    return axios.get(BOOKREVIEW_API_ENDPOINT + "book?mode=getBookInfo&bookIDs=" + bookIDs)
+    .then(res => {
+        const result = res;
+        return { result }
+    }).catch(err => {
+        return { err }
+    })
 }
 
 function* handleGETLatestBooks() {
@@ -152,20 +162,6 @@ function* handlePostReview() {
     }
 }
 
-function* handleSearchBook() {
-    while (true) {
-        const action = yield take(ActionNameList.searchBookRequested);
-        const { result, err } = yield call(searchBook, action.payload);
-        if (!err) {
-            yield put({ type: ActionNameList.searchBookSucceeded, payload: result.data.items });
-        } else {
-            console.log("err is happened");
-            console.log(err);
-            yield put({ type: ActionNameList.searchBookError, isError: true });
-        }
-    }
-}
-
 function* handleGetSpecificBook() {
     while (true) {
         const action = yield take(ActionNameList.getBookInfoByBookidRequested);
@@ -213,6 +209,45 @@ function* handleGetUserLikes() {
     }
 }
 
+function* handleSearchBook() {
+    while (true) {
+        const action = yield take(ActionNameList.searchBookRequested);
+        const { result, err } = yield call(searchBook, action.payload);
+        if (!err) {
+            //resultからbookIDArrayを取得する
+            var bookIDarray = [];
+            for (let item of result.data.items) {
+                var bookID = "";
+                if (item.id) {
+                    bookID = item.id;
+                }
+                bookIDarray.push(bookID);
+            }
+            yield put({ type: ActionNameList.searchBookSucceeded, payload: result.data.items });
+            yield put({ type: ActionNameList.getAppInfoForBooksRequested, payload: bookIDarray });
+        } else {
+            console.log("err is happened");
+            console.log(err);
+            yield put({ type: ActionNameList.searchBookError, isError: true });
+        }
+    }
+}
+
+function* handleGetReviewLikeNumbers() {
+    while(true) {
+        const action = yield take(ActionNameList.getAppInfoForBooksRequested);
+        const { result, err } = yield call(getReviewLikeNumber, action.payload);
+        if (!err) {
+            console.log("result.data: " + JSON.stringify(result.data));
+            yield put({ type : ActionNameList.getAppInfoForBooksSucceeded, payload: result.data });
+        } else {
+            console.log("err is happened");
+            console.log(err);
+            yield put({ type: ActionNameList.getAppInfoForBooksError, isError: true });
+        }
+    }
+}
+
 export default function* rootSaga() {
     // takeEveryにするかは要検討
     yield fork(handleSearchBook);
@@ -223,4 +258,5 @@ export default function* rootSaga() {
     yield fork(handleGetSpecificBook);
     yield fork(handleGetUserReviews);
     yield fork(handleGetUserLikes);
+    yield fork(handleGetReviewLikeNumbers);
 }

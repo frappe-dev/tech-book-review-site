@@ -4,8 +4,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 
-// XXX: Card.jsにcomponentを分ける
-function HelloMessage(props) {
+// XXX: BookCard.jsとの調整、検討が必要
+function BookCard(props) {
 	const title = JSON.stringify(props.item.volumeInfo.title);
 
 	// XXX: jsonのif判定は見直したほうがいいかも
@@ -22,6 +22,30 @@ function HelloMessage(props) {
 		return (
 			<h3>no data</h3>
 		);
+	}
+
+	//bookIDのreviewLikeInfoをパースする
+	var bookReviewCount = 0;
+	var bookLikeCount = 0;
+	var overallPoints = 0;
+	if (props.appInfoForBooks) {
+		for (let data of props.appInfoForBooks) {
+			if (!data.bookID) continue;
+			if (!data.bookInfo) continue;
+			if (bookID !== data.bookID) continue;
+			if (data.bookInfo.bookreviewCount !== void 0) {
+				bookReviewCount = data.bookInfo.bookreviewCount;
+				console.log("bookInfo.Item: "+data.bookInfo.bookreviewCount);
+			}
+			if (data.bookInfo.booklikeCount !== void 0) {
+				bookLikeCount = data.bookInfo.booklikeCount;
+				console.log("bookInfo.Item: "+data.bookInfo.bookreviewCount);
+			}
+			if (data.bookInfo.overallpoints !== void 0) {
+				overallPoints = data.bookInfo.overallpoints;
+				console.log("bookInfo.Item: "+data.bookInfo.overallpoints);
+			}
+		}
 	}
 
 	// ISBN10があれば取得
@@ -64,7 +88,14 @@ function HelloMessage(props) {
 					<Typography component="p">
 						タイトル: {title}
 					</Typography>
-					<img src={thumbnailURL} alt={alt} className="thumbnail" />
+					<Typography>
+						総合評価: {overallPoints}
+						レビュー数: {bookReviewCount}
+						気になる数: {bookLikeCount}
+					</Typography>
+					<Typography>
+						<img src={thumbnailURL} alt={alt} className="thumbnail" />
+					</Typography>
 				</CardContent>
 			</Card>
 		</Link>
@@ -73,12 +104,12 @@ function HelloMessage(props) {
 
 export default class SearchedBookCards extends React.Component {
 	render() {
-		const { itemData } = this.props;
+		const { itemData, appInfoForBooks } = this.props;
 		return (
 			<div>
 				{
 					itemData && itemData.map((item, index) =>
-						<HelloMessage item={item} index={index} key={index} />
+						<BookCard item={item} index={index} key={index} appInfoForBooks={appInfoForBooks}/>
 					)
 				}
 			</div>

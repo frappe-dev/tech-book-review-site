@@ -9,3 +9,8 @@ export const getBookInfoByBookidRequested = (data) => ({
 	type: ActionNameList.getBookInfoByBookidRequested,
 	payload: data,
 })
+
+export const getAppInfoForBooksRequested = (data) => ({
+	type: ActionNameList.getAppInfoForBooksRequested,
+	payload: data,
+})

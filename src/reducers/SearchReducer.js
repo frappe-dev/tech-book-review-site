@@ -6,9 +6,19 @@ export default function SearchReducer(state = initialState, action) {
         case ActionNameList.searchBookSucceeded:
             return {
                 ...state, 
-                data: action.payload,
+                searchedBooksInfo: action.payload,
             }        
         case ActionNameList.searchBookError:
+            return {
+                ...state,
+                error: action.isError,
+            }
+        case ActionNameList.getAppInfoForBooksSucceeded:
+            return {
+                ...state,
+                appInfoForBooks: action.payload,
+            }
+        case ActionNameList.getAppInfoForBooksError:
             return {
                 ...state,
                 error: action.isError,
