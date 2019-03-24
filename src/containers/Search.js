@@ -7,6 +7,7 @@ import SearchForm from '../components/SearchForm';
 import SearchedBookCards from '../components/SearchedBookCards';
 // redux
 import { searchBookRequested } from '../actions/SearchActions';
+import { getReviewLikeByBookidsRequested } from '../actions/SearchActions';
 // header
 import AppHeader from '../components/AppHeader';
 
@@ -39,14 +40,15 @@ class Search extends Component {
 					<SearchForm onSubmit={this.submit.bind(this)} />
 				</span>
 				{shownBookCountText}
-				<SearchedBookCards itemData={this.props.books} />
+				<SearchedBookCards itemData={this.props.searchedBooksInfo} reviewLikeInfo={this.props.reviewLikeInfo}/>
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = (state) => ({
-	books: state.bookList.data
+	searchedBooksInfo: state.booksInfo.searchedBooksInfo,
+	reviewLikeInfo   : state.booksInfo.reviewLikeInfo
 });
 
 
@@ -54,6 +56,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		onSubmit(keyword) {
 			dispatch(searchBookRequested(keyword));
+		},
+		getReviewLikeByBooksArray(bookIDs) {
+			dispatch(getReviewLikeByBookidsRequested(bookIDs));
 		}
 	}
 };

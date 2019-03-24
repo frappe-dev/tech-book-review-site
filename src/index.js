@@ -35,7 +35,7 @@ Amplify.configure({
 
 const reducer = combineReducers({
     form: reduxFormReducer,
-    bookList: SearchReducer,
+    booksInfo: SearchReducer,
     reviews: ReviewReducer,
     latestBooks: BookInfoReducer,
     specificBook: BookInfoByBookidReducer,

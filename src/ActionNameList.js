@@ -27,8 +27,10 @@ export const ActionNameList = {
     getBookInfoByBookidRequested: "GET_BOOKINFO_BY_BOOKID_REQUESTED",
     getBookInfoByBookidSucceeded: "GET_BOOKINFO_BY_BOOKID_SUCCEEDED",
     getBookInfoByBookidError: "GET_BOOKINFO_BY_BOOKID_ERROR",
-
-    // 書籍テーブルから書籍情報取得
+    // 書籍テーブルからレビュー数気になる数取得
+    getReviewLikeByBookidsRequested: "GET_REVIEWLIKE_BY_BOOKIDS_REQUESTED",
+    getReviewLikeByBookidsSucceeded: "GET_REVIEWLIKE_BY_BOOKIDS_SUCCEEDED",
+    getReviewLikeByBookidsError: "GET_REVIEWLIKE_BY_BOOKIDS_ERROR",
     // レビュー履歴取得
     getUserReviewsRequested: "GET_USER_REVIEWS_REQUESTED",
     getUserReviewsSucceeded: "GET_USER_REVIEWS_SUCCEEDED",
