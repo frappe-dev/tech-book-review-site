@@ -13,12 +13,12 @@ export default function SearchReducer(state = initialState, action) {
                 ...state,
                 error: action.isError,
             }
-        case ActionNameList.getReviewLikeByBookidsSucceeded:
+        case ActionNameList.getAppInfoForBooksSucceeded:
             return {
                 ...state,
-                reviewLikeInfo: action.payload,
+                appInfoForBooks: action.payload,
             }
-        case ActionNameList.getReviewLikeByBookidsError:
+        case ActionNameList.getAppInfoForBooksError:
             return {
                 ...state,
                 error: action.isError,

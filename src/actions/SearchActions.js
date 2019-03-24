@@ -10,7 +10,7 @@ export const getBookInfoByBookidRequested = (data) => ({
 	payload: data,
 })
 
-export const getReviewLikeByBookidsRequested = (data) => ({
-	type: ActionNameList.getReviewLikeByBookidsRequested,
+export const getAppInfoForBooksRequested = (data) => ({
+	type: ActionNameList.getAppInfoForBooksRequested,
 	payload: data,
 })

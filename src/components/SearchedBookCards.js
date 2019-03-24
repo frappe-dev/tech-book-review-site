@@ -28,8 +28,8 @@ function BookCard(props) {
 	var bookReviewCount = 0;
 	var bookLikeCount = 0;
 	var overallPoints = 0;
-	if (props.reviewLikeInfo) {
-		for (let data of props.reviewLikeInfo) {
+	if (props.appInfoForBooks) {
+		for (let data of props.appInfoForBooks) {
 			if (!data.bookID) continue;
 			if (!data.bookInfo) continue;
 			if (bookID !== data.bookID) continue;
@@ -104,12 +104,12 @@ function BookCard(props) {
 
 export default class SearchedBookCards extends React.Component {
 	render() {
-		const { itemData, reviewLikeInfo } = this.props;
+		const { itemData, appInfoForBooks } = this.props;
 		return (
 			<div>
 				{
 					itemData && itemData.map((item, index) =>
-						<BookCard item={item} index={index} key={index} reviewLikeInfo={reviewLikeInfo}/>
+						<BookCard item={item} index={index} key={index} appInfoForBooks={appInfoForBooks}/>
 					)
 				}
 			</div>

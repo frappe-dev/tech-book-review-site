@@ -224,7 +224,7 @@ function* handleSearchBook() {
                 bookIDarray.push(bookID);
             }
             yield put({ type: ActionNameList.searchBookSucceeded, payload: result.data.items });
-            yield put({ type: ActionNameList.getReviewLikeByBookidsRequested, payload: bookIDarray });
+            yield put({ type: ActionNameList.getAppInfoForBooksRequested, payload: bookIDarray });
         } else {
             console.log("err is happened");
             console.log(err);
@@ -235,15 +235,15 @@ function* handleSearchBook() {
 
 function* handleGetReviewLikeNumbers() {
     while(true) {
-        const action = yield take(ActionNameList.getReviewLikeByBookidsRequested);
+        const action = yield take(ActionNameList.getAppInfoForBooksRequested);
         const { result, err } = yield call(getReviewLikeNumber, action.payload);
         if (!err) {
-            console.log("result.data of GeetReviewLikeNumber: " + JSON.stringify(result.data));
-            yield put({ type : ActionNameList.getReviewLikeByBookidsSucceeded, payload: result.data });
+            console.log("result.data: " + JSON.stringify(result.data));
+            yield put({ type : ActionNameList.getAppInfoForBooksSucceeded, payload: result.data });
         } else {
             console.log("err is happened");
             console.log(err);
-            yield put({ type: ActionNameList.getReviewLikeByBookidsError, isError: true });
+            yield put({ type: ActionNameList.getAppInfoForBooksError, isError: true });
         }
     }
 }
