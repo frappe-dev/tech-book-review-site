@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+
+// component
+import BookCard from '../components/BookCard';
 
 // action
 import { getUserLikes } from '../actions/UserRecordActions';
+
+const styles = theme => ({
+    card: {
+        margin: theme.spacing.unit,
+    },
+});
 
 class UserLikeList extends Component {
 
@@ -12,11 +23,28 @@ class UserLikeList extends Component {
 
     render() {
         console.log(this.props.likes)
+        const { classes } = this.props;
         return (
             <div>
                 <h2>This is your like book list</h2>
                 <h2>id: {this.props.userID}</h2>
-                {JSON.stringify(this.props.likes)}
+                {
+                    this.props.likes && "Items" in this.props.likes && this.props.likes.Items.map((item, index) =>
+                        <div key={index}>
+                            <Link to={{
+                                pathname: "/bookinfo/" + item.bookID,
+                            }}>
+                                <BookCard
+                                    bookID={item.bookID}
+                                    thumbnailURL={item.bookInfo.thumbnailURL ? item.bookInfo.thumbnailURL : "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png"}
+                                    title={item.bookInfo.title}
+                                    index={index}
+                                    className={classes.card}
+                                />
+                            </Link>
+                        </div>
+                    )
+                }
             </div>
         );
     }
@@ -34,5 +62,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserLikeList);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(UserLikeList));
 
