@@ -201,6 +201,7 @@ class BookInfo extends Component {
 						title: this.state.title,
 						bookID: this.state.bookID,
 						ISBN10: this.state.ISBN10,
+						thumbnailURL: this.state.thumbnailURL,
 					}
 				}}>
 					<Button variant="contained" color="primary" className={classes.button}>
