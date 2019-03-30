@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 // component
 import BookCard from '../components/BookCard';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const styles = {
     bookTable: {
@@ -23,16 +24,19 @@ function LatestBookView(props) {
         {
             latestBooks && "Items" in latestBooks && latestBooks.Items.map((item, index) =>
                 <td key={index}>
-                    <Link to={{
-                        pathname: "/bookinfo/" + item.bookID,
-                    }}>
-                        <BookCard 
-                            bookID = {item.bookID}
-                            thumbnailURL = {item.bookInfo.thumbnailURL.S ? item.bookInfo.thumbnailURL.S : "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png"}
-                            title = {item.bookInfo.title.S}
-                            index = {index}
-                        />
-                    </Link>
+                    <ErrorBoundary>
+                        <Link to={{
+                            pathname: "/bookinfo/" + item.bookID,
+                        }}>
+
+                            <BookCard
+                                bookID={item.bookID}
+                                thumbnailURL={item.bookInfo.thumbnailURL.S ? item.bookInfo.thumbnailURL.S : "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png"}
+                                title={item.bookInfo.title.S}
+                                index={index}
+                            />
+                        </Link>
+                    </ErrorBoundary>
                 </td>                              
             )
         }

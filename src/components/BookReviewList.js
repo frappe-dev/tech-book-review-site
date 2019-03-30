@@ -1,5 +1,6 @@
 import React from 'react';
 import BookReviewCard from '../components/BookReviewCard'
+import ErrorBoundary from '../components/ErrorBoundary';
 
 export default class BookReviewList extends React.Component {
     render() {
@@ -13,13 +14,16 @@ export default class BookReviewList extends React.Component {
         return (
             <div>
                 {!(reviews === void 0) && items.map((review, index) =>
-                    <BookReviewCard
-                        key={index}
-                        updateTime={review.updateTIME}
-                        evaluation={review.evaluation}
-                        overAllPoints={review.overallpoints}
-                        index={index}
-                    />)
+                    <ErrorBoundary>
+                        <BookReviewCard
+                            key={index}
+                            updateTime={review.updateTIME}
+                            evaluation={review.evaluation}
+                            overAllPoints={review.overallpoints}
+                            index={index}
+                        />
+                    </ErrorBoundary>
+                    )
                 }
             </div>
         );

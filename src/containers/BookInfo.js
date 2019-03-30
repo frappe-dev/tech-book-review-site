@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import BookEvaluation from '../components/BookEvaluation';
 import BookDetailCard from '../components/BookDetailCard';
 import BookReviewList from '../components/BookReviewList';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 // action
 import { postBookLikeRequested } from '../actions/BookLikeActions';
@@ -175,22 +176,26 @@ class BookInfo extends Component {
 			<div>
 				<AppHeader />
 				<Card className={classes.spacer} />
-				<BookDetailCard
-					imageSource={this.state.thumbnailURL}
-					title={this.state.title}
-					description={this.state.description}
-					className={classes.card}
-				/>
+				<ErrorBoundary>
+					<BookDetailCard
+						imageSource={this.state.thumbnailURL}
+						title={this.state.title}
+						description={this.state.description}
+						className={classes.card}
+					/>
+				</ErrorBoundary>
 
 				{(() => {
 					// ISBN10があり、AmazonへのLinkが生成されなければAmazonボタンを表示しない
 					if (this.state.amazonLink && this.state.amazonLink !== "") {
 						return (
-							<a href={this.state.amazonLink} target="_blank" rel="noreferrer noopener">
-								<Button variant="contained" className={classes.button}>
-									Amazonリンク
+							<ErrorBoundary>
+								<a href={this.state.amazonLink} target="_blank" rel="noreferrer noopener">
+									<Button variant="contained" className={classes.button}>
+										Amazonリンク
 								</Button>
-							</a>
+								</a>
+							</ErrorBoundary>
 						);
 					}
 				})()}
@@ -212,8 +217,14 @@ class BookInfo extends Component {
 				<Button variant="contained" color="secondary" className={classes.button} onClick={this.onClickLikeButton.bind(this)}>
 					気になる
 				</Button>
-				<BookEvaluation itemData={this.props.reviews} />
-				<BookReviewList reviews={this.props.reviews} />
+
+				<ErrorBoundary>
+					<BookEvaluation itemData={this.props.reviews} />
+				</ErrorBoundary>
+
+				<ErrorBoundary>
+					<BookReviewList reviews={this.props.reviews} />
+				</ErrorBoundary>
 			</div >
 		);
 	}

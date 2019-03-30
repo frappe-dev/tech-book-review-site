@@ -3,6 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 // XXX: BookCard.jsとの調整、検討が必要
 function BookCard(props) {
@@ -109,7 +110,9 @@ export default class SearchedBookCards extends React.Component {
 			<div>
 				{
 					itemData && itemData.map((item, index) =>
-						<BookCard item={item} index={index} key={index} appInfoForBooks={appInfoForBooks}/>
+						<ErrorBoundary>
+							<BookCard item={item} index={index} key={index} appInfoForBooks={appInfoForBooks} />
+						</ErrorBoundary>
 					)
 				}
 			</div>
