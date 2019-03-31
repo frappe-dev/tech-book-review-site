@@ -11,6 +11,9 @@ import Review from './containers/Review'
 import Record from './containers/Record'
 import Login from './containers/Login';
 
+// component
+import ErrorBoundary from '../src/components/ErrorBoundary';
+
 // Route関連
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -25,19 +28,21 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<BrowserRouter>
-					<Switch>
-						<Route exact path="/" component={Home} />
-						<Route exact path="/search" component={Search} />
-						<Route exact path="/category" component={Category} />
-						<Route exact path="/bookinfo/:id" component={BookInfo} />
-						<Route exact path="/bookinfo/:id/review" component={Review} />
-						<Route exact path="/mypage" component={MyPage} />
-						<Route exact path="/mypage/record" component={Record} />
-						<Route exact path="/login" component={Login} />
-						<Route component={NotFound} />
-					</Switch>
-				</BrowserRouter>
+				<ErrorBoundary>
+					<BrowserRouter>
+						<Switch>
+							<Route exact path="/" component={Home} />
+							<Route exact path="/search" component={Search} />
+							<Route exact path="/category" component={Category} />
+							<Route exact path="/bookinfo/:id" component={BookInfo} />
+							<Route exact path="/bookinfo/:id/review" component={Review} />
+							<Route exact path="/mypage" component={MyPage} />
+							<Route exact path="/mypage/record" component={Record} />
+							<Route exact path="/login" component={Login} />
+							<Route component={NotFound} />
+						</Switch>
+					</BrowserRouter>
+				</ErrorBoundary>
 			</div>
 		);
 	}
