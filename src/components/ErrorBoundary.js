@@ -10,24 +10,24 @@ class ErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, errorInfo) {
-        // Display fallback UI
         this.setState({
             error: error,
-            errorInfo: errorInfo
+            errorInfo: errorInfo,
         });
-        console.log("erroe occured")
     }
 
     render() {
-        if (this.state.error) {
-            // Error path
+        if (this.state.errorInfo) {
+            let errorMessage = "";
+            // errorInfoを改行で分けた時の3番目の要素にエラーが起きたコンポーネント名が入っている
+            let errorComponent = this.state.errorInfo.componentStack.split(/(\r\n|\n)/g)[2];
+            if (errorComponent.includes("Card")) {
+                errorMessage = "書籍の情報取得に失敗しました。";
+            } else {
+                errorMessage = "ページの表示に失敗しました。ホームから再度アクセスしてください。";
+            }
             return (
-                <div>
-                    <h2> エラーが起きました </h2>
-                    <details style={{ whiteSpace: 'pre-wrap' }}>
-                        {this.state.error && this.state.error.toString()}
-                    </details>
-                </div>
+                <h2>{ errorMessage }</h2>
             );
         }
         // Normally, just render children
