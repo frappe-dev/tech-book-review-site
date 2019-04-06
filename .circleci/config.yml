@@ -1,28 +1,30 @@
 version: 2
 jobs:
   # build job omitted for brevity
-  #deploy:
   build:
     working_directory: ~/working
     docker:
       - image: circleci/node:10.8.0
     steps:
       - checkout
-
       - run:
           name: Install dependencies
           command: npm install
       - run:
           name: workaround
           command: npm i terser@3.14
-
       - run: 
           name: Compile react project
           command: npm run build
+      //workflowとしてbuildとtestは別かもしれないが、ここより上の処理が重複するのも微妙なのでbuildの中でtestにしている
+      - run:
+          name: Run test
+          command: npm run test 
       - persist_to_workspace:
           root: ~/working
           paths:
             - build
+
   deploy:
     working_directory: ~/working
     docker:
@@ -49,6 +51,7 @@ workflows:
   build-deploy:
     jobs:
       - build
+      - test
       - deploy:
           requires:
             - build
