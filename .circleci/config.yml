@@ -16,7 +16,7 @@ jobs:
       - run: 
           name: Compile react project
           command: npm run build
-      //workflowとしてbuildとtestは別かもしれないが、ここより上の処理が重複するのも微妙なのでbuildの中でtestにしている
+      #workflowとしてbuildとtestは別かもしれないが、ここより上の処理が重複するのも微妙なのでbuildの中でtestにしている
       - run:
           name: Run test
           command: npm run test 
