@@ -37,6 +37,8 @@
   "devDependencies": {
     "aws-amplify": "^1.1.19",
     "aws-amplify-react": "^2.3.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "react-tabs": "^3.0.0"
   }
 }
