@@ -11,6 +11,7 @@ export default class BookReviewList extends React.Component {
         } else {
             items = reviews.Items;
         }
+        console.log(items);
         return (
             <div>
                 {!(reviews === void 0) && items.map((review, index) =>

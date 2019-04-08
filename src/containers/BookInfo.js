@@ -34,7 +34,7 @@ const styles = theme => ({
 	}
 });
 
-class BookInfo extends Component {
+export class BookInfo extends Component {
 	constructor(props) {
 		super(props);
 		this.setState.bind(this);
