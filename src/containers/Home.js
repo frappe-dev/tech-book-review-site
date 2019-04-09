@@ -50,16 +50,11 @@ class Home extends Component {
 		const { classes } = this.props;
 		return (
 			<div>
-				<AppHeader/>
-				this is home
+				<AppHeader />
+				
+				<h3>CompileBooks</h3>
 
-				<h3>検索ページへのリンク</h3>
-
-				<h3>カテゴリ分類ページへのリンク</h3>
-
-				<h3>最新レビュー10件の表示</h3>
-
-				<h3>マイページへのリンク</h3>
+				<h4>コンパイルブックスは技術書に特化したレビューサイトです</h4>
 
 				<Button variant="contained" color="primary" className={classes.button} onClick={this.handleToSearchPage}>
 					書籍を検索
@@ -77,6 +72,7 @@ class Home extends Component {
 					認証(テスト用)
 				</Button>
 
+				<h3>レビューがあった最新の10冊</h3>
 				<LatastBookView latestBooks={this.props.latestBooks}/>
 			</div>
 		);
