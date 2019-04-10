@@ -72,7 +72,7 @@ class Home extends Component {
 					認証(テスト用)
 				</Button>
 
-				<h3>レビューがあった最新の10冊</h3>
+				<h3>今、注目の10冊</h3>
 				<LatastBookView latestBooks={this.props.latestBooks}/>
 			</div>
 		);
