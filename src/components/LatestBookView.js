@@ -20,8 +20,9 @@ const styles = {
 function LatestBookView(props) {
     const { latestBooks } = props;
     console.log(latestBooks)
+    const interbal = 100;
     return (
-        <Slider>
+        <Slider autoplay={interbal}>
             {
                 latestBooks && "Items" in latestBooks && latestBooks.Items.map((item, index) =>
                     <div key={index}>
