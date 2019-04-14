@@ -10,6 +10,7 @@ import MyPage from './containers/MyPage'
 import Review from './containers/Review'
 import Record from './containers/Record'
 import Login from './containers/Login';
+import ReviewSuccessFeedback from './containers/ReviewSuccessFeedback'
 
 // component
 import ErrorBoundary from '../src/components/ErrorBoundary';
@@ -39,6 +40,7 @@ class App extends Component {
 							<Route exact path="/mypage" component={MyPage} />
 							<Route exact path="/mypage/record" component={Record} />
 							<Route exact path="/login" component={Login} />
+							<Route exact path="/reviewsuccess" component={ReviewSuccessFeedback} />
 							<Route component={NotFound} />
 						</Switch>
 					</BrowserRouter>
