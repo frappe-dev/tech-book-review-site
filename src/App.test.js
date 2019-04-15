@@ -18,7 +18,7 @@ test('子コンポーネントが存在すること', () => {
   expect(wrapper.find(ErrorBoundary).length).toBe(1);
   expect(wrapper.find(BrowserRouter).length).toBe(1);
   expect(wrapper.find(Switch).length).toBe(1);
-  expect(wrapper.find(Route).length).toBe(9);
+  expect(wrapper.find(Route).length).toBe(10);
 });
 
 //XXX: Routeのテストはコンポーネントがあるだけでなく別で必要な気がする
