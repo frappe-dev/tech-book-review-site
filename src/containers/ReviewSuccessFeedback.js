@@ -24,6 +24,12 @@ class ReviewSuccessFeedback extends Component {
         })
     }
 
+    handleToHome = () => {
+        this.props.history.push({
+            pathname: '/'
+        })
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -36,6 +42,10 @@ class ReviewSuccessFeedback extends Component {
 
                 <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToMyPage}>
                     マイページ
+				</Button>
+
+                <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToHome}>
+                    ホーム
 				</Button>
             </div>
         );

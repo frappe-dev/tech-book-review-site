@@ -40,7 +40,7 @@ class App extends Component {
 							<Route exact path="/mypage" component={MyPage} />
 							<Route exact path="/mypage/record" component={Record} />
 							<Route exact path="/login" component={Login} />
-							<Route exact path="/reviewsuccess" component={ReviewSuccessFeedback} />
+							<Route exact path="/reviewsuccessfeedback" component={ReviewSuccessFeedback} />
 							<Route component={NotFound} />
 						</Switch>
 					</BrowserRouter>

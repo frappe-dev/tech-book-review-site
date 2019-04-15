@@ -126,7 +126,7 @@ class ReviewForm extends React.Component {
 			console.log(params);
 			this.props.postReview(
 				params,
-				() => { this.props.history.push(`/reviewsuccess`) } 
+				() => { this.props.history.push(`/reviewsuccessfeedback`) } 
 			);
 		}
 	}
