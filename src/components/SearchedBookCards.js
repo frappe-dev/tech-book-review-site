@@ -4,11 +4,28 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import ErrorBoundary from '../components/ErrorBoundary';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+	card: {
+		maxWidth: 500,
+		margin: "auto",
+		marginTop: 20,
+		marginBottom: 20,
+	},
+	media: {
+		marginTop: 20,
+		marginBottom: 20,
+	}
+};
 
 // XXX: BookCard.jsとの調整、検討が必要
 function BookCard(props) {
-	const title = JSON.stringify(props.item.volumeInfo.title);
-
+	// const title = JSON.stringify(props.item.volumeInfo.title);
+	let title = "";
+	if ("volumeInfo" in props.item && props.item.volumeInfo.title !== void 0) {
+		title = props.item.volumeInfo.title;
+	}
 	// XXX: jsonのif判定は見直したほうがいいかも
 	let thumbnailURL = "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
 	if ("volumeInfo" in props.item && props.item.volumeInfo.imageLinks !== void 0) {
@@ -36,15 +53,12 @@ function BookCard(props) {
 			if (bookID !== data.bookID) continue;
 			if (data.bookInfo.bookreviewCount !== void 0) {
 				bookReviewCount = data.bookInfo.bookreviewCount;
-				console.log("bookInfo.Item: "+data.bookInfo.bookreviewCount);
 			}
 			if (data.bookInfo.booklikeCount !== void 0) {
 				bookLikeCount = data.bookInfo.booklikeCount;
-				console.log("bookInfo.Item: "+data.bookInfo.bookreviewCount);
 			}
 			if (data.bookInfo.overallpoints !== void 0) {
 				overallPoints = data.bookInfo.overallpoints;
-				console.log("bookInfo.Item: "+data.bookInfo.overallpoints);
 			}
 		}
 	}
@@ -81,21 +95,18 @@ function BookCard(props) {
 				ISBN10: ISBN10,
 			}
 		}}>
-			<Card key={props.index}>
+			<Card key={props.index} className={props.classes.card}>
 				<CardContent>
-					<Typography variant="headline" component="h2">
-						検索結果 {props.index}
+					<Typography variant="subtitle1" color="textPrimary">
+						{title}
 					</Typography>
-					<Typography component="p">
-						タイトル: {title}
-					</Typography>
-					<Typography>
+					<Typography variant="h6" color="secondary">
 						総合評価: {overallPoints}
 						レビュー数: {bookReviewCount}
 						気になる数: {bookLikeCount}
 					</Typography>
 					<Typography>
-						<img src={thumbnailURL} alt={alt} className="thumbnail" />
+						<img src={thumbnailURL} alt={alt} className={props.classes.media} />
 					</Typography>
 				</CardContent>
 			</Card>
@@ -103,15 +114,15 @@ function BookCard(props) {
 	)
 }
 
-export default class SearchedBookCards extends React.Component {
+class SearchedBookCards extends React.Component {
 	render() {
-		const { itemData, appInfoForBooks } = this.props;
+		const { classes, itemData, appInfoForBooks } = this.props;
 		return (
 			<div>
 				{
 					itemData && itemData.map((item, index) =>
-						<ErrorBoundary>
-							<BookCard item={item} index={index} key={index} appInfoForBooks={appInfoForBooks} />
+						<ErrorBoundary key={index}>
+							<BookCard item={item} index={index} appInfoForBooks={appInfoForBooks} classes={classes}/>
 						</ErrorBoundary>
 					)
 				}
@@ -119,3 +130,5 @@ export default class SearchedBookCards extends React.Component {
 		);
 	}
 }
+
+export default withStyles(styles)(SearchedBookCards);

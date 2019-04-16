@@ -19,27 +19,32 @@ class Search extends Component {
 	render() {
 		let shownBookCount = 0;
 		let shownBookCountText = "";
+		let resultLabel = "";
 		// undefinedチェック
-		if (this.props.books === void 0) {
+		if (this.props.searchedBooksInfo === void 0) {
 			shownBookCountText = "";
 		} else {
-			shownBookCount = this.props.books.length;
+			shownBookCount = this.props.searchedBooksInfo.length;
 			if (shownBookCount > 0) {
 				shownBookCountText = shownBookCount + "冊の書籍を表示中";
+				resultLabel = "検索結果"
 			} else {
 				shownBookCountText = "現在のキーワードではヒットする書籍がありません";
 			}
-
 		}
+		
 		return (
 			<div>
 				<AppHeader />
-				<h2>this is search page</h2>
+				<h2>フリーワード検索</h2>
+				<h4>本のタイトル、言語名、技術名などを入力して検索してください。</h4>
+				<h4>例えば… リーダブルコード や JavaScript や AWS など。</h4>
 
 				<span>
 					<SearchForm onSubmit={this.submit.bind(this)} />
 				</span>
-				{shownBookCountText}
+				<h2>{shownBookCountText}</h2>
+				<h2>{resultLabel}</h2>
 				<SearchedBookCards itemData={this.props.searchedBooksInfo} appInfoForBooks={this.props.appInfoForBooks}/>
 			</div>
 		);
