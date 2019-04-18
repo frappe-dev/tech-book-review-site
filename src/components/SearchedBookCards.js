@@ -5,6 +5,13 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { withStyles } from '@material-ui/core/styles';
+import StarRate from '@material-ui/icons/StarRate';
+import BorderColor from '@material-ui/icons/BorderColor';
+import Favorite from '@material-ui/icons/Favorite';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 const styles = {
 	card: {
@@ -12,11 +19,31 @@ const styles = {
 		margin: "auto",
 		marginTop: 20,
 		marginBottom: 20,
+		display: 'flex',
+	},
+	content: {
+		flex: '1 0 auto',
 	},
 	media: {
 		marginTop: 20,
 		marginBottom: 20,
-	}
+		marginLeft: 20,
+	},
+	details: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	star: {
+		color: "#ffeb3b",
+	},
+	root: {
+		width: '100%',
+		maxWidth: 360,
+	},
+	title: {
+		marginTop: 20,
+		marginRight: 20,
+	},
 };
 
 // XXX: BookCard.jsとの調整、検討が必要
@@ -96,19 +123,32 @@ function BookCard(props) {
 			}
 		}}>
 			<Card key={props.index} className={props.classes.card}>
-				<CardContent>
-					<Typography variant="subtitle1" color="textPrimary">
+				<CardContent className={props.classes.content}>
+					<img src={thumbnailURL} alt={alt} className={props.classes.media} />
+				</CardContent>
+				<div className={props.classes.details}>
+					<Typography variant="subtitle1" color="textPrimary" className={props.classes.title}>
 						{title}
 					</Typography>
-					<Typography variant="h6" color="secondary">
-						総合評価: {overallPoints}
-						レビュー数: {bookReviewCount}
-						気になる数: {bookLikeCount}
-					</Typography>
-					<Typography>
-						<img src={thumbnailURL} alt={alt} className={props.classes.media} />
-					</Typography>
-				</CardContent>
+					<List className={props.classes.root}>
+						<ListItem>
+							<StarRate className={props.classes.star} />
+							<ListItemText primary={overallPoints} secondary="総合評価" />
+						</ListItem>
+						<li>
+							<Divider variant="inset" />
+						</li>
+						<ListItem>
+							<BorderColor color="primary" />
+							<ListItemText primary={bookReviewCount} secondary="レビュー件数" />
+						</ListItem>
+						<Divider variant="inset" component="li" />
+						<ListItem>
+							<Favorite color="secondary" />
+							<ListItemText primary={bookLikeCount} secondary="気になる数" />
+						</ListItem>
+					</List>
+				</div>
 			</Card>
 		</Link>
 	)
