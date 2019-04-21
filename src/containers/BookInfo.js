@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import BookEvaluation from '../components/BookEvaluation';
 import BookDetailCard from '../components/BookDetailCard';
 import BookReviewList from '../components/BookReviewList';
+import SendSuccessDialog from '../components/SendSuccessDialog';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 // action
@@ -218,6 +219,8 @@ export class BookInfo extends Component {
 					気になる
 				</Button>
 
+				<SendSuccessDialog isOpen={this.props.bookLike === 200 ? true : false} />
+				
 				<ErrorBoundary>
 					<BookEvaluation itemData={this.props.reviews} />
 				</ErrorBoundary>
@@ -233,6 +236,7 @@ export class BookInfo extends Component {
 const mapStateToProps = (state) => ({
 	reviews: state.reviews.data,
 	book: state.specificBook.data,
+	bookLike: state.bookLike.retCode,
 });
 
 const mapDispatchToProps = (dispatch) => {
