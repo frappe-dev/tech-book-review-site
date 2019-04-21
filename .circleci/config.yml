@@ -44,7 +44,7 @@ jobs:
           command: aws configure set preview.cloudfront true
       - run:
           name: clear cloudfront
-          command: aws cloudfront create-invalidation --distribution-id EAEVE2S71NMMV --paths '/*'
+          command: aws cloudfront create-invalidation --distribution-id EGGLHM8RCTUHQ --paths '/*'
 
 workflows:
   version: 2
