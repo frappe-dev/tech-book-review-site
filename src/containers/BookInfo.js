@@ -219,7 +219,7 @@ export class BookInfo extends Component {
 					気になる
 				</Button>
 
-				<SendSuccessDialog isOpen={this.props.bookLike === 200 ? true : false} />
+				<SendSuccessDialog isOpen={this.props.bookLike === true ? true : false} />
 				
 				<ErrorBoundary>
 					<BookEvaluation itemData={this.props.reviews} />
@@ -236,7 +236,7 @@ export class BookInfo extends Component {
 const mapStateToProps = (state) => ({
 	reviews: state.reviews.data,
 	book: state.specificBook.data,
-	bookLike: state.bookLike.retCode,
+	bookLike: state.bookLike.isDone,
 });
 
 const mapDispatchToProps = (dispatch) => {

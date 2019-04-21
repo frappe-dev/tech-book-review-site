@@ -7,13 +7,13 @@ export default function BookLikeReducer(state = initialState, action) {
             return {
                 ...state,
                 data: action.payload,
-                retCode: 0,
+                isDone: false,
             }        
         case ActionNameList.postBookLikeSucceeded:
             return {
                 ...state,
                 data: action.payload,
-                retCode: 200,
+                isDone: true,
             }        
         default:
             return state;

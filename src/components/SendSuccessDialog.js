@@ -25,12 +25,15 @@ class SendSuccessDialog extends React.Component {
 
   componentDidUpdate(oldProps) {
     const newProps = this.props;
+    console.log("oldProps.isOpen: "+oldProps.isOpen);
+    console.log("newProps.isOpen: "+newProps.isOpen);
     if(oldProps.isOpen !== newProps.isOpen && newProps.isOpen === true) {
       this.setState({ open: true });
     }
   }
 
   render() {
+    console.log("state open: "+this.state.open);
     if (this.state.open === true) {
       return (
         <div>
