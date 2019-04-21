@@ -124,7 +124,10 @@ class ReviewForm extends React.Component {
 				}
 			};
 			console.log(params);
-			this.props.postReview(params);
+			this.props.postReview(
+				params,
+				() => { this.props.history.push(`/reviewsuccessfeedback`) } 
+			);
 		}
 	}
 
@@ -201,8 +204,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		postReview(keyword) {
-			dispatch(postReviewRequested(keyword));
+		postReview(keyword, callback) {
+			dispatch(postReviewRequested(keyword, callback));
 		}
 	}
 };

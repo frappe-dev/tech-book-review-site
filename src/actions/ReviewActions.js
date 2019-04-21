@@ -1,8 +1,8 @@
 import { ActionNameList } from '../ActionNameList';
 
-export const postReviewRequested = (data) => ({
+export const postReviewRequested = (data, callback) => ({
 	type: ActionNameList.postReviewRequested,
-	payload: data,
+	payload: { data: data, callback: callback },
 })
 
 export const getReviewRequested = (data) => ({

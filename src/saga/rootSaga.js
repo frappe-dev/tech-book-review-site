@@ -149,11 +149,12 @@ function* handleGetReview() {
 function* handlePostReview() {
     while (true) {
         const action = yield take(ActionNameList.postReviewRequested);
-        const { result, err } = yield call(postReview, action.payload);
+        const { result, err } = yield call(postReview, action.payload.data);
         if (!err) {
             console.log("succeed");
             console.log(result);
             yield put({ type: ActionNameList.postReviewSucceeded, payload: result });
+            action.payload.callback();
         } else {
             console.log("err is happened");
             console.log(err);
