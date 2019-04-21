@@ -27,10 +27,11 @@ class Home extends Component {
 		this.props.history.push('/search')
 	}
 
+/*
 	handleToCategoryPage = () => {
 		this.props.history.push('/category')
 	}
-
+*/
 	handleToMyPage = () => {
 		this.props.history.push({
 			pathname: '/mypage',
@@ -60,10 +61,11 @@ class Home extends Component {
 					書籍を検索
 				</Button>
 
+{/*
 				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToCategoryPage}>
 					カテゴリ一覧
 				</Button>
-
+*/}
 				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToMyPage}>
 					マイページ
 				</Button>
