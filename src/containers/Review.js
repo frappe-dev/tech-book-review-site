@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
-import ReviewForm from '../components/ReviewForm'
+import ReviewForm from '../components/ReviewForm';
 import ErrorBoundary from '../components/ErrorBoundary';
+import Typography from '@material-ui/core/Typography';
+
+// header
+import AppHeader from '../components/AppHeader';
 
 class Review extends Component {
 	constructor(props) {
@@ -26,8 +30,14 @@ class Review extends Component {
 		} else {
 			return (
 				<div>
-					<h2>this is review page</h2>
+					<AppHeader />
 					<h2>{location.state.title}</h2>
+					<Typography variant="h6">
+						このページでレビューを行うことが出来ます
+					</Typography>
+					<Typography variant="h6">
+						上から4つの項目必須になっています
+					</Typography>
 					<ErrorBoundary>
 						<ReviewForm
 							bookTitle={location.state.title}

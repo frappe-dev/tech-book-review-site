@@ -71,7 +71,7 @@ class Home extends Component {
 				</Button>
 
 				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToLogin}>
-					認証(テスト用)
+					認証
 				</Button>
 
 				<h3>今、注目の10冊</h3>

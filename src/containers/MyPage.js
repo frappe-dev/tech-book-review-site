@@ -61,8 +61,9 @@ class MyPage extends Component {
 		return (
 			<div>
 				<AppHeader />
-				<h2>This is mypage</h2>
-				<h2>Your userID is {this.state.userId}</h2>
+				<h3>マイページ</h3>
+
+				<h4>以下のボタンからレビュー、気になるの履歴を確認することが出来ます。</h4>
 				<Link to={{
 					pathname: "/mypage/record",
 					state: {

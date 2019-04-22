@@ -27,8 +27,6 @@ class UserLikeList extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <h2>This is your like book list</h2>
-                <h2>id: {this.props.userID}</h2>
                 {
                     this.props.likes && "Items" in this.props.likes && this.props.likes.Items.map((item, index) =>
                         <ErrorBoundary>
