@@ -11,9 +11,12 @@ const styles = {
         margin: "auto",
         marginTop: 20,
         marginBottom: 20,
+        height:350,
     },
     media: {
-        marginBottom:20,
+        marginTop: 20,
+        marginBottom: 10,
+        maxHeight:250
     }
 };
 
@@ -30,7 +33,7 @@ function BookCard(props) {
                 </Typography>
 
             </CardContent>
-            <img src={thumbnailURL} alt="bookImage" className={classes.media} />
+            <img src={thumbnailURL} alt="bookImage" className={classes.media}/>
         </Card>
     );
 }
