@@ -68,7 +68,7 @@ class AppHeader extends React.Component {
                         <DrawerSideMenu /> 
                     </IconButton>
                     <Typography variant="h6" color="inherit" className={classes.grow}>
-                        <Link to={`/`}>Technical Book Review Site</Link>
+                            <Link to={`/`}>Compile Books</Link>
                     </Typography>
 
                         {/* ログイン状態に応じて表示 */}

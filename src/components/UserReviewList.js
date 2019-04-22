@@ -19,8 +19,6 @@ class UserReviewList extends Component {
         console.log(this.props.reviews)
         return (
             <div>
-                <h2>This is your review book list</h2>
-                <h2>id: {this.props.userID}</h2>
                 {
                     this.props.reviews && "Items" in this.props.reviews && this.props.reviews.Items.map((item, index) =>
                         <div key={index}>

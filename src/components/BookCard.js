@@ -31,7 +31,6 @@ function BookCard(props) {
                 <Typography variant="h6">
                     {title}
                 </Typography>
-
             </CardContent>
             <img src={thumbnailURL} alt="bookImage" className={classes.media}/>
         </Card>
