@@ -46,6 +46,7 @@ export class BookInfo extends Component {
 			ISBN10: "",
 			amazonLink: "",
 			description: "",
+			isOpen: false,
 		};
 	}
 
@@ -134,6 +135,10 @@ export class BookInfo extends Component {
 
 	async onClickLikeButton() {
 		console.log("onClickLikeButton is called");
+		if (this.state.isOpen === true) {
+			this.setState({ isOpen: false });
+		}
+		
 		// Auth check
 		let auth = false;
 		let userID = "";
@@ -167,7 +172,9 @@ export class BookInfo extends Component {
 				ISBN10: this.state.ISBN10
 			}
 		};
-		this.props.postBookLike(postData);
+		this.props.postBookLike(
+			postData,
+			() => { this.setState({ isOpen: true }) });
 	}
 
 	render() {
@@ -219,7 +226,8 @@ export class BookInfo extends Component {
 					気になる
 				</Button>
 
-				<SendSuccessDialog isOpen={this.props.bookLike === true ? true : false} />
+				<SendSuccessDialog isOpen={this.state.isOpen}/>
+				{/*<SendSuccessDialog isOpen={this.props.bookLike === true ? true : false} />*/}
 				
 				<ErrorBoundary>
 					<BookEvaluation itemData={this.props.reviews} />
@@ -244,8 +252,8 @@ const mapDispatchToProps = (dispatch) => {
 		getReview(keyword) {
 			dispatch(getReviewRequested(keyword));
 		},
-		postBookLike(postData) {
-			dispatch(postBookLikeRequested(postData));
+		postBookLike(postData, callback) {
+			dispatch(postBookLikeRequested(postData, callback));
 		},
 		getBookData(bookId) {
 			dispatch(getBookInfoByBookidRequested(bookId));
