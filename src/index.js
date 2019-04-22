@@ -15,6 +15,7 @@ import createSagaMiddleware from 'redux-saga';
 import SearchReducer from './reducers/SearchReducer';
 import ReviewReducer from './reducers/ReviewReducer';
 import BookInfoReducer from './reducers/BookInfoReducer';
+import BookLikeReducer from './reducers/BookLikeReducer';
 import BookInfoByBookidReducer from './reducers/BookInfoByBookidReducer';
 import UserReviewsReducer from './reducers/UserReviewsReducer';
 import UserLikesReducer from './reducers/UserLikesReducer';
@@ -36,6 +37,7 @@ Amplify.configure({
 const reducer = combineReducers({
     form: reduxFormReducer,
     booksInfo: SearchReducer,
+    bookLike: BookLikeReducer,
     reviews: ReviewReducer,
     latestBooks: BookInfoReducer,
     specificBook: BookInfoByBookidReducer,

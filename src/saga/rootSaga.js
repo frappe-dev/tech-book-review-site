@@ -118,10 +118,10 @@ function* handleGETLatestBooks() {
 function* handlePostBookLike() {
     while (true) {
         const action = yield take(ActionNameList.postBookLikeRequested);
-        const { result, err } = yield call(postBookLike, action.payload);
+        const { result, err } = yield call(postBookLike, action.payload.data);
         if (!err) {
             console.log("succeed!!!");
-            yield put({ type: ActionNameList.postBookLikeSucceeded, payload: result });
+            yield put({ type: ActionNameList.postBookLikeSucceeded, payload: result });            
         } else {
             console.log("err is happened");
             console.log(err);
