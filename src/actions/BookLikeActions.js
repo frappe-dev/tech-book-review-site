@@ -1,8 +1,8 @@
 import { ActionNameList } from '../ActionNameList';
 
-export const postBookLikeRequested = (data) => ({
+export const postBookLikeRequested = (data, callback) => ({
 	type: ActionNameList.postBookLikeRequested,
-	payload: data,
+	payload: { data: data, callback: callback },
 })
 
 export const getBookLikeRequested = (data) => ({
