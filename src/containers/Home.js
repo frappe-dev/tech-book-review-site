@@ -27,20 +27,11 @@ class Home extends Component {
 		this.props.history.push('/search')
 	}
 
-/*
-	handleToCategoryPage = () => {
-		this.props.history.push('/category')
-	}
-*/
 	handleToMyPage = () => {
 		this.props.history.push({
 			pathname: '/mypage',
     		state: { userID: "1234" }
  		})
-	}
-
-	handleToLogin = () => {
-		this.props.history.push('/login')
 	}
 
 	componentDidMount() {
@@ -61,17 +52,8 @@ class Home extends Component {
 					書籍を検索
 				</Button>
 
-{/*
-				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToCategoryPage}>
-					カテゴリ一覧
-				</Button>
-*/}
 				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToMyPage}>
 					マイページ
-				</Button>
-
-				<Button variant="contained" color="secondary" className={classes.button} onClick={this.handleToLogin}>
-					認証
 				</Button>
 
 				<h3>今、注目の10冊</h3>
