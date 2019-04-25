@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import ReactGA from 'react-ga';
+import createBrowserHistory from 'history/createBrowserHistory';
 
 //redux
 import { Provider } from 'react-redux';
@@ -52,6 +54,14 @@ const store = createStore(
 )
 
 sagaMiddleware.run(rootSaga);
+
+// React Routerによってページ遷移するごとに、Googleアナリティクスに情報を送信出来るように設定
+ReactGA.initialize('UA-90321850-7');
+const history = createBrowserHistory();
+history.listen(({ pathname }) => {
+    ReactGA.set({ page: pathname });
+    ReactGA.pageview(pathname);
+});
 
 ReactDOM.render(
     <Provider store={store}>
